@@ -169,7 +169,7 @@ environment.gnome.excludePackages = with pkgs; [
     # gnome-font-viewer
     #  gnome-logs
     # gnome-maps
-    gnome-musicevince
+    gnome-music
     gnome-photos
     #  gnome-screenshot
     # gnome-system-monitor 
