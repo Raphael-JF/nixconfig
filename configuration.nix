@@ -138,7 +138,6 @@ services.udev.packages = [
     isNormalUser = true;
      extraGroups = [ "wheel" "dialout" ]; # Enable ‘sudo’ for the user.
      packages = with pkgs; [
-       tree
      ];
    };
 
@@ -193,8 +192,9 @@ services.usbmuxd.enable = true;
   environment.systemPackages = with pkgs; [
  	vscode
 	git
-	dconf2nix
-    direnv # pour les environnements de travail
+	valgrind
+	gdb
+    	direnv # pour les environnements de travail
 	(python3.withPackages (python-pkgs: with python-pkgs; [
       	platformio
 	numpy
@@ -204,7 +204,7 @@ services.usbmuxd.enable = true;
 	 gsl
 	 gnumake
 	 graphviz
-    libimobiledevice
+	 libimobiledevice
 
 	nodejs
 	nodePackages.pnpm
