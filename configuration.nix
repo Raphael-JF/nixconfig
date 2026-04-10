@@ -201,7 +201,7 @@ services.usbmuxd.enable = true;
 	matplotlib
       	]))
 	 gcc
-	 gsl
+	 libgsl
 	 gnumake
 	 graphviz
 	 libimobiledevice
