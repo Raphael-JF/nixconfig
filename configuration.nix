@@ -169,7 +169,7 @@ environment.gnome.excludePackages = with pkgs; [
     # gnome-font-viewer
     #  gnome-logs
     # gnome-maps
-    gnome-music
+    gnome-musicevince
     gnome-photos
     #  gnome-screenshot
     # gnome-system-monitor 
@@ -193,8 +193,9 @@ services.usbmuxd.enable = true;
  	vscode
 	git
 	valgrind
+    evince
 	gdb
-    	direnv # pour les environnements de travail
+    direnv # pour les environnements de travail
 	(python3.withPackages (python-pkgs: with python-pkgs; [
       	platformio
 	numpy
