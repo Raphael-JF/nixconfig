@@ -2,9 +2,6 @@
 
 
 {
-imports = [
-  ./hyprland/hyprland.nix
-];
     
 home-manager.users.raph = {
     home.username = "raph";

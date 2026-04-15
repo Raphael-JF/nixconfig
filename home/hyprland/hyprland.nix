@@ -1,4 +1,3 @@
-{ config, pkgs, ... }:
 {
     "$mod" = "SUPER";
 
