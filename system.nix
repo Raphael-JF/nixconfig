@@ -118,6 +118,8 @@ services.desktopManager.gnome.enable = true;
     libclang
   ];
 
+
+
   # ===== STATE VERSION =====
   system.stateVersion = "25.11";
 }
