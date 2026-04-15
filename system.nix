@@ -23,10 +23,14 @@
   # ===== X11 / GNOME =====
   services.xserver.enable = true;
 
-# services.displayManager.gdm.enable = true;
+services.displayManager.gdm.enable = true;
 services.desktopManager.gnome.enable = true;
-programs.hyprland.enable = true;
-services.displayManager.sddm.enable = true;
+  programs.hyprland = {
+    enable = false;
+    withUWSM = true; # recommended for most users
+    xwayland.enable = true; # Xwayland can be disabled.
+  };
+# services.displayManager.sddm.enable = true;
 #services.displayManager.defaultSession = "gnome";
 
   # clavier
@@ -58,6 +62,10 @@ services.displayManager.sddm.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     avrdude
   ];
+
+  environment.sessionVariables = {
+    WLR_NO_HARDWARE_CURSORS = "1";
+  };
 
   # ===== GNOME (clean) =====
   environment.gnome.excludePackages = with pkgs; [

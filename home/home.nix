@@ -8,28 +8,28 @@ home-manager.users.raph = {
     home.homeDirectory = "/home/raph";
 
     programs.home-manager.enable = true;
-
     home.packages = with pkgs; [
-        wl-clipboard
-        cliphist
-        grimblast
-        wofi
-        waybar
+        # wl-clipboard
+        # cliphist
+        # grimblast
+        # wofi
+        # waybar
         firefox
     ];
 
-    # dconf.settings = {
-    #     # "org/gnome/desktop/interface" = {
-    #         # color-scheme = "prefer-dark";
-    #     # };
-    #     "org/gnome/desktop/wm/preferences" = {
-    #         num-workspaces = 2;
-    #     }; 
-    # };
+    dconf.settings = {
+        # "org/gnome/desktop/interface" = {
+            # color-scheme = "prefer-dark";
+        # };
+        "org/gnome/desktop/wm/preferences" = {
+            num-workspaces = 2;
+        }; 
+    };
 
     wayland.windowManager.hyprland = {
         settings = import ./hyprland/hyprland.nix;
-        enable = true;
+        enable = false;
+        systemd.enable = false;
     };
     home.stateVersion = "25.11";
 };
