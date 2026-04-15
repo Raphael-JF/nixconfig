@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 
 {
@@ -39,7 +39,7 @@ home-manager.users.raph = {
             click-method = "areas";
             two-finger-scrolling-enabled	= true;	
         };  
-        "settings-daemon/plugins/color" = {
+        "org/gnome/settings-daemon/plugins/color" = {
             night-light-enabled = true;
             night-light-schedule-automatic = false;
             night-light-schedule-from = 0.0;
@@ -51,20 +51,20 @@ home-manager.users.raph = {
 
         };
 
-        "org.gnome.desktop.wm.preferences" = {
+        "org/gnome/desktop/wm/preferences" = {
             num-workspaces = lib.gvariant.mkUint32 2;
             
         };
-        "org.gnome.mutter" = { 
+        "org/gnome/mutter" = { 
             dynamic-workspaces = false;
         };
     };
 
-    wayland.windowManager.hyprland = {
-        settings = import ./hyprland/hyprland.nix;
-        enable = false;
-        systemd.enable = false;
-    };
+    # wayland.windowManager.hyprland = {
+    #     settings = import ./hyprland/hyprland.nix;
+    #     enable = false;
+    #     systemd.enable = false;
+    # };
     home.stateVersion = "25.11";
 };
 }
