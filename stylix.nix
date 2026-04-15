@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  stylix.enable = true;
+  stylix.enable = false;
 
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark.yaml";
 

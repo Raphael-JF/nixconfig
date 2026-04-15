@@ -5,6 +5,9 @@
     # navigateur
     "$mod, F, exec, firefox"
 
+    # terminal
+    "$mod, T, exec, kitty"
+
     # screenshot → copie directe dans le presse-papier
     ", Print, exec, grimblast copy area"
 
@@ -18,6 +21,9 @@
     # déplacer fenêtre entre workspaces
     "ALT SHIFT, X, movetoworkspace, -1"
     "ALT SHIFT, C, movetoworkspace, +1"
+
+    # fermer une fenêtre
+    "ALT, F4, killactive"
     ];
 
     exec-once = [
