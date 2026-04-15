@@ -23,14 +23,14 @@
   # ===== X11 / GNOME =====
   services.xserver.enable = true;
 
-#   services.displayManager.gdm.enable = true;
-#   services.desktopManager.gnome.enable = true;
+services.displayManager.gdm.enable = true;
+services.desktopManager.gnome.enable = true;
+programs.hyprland.enable = true;
 services.displayManager.sddm.enable = true;
-services.displayManager.defaultSession = "hyperland";
+#services.displayManager.defaultSession = "gnome";
 
   # clavier
   services.xserver.xkb.layout = "fr";
-i18n.defaultLocale = "fr_-FR.UTF-8";
 
   # ===== UDEV / EMBEDDED =====
   services.udev.packages = [
