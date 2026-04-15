@@ -9,7 +9,7 @@
     "$mod, T, exec, kitty"
 
     # screenshot → copie directe dans le presse-papier
-    ", Print, exec, grimblast copy area"
+    "$mod SHIFT, S, exec, grimblast --notify copy area"
 
     # historique clipboard (menu)
     "$mod, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
@@ -23,13 +23,15 @@
     "ALT SHIFT, C, movetoworkspace, +1"
 
     # fermer une fenêtre
-    "ALT, F4, killactive"
+    "ALT, F4, exec, hyprctl dispatch killactive"
+
+    # fermer la session
+    "$mod, M, exit"
     ];
 
     exec-once = [
-    # active le clipboard persist + historique
-    "wl-paste --watch cliphist store"
-    
+    "wl-paste --type text --watch cliphist store"
+    "wl-paste --type image --watch cliphist store"
     # barre (on la lance, config après)
     "waybar"
     ];
@@ -38,5 +40,11 @@
     workspace = [
     "1, persistent:true"
     "2, persistent:true"
+    ];
+
+    
+
+    monitor = [
+        ", preferred, auto, 1"
     ];
 }
