@@ -52,7 +52,7 @@ home-manager.users.raph = {
         };
 
         "org/gnome/desktop/wm/preferences" = {
-            num-workspaces = lib.gvariant.mkUint32 2;
+            num-workspaces = 2;
             
         };
         "org/gnome/mutter" = { 
