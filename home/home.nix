@@ -19,6 +19,9 @@ home-manager.users.raph = {
     ];
 
     dconf.settings = {
+        "org/gnome/system/locale" = {
+            region = "fr_FR.UTF-8";
+        };
         "org/gnome/settings-daemon/plugins/media-keys" = {
             custom-keybindings = [
                 "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
