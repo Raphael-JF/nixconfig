@@ -14,7 +14,7 @@ boot.loader.systemd-boot.enable = true;
 boot.loader.efi.canTouchEfiVariables = true;
 
 # ===== NETWORK =====
-networking.hostName = "raph-maison";
+networking.hostName = "raph-laptop";
 networking.networkmanager.enable = true;
 
 # ===== TIME =====
