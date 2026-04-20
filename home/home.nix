@@ -15,6 +15,7 @@ home-manager.users.raph = {
         # wofi
         # waybar
         firefox
+        platformio
     ];
 
     dconf.settings = {
