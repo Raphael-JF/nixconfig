@@ -41,7 +41,7 @@ home-manager.users.raph = {
 
             "github.com" = {
             user = "git";
-            identityFile = "~/.ssh/id_ed25519";
+            identityFile = "~/.ssh/laptop";
             identitiesOnly = true;
             addKeysToAgent = "yes";
 
@@ -49,6 +49,7 @@ home-manager.users.raph = {
 
         };
     };
+
 
     programs.git = {
         enable = true;
