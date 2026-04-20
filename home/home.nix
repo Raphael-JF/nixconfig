@@ -14,8 +14,7 @@ home-manager.users.raph = {
 
     programs.ssh = {
         enable = true;
-
-        addKeysToAgent = "yes";
+        enableDefaultConfig = false;
 
         matchBlocks = {
 
@@ -36,12 +35,16 @@ home-manager.users.raph = {
             hostname = "thor.enseirb-matmeca.fr";
             identityFile = "~/.ssh/laptop";
             identitiesOnly = true;
+            addKeysToAgent = "yes";
+
             };
 
             "github.com" = {
             user = "git";
             identityFile = "~/.ssh/id_ed25519";
             identitiesOnly = true;
+            addKeysToAgent = "yes";
+
             };
 
         };
@@ -49,10 +52,13 @@ home-manager.users.raph = {
 
     programs.git = {
         enable = true;
-
-        userName = "Raphaël Jontef";
-        userEmail = "raphael.jontef@enseirb-matmeca.fr";
-    };
+        settings = {
+            user = {
+                userName = "Raphaël Jontef";
+                userEmail = "raphael.jontef@enseirb-matmeca.fr";
+            };
+        };
+        };
 
     programs.home-manager.enable = true;
     home.packages = with pkgs; [
