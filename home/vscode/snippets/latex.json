@@ -1,17 +1,4 @@
 {
-	// Place your snippets for latex here. Each snippet is defined under a snippet name and has a prefix, body and 
-	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
-	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
-	// same ids are connected.
-	// Example:
-	// "Print to console": {
-	// 	"prefix": "log",
-	// 	"body": [
-	// 		"console.log('$1');",
-	// 		"$2"
-	// 	],
-	// 	"description": "Log output to console"
-	// }
     "startv5":{
         "prefix": ["startv5"],
         "body": ["\\input{../../stock/en-tete_v5.tex}","","\\newcounter{chapitre}","\\setcounter{chapitre}{${1:numéro}}","","\\title{\\Large Chapitre ${1:numéro} \\newline \\Huge ${2:titre}}","","\\begin{document}","\\input{../../stock/commands.tex}","\\maketitle","","$0","","\\end{document}"],
@@ -74,46 +61,46 @@
 
     "règle de production":{
         "prefix": ["\\rp", "rp"],
-        "body": "\\rp{$1}{$2}$0",
+        "body": "\\rp{$1}{$2}$0"
     },
     "élément différentiel":{
         "prefix": ["\\d", "d"],
-        "body": "\\d{$1}$0",
+        "body": "\\d{$1}$0"
     },
 
     "gradient":{
         "prefix": ["\\gradient", "gradient"],
-        "body": "\\grad $0",
+        "body": "\\grad $0"
     },
 
     "divergence":{
         "prefix": ["\\divergence", "divergence"],
-        "body": "\\div $0",
+        "body": "\\div $0"
     },
 
     "rotationnel":{
         "prefix": ["\\rotationnel", "rotationnel"],
-        "body": "\\rot $0",
+        "body": "\\rot $0"
     },
 
     "vecteur nabla":{
         "prefix": ["\\vnabla", "vnabla"],
-        "body": "\\vnabla É$0",
+        "body": "\\vnabla É$0"
     },
     
     "spectre":{
         "prefix": ["\\spectre", "spectre"],
-        "body": "\\spectre($1)$0",
+        "body": "\\spectre($1)$0"
     },
 
     "virgule de maths":{
         "prefix": [",","\\,"],
-        "body": ",\\, ",
+        "body": ",\\, "
     },
 
     "équivalence":{
         "prefix": "equivalence",
-        "body": "\\Leftrightarrow",
+        "body": "\\Leftrightarrow"
     },
 
     "valeur absolue":{
@@ -168,12 +155,12 @@
 
     "intervalle d'entiers":{
         "prefix": ["\\intint","intint"],
-        "body": "\\intint{$1}{$2}$0",
+        "body": "\\intint{$1}{$2}$0"
     },
 
     "ensemble des matrices":{
         "prefix" : ["matrice", "\\matrice"],
-        "body": "\\matrice{$1}$0",
+        "body": "\\matrice{$1}$0"
     },
 
     "indicatrice":{
@@ -183,7 +170,7 @@
 
     "nouvelle notion":{
         "prefix" : ["notion", "\\notion", "\\noton", "notion", ""],
-        "body": "\\notion$0",
+        "body": "\\notion$0"
     },
 
     "espérance":{
@@ -203,7 +190,7 @@
 
     "ensemble vide":{
         "prefix": ["varnothing","emptyset","\\varnothing","\\emptyset"],
-        "body": "\\varnothing",
+        "body": "\\varnothing"
     },
 
     "flèche de limite":{
@@ -238,52 +225,52 @@
 
     "environnement Démonstration":{
         "prefix": "demonstration",
-        "body": ["\\begin{demonstration}","\t$0", "\\end{demonstration}"],
+        "body": ["\\begin{demonstration}","\t$0", "\\end{demonstration}"]
     },
 
     "environnement Théorème":{
         "prefix": "theoreme",
-        "body": ["\\begin{theoreme}{${2:numero}}{${3:titre}}","\t$0","\\end{theoreme}"],
+        "body": ["\\begin{theoreme}{${2:numero}}{${3:titre}}","\t$0","\\end{theoreme}"]
     },
     "environnement Proposition":{
         "prefix": "proposition",
-        "body": ["\\begin{proposition}{${2:numero}}{${3:titre}}","\t$0","\\end{proposition}"],
+        "body": ["\\begin{proposition}{${2:numero}}{${3:titre}}","\t$0","\\end{proposition}"]
     },
     "environnement Lemme":{
         "prefix": "lemme",
-        "body": ["\\begin{lemme}{${2:numero}}{${3:titre}}","\t$0","\\end{lemme}"],
+        "body": ["\\begin{lemme}{${2:numero}}{${3:titre}}","\t$0","\\end{lemme}"]
     },
     "environnement Définition":{
         "prefix": "definition",
-        "body": ["\\begin{definition}{${2:numero}}{${3:titre}}","\t$0","\\end{definition}"],
+        "body": ["\\begin{definition}{${2:numero}}{${3:titre}}","\t$0","\\end{definition}"]
     },
     "environnement Exemple":{
         "prefix": "exemple",
-        "body": ["\\begin{exemple}{${2:numero}}{${3:titre}}","\t$0","\\end{exemple}"],
+        "body": ["\\begin{exemple}{${2:numero}}{${3:titre}}","\t$0","\\end{exemple}"]
     },
     "environnement Exercice":{
         "prefix": "exercice",
-        "body": ["\\begin{exercice}{${2:numero}}{${3:titre}}","\t$0","\\end{exercice}"],
+        "body": ["\\begin{exercice}{${2:numero}}{${3:titre}}","\t$0","\\end{exercice}"]
     },
     "environnement Remarques":{
         "prefix": "remarque",
-        "body": ["\\begin{remarque}{${2:numero}}{${3:titre}}","\t$0","\\end{remarque}"],
+        "body": ["\\begin{remarque}{${2:numero}}{${3:titre}}","\t$0","\\end{remarque}"]
     },
     "environnement OCaml":{
         "prefix": "OCaml",
-        "body": ["\\begin{implementation}{${3:titre}}","\t\\begin{lstOCaml}","\t\t$0","\t\\end{lstOCaml}","\\end{implementation}"],
+        "body": ["\\begin{implementation}{${3:titre}}","\t\\begin{lstOCaml}","\t\t$0","\t\\end{lstOCaml}","\\end{implementation}"]
     },
     "environnement C":{
         "prefix": "C",
-        "body": ["\\begin{implementation}{${3:titre}}","\t\\begin{lstC}","\t\t$0","\t\\end{lstC}","\\end{implementation}"],
+        "body": ["\\begin{implementation}{${3:titre}}","\t\\begin{lstC}","\t\t$0","\t\\end{lstC}","\\end{implementation}"]
     },
     "environnement Langage Naturel":{
         "prefix": ["langage naturel","LNat"],
-        "body": ["\\begin{implementation}{${3:titre}}","\t\\begin{lstLNat}","\t\t$0","\t\\end{lstLNat}","\\end{implementation}"],
+        "body": ["\\begin{implementation}{${3:titre}}","\t\\begin{lstLNat}","\t\t$0","\t\\end{lstLNat}","\\end{implementation}"]
     },
 
     "création d'une commande":{
         "prefix": ["newcommand","\\newcommand","nouvelle commande"],
         "body": "\\newcommand{${1:nom}}[${2:nb_paramètres}]{${3:action}}\n$0"
-    },
+    }
 }

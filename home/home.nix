@@ -20,13 +20,14 @@ home-manager.users.raph = {
         # wofi
         # waybar
         firefox
+        texliveFull
     ];
 
 programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
 
-    profiles.premier = {
+    profiles.default = {
         enableExtensionUpdateCheck = false;
         enableMcpIntegration = false;
         enableUpdateCheck = false;
@@ -41,7 +42,6 @@ programs.vscode = {
         ms-vscode.cpptools
         ms-vscode.cpptools-extension-pack
         ms-vscode.cmake-tools
-        ms-vscode.cpp-devtools
 
         # --- Python ---
         ms-python.python
@@ -64,11 +64,11 @@ programs.vscode = {
             latex = builtins.fromJSON (builtins.readFile ./vscode/snippets/latex.json);
         };
         # Configuration written to Visual Studio Code's mcp.json
-        userMcp = null;
+        userMcp = {};
         # Configuration written to Visual Studio Code's settings.json
         userSettings = builtins.fromJSON (builtins.readFile ./vscode/settings.json);
         # Configuration written to Visual Studio Code's tasks.json
-        userTasks = null;
+        userTasks = {};
     };
 };
 

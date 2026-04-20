@@ -96,8 +96,7 @@ environment.gnome.excludePackages = with pkgs; [
 services.usbmuxd.enable = true;
 
 # ===== UNFREE =====
-nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [ "vscode" ];
+nixpkgs.config.allowUnfree = true;
 
 # ===== PACKAGES =====
 environment.systemPackages = with pkgs; [
