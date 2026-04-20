@@ -70,5 +70,6 @@
     "C_Cpp.default.compilerPath": "/run/current-system/sw/bin/gcc",
     "editor.mouseWheelScrollSensitivity": 2.5,
     "editor.minimap.enabled": false,
-    "workbench.colorTheme": "Solarized Light"
+    "workbench.colorTheme": "Solarized Light",
+    "git.enableCommitSigning": true
 }

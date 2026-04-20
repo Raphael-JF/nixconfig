@@ -12,6 +12,48 @@ home-manager.users.raph = {
     home.username = "raph";
     home.homeDirectory = "/home/raph";
 
+    programs.ssh = {
+        enable = true;
+
+        addKeysToAgent = "yes";
+
+        matchBlocks = {
+
+            "enseirb" = {
+            hostname = "ssh.enseirb-matmeca.fr";
+            user = "rjontef";
+            identityFile = "~/.ssh/laptop";
+            addKeysToAgent = "yes";
+            forwardAgent = true;
+            };
+
+            "almapedago travail64" = {
+            user = "rjontef";
+            proxyJump = "enseirb";
+            };
+
+            "thor thor.enseirb-matmeca.fr" = {
+            hostname = "thor.enseirb-matmeca.fr";
+            identityFile = "~/.ssh/laptop";
+            identitiesOnly = true;
+            };
+
+            "github.com" = {
+            user = "git";
+            identityFile = "~/.ssh/id_ed25519";
+            identitiesOnly = true;
+            };
+
+        };
+    };
+
+    programs.git = {
+        enable = true;
+
+        userName = "Raphaël Jontef";
+        userEmail = "raphael.jontef@enseirb-matmeca.fr";
+    };
+
     programs.home-manager.enable = true;
     home.packages = with pkgs; [
         # wl-clipboard
