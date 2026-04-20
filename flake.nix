@@ -13,7 +13,7 @@
 
   outputs = inputs@{ nixpkgs, home-manager, stylix, ... }: {
     # Please replace my-nixos with your hostname
-    nixosConfigurations.raph-maison = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.raph-laptop = nixpkgs.lib.nixosSystem {
       modules = [
             ./system.nix
             
