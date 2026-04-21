@@ -28,8 +28,6 @@
         "venv": true
     },
     "workbench.preferredLightColorTheme": "Solarized Light",
-    "python.defaultInterpreterPath": "/usr/bin/python3",
-    "settingsSync.keybindingsPerPlatform": false,
     "workbench.startupEditor": "none",
     "diffEditor.ignoreTrimWhitespace": false,
     "workbench.panel.defaultLocation": "right",
@@ -67,8 +65,14 @@
     "explorer.confirmPasteNative": false,
     "chat.viewSessions.orientation": "stacked",
     "diffEditor.renderSideBySide": true,
-    "C_Cpp.default.compilerPath": "/run/current-system/sw/bin/gcc",
     "editor.mouseWheelScrollSensitivity": 2.5,
     "editor.minimap.enabled": false,
-    "workbench.colorTheme": "Solarized Light"
+    "workbench.colorTheme": "Solarized Light",
+    "chat.disableAIFeatures": false,
+
+
+
+    "C_Cpp.default.compilerPath": "/run/current-system/sw/bin/gcc",
+    "python.defaultInterpreterPath": "/run/current-system/sw/bin/python"
+
 }

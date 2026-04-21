@@ -102,22 +102,38 @@ programs.vscode = {
 
             # --- UI ---
             usernamehw.errorlens
-        ])
-        ++
-        (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-            # {
-            # name = "copilot";
-            # publisher = "GitHub";
-            # version = "1.388.0";
-            # sha256 = "sha256-qo+vuqdnKhZAbPVEXxdmAnGyfDE/bPfiiCbM1HapPFM=";
-            # }
-            {
-            name = "copilot-chat";
-            publisher = "GitHub";
-            version = "0.40";
-            sha256 = "sha256-eX3Id56jxPp8pHD0C8JvRIqdTRdc6+ScrP35hy39nB4=";
-            }
+            
+
+            (pkgs.vscode-utils.buildVscodeExtension {
+                pname = "github-copilot-chat";
+                version = "0.40.0";
+
+                vscodeExtUniqueId = "GitHub.copilot-chat";
+                vscodeExtPublisher = "GitHub";
+                vscodeExtName = "copilot-chat";
+                vscodeExtVersion = "0.40.0";
+
+                src = pkgs.fetchurl {
+                    url = "https://github.com/microsoft/vscode-copilot-chat/releases/download/v0.40.0/GitHub.copilot-chat.0.40.0.universal.vsix";
+                    sha256 = "sha256-7iFLGF9lVNZDXnrJjoXdYz7gA6YDLciwZf4/lF8sYu4=";
+                };
+            })
         ]);
+        # ++
+        # (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        #     # {
+        #     # name = "copilot";
+        #     # publisher = "GitHub";
+        #     # version = "1.388.0";
+        #     # sha256 = "sha256-qo+vuqdnKhZAbPVEXxdmAnGyfDE/bPfiiCbM1HapPFM=";
+        #     # }
+        #     {
+        #     name = "copilot-chat";
+        #     publisher = "GitHub";
+        #     version = "0.40";
+        #     sha256 = "sha256-eX3Id56jxPp8pHD0C8JvRIqdTRdc6+ScrP35hy39nB4=";
+        #     }
+        # ]);
         # Defines global user snippets
         globalSnippets = null;
         # Keybindings written to Visual Studio Code's keybindings.json
