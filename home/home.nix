@@ -62,6 +62,7 @@ home-manager.users.raph = {
         };
 
     programs.home-manager.enable = true;
+    #https://search.nixos.org/packages
     home.packages = with pkgs; [
         # wl-clipboard
         # cliphist
@@ -70,7 +71,7 @@ home-manager.users.raph = {
         # waybar
         firefox
         texliveFull
-        github-copilot-cli
+        clang-tools
     ];
 
 programs.vscode = {
@@ -152,6 +153,16 @@ programs.vscode = {
     };
 };
 
+
+programs.bash = {
+    enable = true;
+    initExtra = ''
+        rebuild() {
+        cd ~/Desktop/nixconfig
+        git pull && sudo nixos-rebuild switch --flake ~/Desktop/nixconfig#$1
+        }
+    '';
+};
     
 
     # wayland.windowManager.hyprland = {
