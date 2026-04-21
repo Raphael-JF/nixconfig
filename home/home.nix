@@ -147,7 +147,7 @@ programs.vscode = {
         # Configuration written to Visual Studio Code's mcp.json
         userMcp = {};
         # Configuration written to Visual Studio Code's settings.json
-        userSettings = builtins.fromJSON (builtins.readFile ./vscode/settings.json);
+        userSettings = import ./settings.nix;
         # Configuration written to Visual Studio Code's tasks.json
         userTasks = {};
     };
