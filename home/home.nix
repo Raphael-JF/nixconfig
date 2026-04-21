@@ -70,6 +70,7 @@ home-manager.users.raph = {
         # waybar
         firefox
         texliveFull
+        github-copilot-cli
     ];
 
 programs.vscode = {
@@ -86,6 +87,24 @@ programs.vscode = {
 
         # --- Nix ---
         bbenoist.nix
+
+        # --- Copilot (COMPLETION) ---
+        (pkgs.vscode-utils.buildVscodeExtension {
+            name = "github-copilot";
+            src = pkgs.fetchurl {
+            url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/copilot/latest/vspackage";
+            sha256 = lib.fakeSha256;
+            };
+        })
+
+        # --- Copilot Chat (OPTIONNEL) ---
+        (pkgs.vscode-utils.buildVscodeExtension {
+            name = "github-copilot-chat";
+            src = pkgs.fetchurl {
+            url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/copilot-chat/latest/vspackage";
+            sha256 = lib.fakeSha256;
+            };
+        }) 
 
         # --- C / C++ ---
         ms-vscode.cpptools
