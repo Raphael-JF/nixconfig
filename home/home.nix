@@ -83,53 +83,41 @@ programs.vscode = {
         enableUpdateCheck = false;
 
         # The extensions Visual Studio Code should be started with
-        extensions = with pkgs.vscode-extensions; [
+        extensions =
+        (with pkgs.vscode-extensions; [
+            # --- Nix ---
+            bbenoist.nix
 
-        # --- Nix ---
-        bbenoist.nix
+            # --- C / C++ ---
+            ms-vscode.cpptools
+            ms-vscode.cpptools-extension-pack
+            ms-vscode.cmake-tools
 
-        # --- Copilot (COMPLETION) ---
-        (pkgs.vscode-utils.buildVscodeExtension {
-            pname = "github-copilot";
-            version = "latest";
+            # --- Python ---
+            ms-python.python
+            ms-python.vscode-pylance
 
-            vscodeExtUniqueId = "GitHub.copilot";
+            # --- Debug JS ---
+            ms-vscode.js-debug
 
-            src = pkgs.fetchurl {
-                url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/copilot/latest/vspackage";
-                sha256 = lib.fakeSha256;
-            };
-        })
-
-        # --- Copilot Chat (OPTIONNEL) ---
-        (pkgs.vscode-utils.buildVscodeExtension {
-            pname = "github-copilot-chat";
-            version = "latest";
-
-            vscodeExtUniqueId = "GitHub.copilot-chat";
-
-            src = pkgs.fetchurl {
-                url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/copilot-chat/latest/vspackage";
-                sha256 = lib.fakeSha256;
-            };
-        })
-
-        # --- C / C++ ---
-        ms-vscode.cpptools
-        ms-vscode.cpptools-extension-pack
-        ms-vscode.cmake-tools
-
-        # --- Python ---
-        ms-python.python
-        ms-python.vscode-pylance
-
-        # --- Debug JS (souvent utile indirectement) ---
-        ms-vscode.js-debug
-
-        # --- UI / UX ---
-        usernamehw.errorlens
-
-        ];
+            # --- UI ---
+            usernamehw.errorlens
+        ])
+        ++
+        (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+            # {
+            # name = "copilot";
+            # publisher = "GitHub";
+            # version = "1.388.0";
+            # sha256 = "sha256-qo+vuqdnKhZAbPVEXxdmAnGyfDE/bPfiiCbM1HapPFM=";
+            # }
+            {
+            name = "copilot-chat";
+            publisher = "GitHub";
+            version = "0.40";
+            sha256 = "sha256-eX3Id56jxPp8pHD0C8JvRIqdTRdc6+ScrP35hy39nB4=";
+            }
+        ]);
         # Defines global user snippets
         globalSnippets = null;
         # Keybindings written to Visual Studio Code's keybindings.json
