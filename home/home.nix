@@ -59,7 +59,11 @@ home-manager.users.raph = {
                 userEmail = "raphael.jontef@enseirb-matmeca.fr";
             };
         };
-        };
+        ignores = [
+            ".clangd"
+            ".clangd.local"
+        ];
+    };
 
     programs.home-manager.enable = true;
     #https://search.nixos.org/packages
@@ -89,10 +93,6 @@ programs.vscode = {
             # --- Nix ---
             bbenoist.nix
 
-            # --- C / C++ ---
-            ms-vscode.cpptools
-            ms-vscode.cpptools-extension-pack
-            ms-vscode.cmake-tools
 
             # --- Python ---
             ms-python.python
@@ -118,6 +118,22 @@ programs.vscode = {
                     url = "https://github.com/microsoft/vscode-copilot-chat/releases/download/v0.40.0/GitHub.copilot-chat.0.40.0.universal.vsix";
                     sha256 = "sha256-7iFLGF9lVNZDXnrJjoXdYz7gA6YDLciwZf4/lF8sYu4=";
                 };
+            })
+
+            # --- C / C++ ---
+            
+            (pkgs.vscode-utils.buildVscodeExtension {
+                pname = "vscode-clangd";
+                version = "0.4.0";
+
+                src = pkgs.fetchurl {
+                url = "https://open-vsx.org/api/llvm-vs-code-extensions/vscode-clangd/0.4.0/file/llvm-vs-code-extensions.vscode-clangd-0.4.0.vsix";
+                sha256 = "sha256-r71PACuJZBASsWYFHKoq8vVu1zK32/S8AKVtCJHkGqk=";
+                };
+
+                vscodeExtPublisher = "llvm-vs-code-extensions";
+                vscodeExtName = "vscode-clangd";
+                vscodeExtUniqueId = "llvm-vs-code-extensions.vscode-clangd";
             })
         ]);
         # ++
@@ -147,7 +163,7 @@ programs.vscode = {
         # Configuration written to Visual Studio Code's mcp.json
         userMcp = {};
         # Configuration written to Visual Studio Code's settings.json
-        userSettings = import ./settings.nix;
+        userSettings = import ./vscode/settings.nix;
         # Configuration written to Visual Studio Code's tasks.json
         userTasks = {};
     };
