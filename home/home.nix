@@ -90,21 +90,29 @@ programs.vscode = {
 
         # --- Copilot (COMPLETION) ---
         (pkgs.vscode-utils.buildVscodeExtension {
-            name = "github-copilot";
+            pname = "github-copilot";
+            version = "latest";
+
+            vscodeExtUniqueId = "GitHub.copilot";
+
             src = pkgs.fetchurl {
-            url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/copilot/latest/vspackage";
-            sha256 = lib.fakeSha256;
+                url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/copilot/latest/vspackage";
+                sha256 = lib.fakeSha256;
             };
         })
 
         # --- Copilot Chat (OPTIONNEL) ---
         (pkgs.vscode-utils.buildVscodeExtension {
-            name = "github-copilot-chat";
+            pname = "github-copilot-chat";
+            version = "latest";
+
+            vscodeExtUniqueId = "GitHub.copilot-chat";
+
             src = pkgs.fetchurl {
-            url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/copilot-chat/latest/vspackage";
-            sha256 = lib.fakeSha256;
+                url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/copilot-chat/latest/vspackage";
+                sha256 = lib.fakeSha256;
             };
-        }) 
+        })
 
         # --- C / C++ ---
         ms-vscode.cpptools
