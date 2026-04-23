@@ -3,27 +3,36 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     stylix.url = "github:danth/stylix";
+
     home-manager = {
-        url = "github:nix-community/home-manager";
-        inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, stylix, ... }: {
-    # Please replace my-nixos with your hostname
+  outputs = inputs@{ nixpkgs, home-manager, stylix, nix-vscode-extensions, ... }: {
     nixosConfigurations.raph-laptop = nixpkgs.lib.nixosSystem {
       modules = [
-            ./system.nix
-            
+        ({ pkgs, ... }: {
+          nixpkgs.overlays = [
+            nix-vscode-extensions.overlays.default
+          ];
 
-            home-manager.nixosModules.home-manager
-            ./home/home.nix
+          nixpkgs.config.allowUnfree = true;
+        })
 
-            stylix.nixosModules.stylix
-            ./stylix.nix
-        ];
+        ./system.nix
+
+        home-manager.nixosModules.home-manager
+        ./home/home.nix
+
+        stylix.nixosModules.stylix
+        ./stylix.nix
+      ];
     };
   };
 }

@@ -62,6 +62,12 @@ home-manager.users.raph = {
         ignores = [
             ".clangd"
             ".clangd.local"
+            "compile_commands.json"
+            ".direnv"
+            "flake.nix"
+            "flake.lock"
+            ".envrc"
+            "*.idx"
         ];
     };
 
@@ -76,6 +82,7 @@ home-manager.users.raph = {
         firefox
         texliveFull
         clang-tools
+        bear
     ];
 
 programs.vscode = {
@@ -88,22 +95,26 @@ programs.vscode = {
         enableUpdateCheck = false;
 
         # The extensions Visual Studio Code should be started with
-        extensions =
-        (with pkgs.vscode-extensions; [
+        extensions = [
             # --- Nix ---
-            bbenoist.nix
+            pkgs.vscode-extensions.bbenoist.nix
 
 
             # --- Python ---
-            ms-python.python
-            ms-python.vscode-pylance
+            pkgs.vscode-extensions.ms-python.python
+            pkgs.vscode-extensions.ms-python.vscode-pylance
 
             # --- Debug JS ---
-            ms-vscode.js-debug
+            pkgs.vscode-extensions.ms-vscode.js-debug
 
             # --- UI ---
-            usernamehw.errorlens
+            pkgs.vscode-extensions.usernamehw.errorlens
             
+            # pkgs.vscode-extensions.github.copilot-chat
+
+            pkgs.vscode-extensions.llvm-vs-code-extensions.vscode-clangd
+
+
 
             (pkgs.vscode-utils.buildVscodeExtension {
                 pname = "github-copilot-chat";
@@ -122,20 +133,34 @@ programs.vscode = {
 
             # --- C / C++ ---
             
+            # (pkgs.vscode-utils.buildVscodeExtension {
+            #     pname = "vscode-clangd";
+            #     version = "0.4.0";
+
+            #     src = pkgs.fetchurl {
+            #     url = "https://open-vsx.org/api/llvm-vs-code-extensions/vscode-clangd/0.4.0/file/llvm-vs-code-extensions.vscode-clangd-0.4.0.vsix";
+            #     sha256 = "sha256-r71PACuJZBASsWYFHKoq8vVu1zK32/S8AKVtCJHkGqk=";
+            #     };
+
+            #     vscodeExtPublisher = "llvm-vs-code-extensions";
+            #     vscodeExtName = "vscode-clangd";
+            #     vscodeExtUniqueId = "llvm-vs-code-extensions.vscode-clangd";
+            # })
+
             (pkgs.vscode-utils.buildVscodeExtension {
-                pname = "vscode-clangd";
-                version = "0.4.0";
+                pname = "vscode-direnv";
+                version = "1.0.0";
 
                 src = pkgs.fetchurl {
-                url = "https://open-vsx.org/api/llvm-vs-code-extensions/vscode-clangd/0.4.0/file/llvm-vs-code-extensions.vscode-clangd-0.4.0.vsix";
-                sha256 = "sha256-r71PACuJZBASsWYFHKoq8vVu1zK32/S8AKVtCJHkGqk=";
+                    url = "https://open-vsx.org/api/cab404/vscode-direnv/1.0.0/file/cab404.vscode-direnv-1.0.0.vsix";
+                    sha256 = "sha256-+nLH+T9v6TQCqKZw6HPN/ZevQ65FVm2SAo2V9RecM3Y=";
                 };
 
-                vscodeExtPublisher = "llvm-vs-code-extensions";
-                vscodeExtName = "vscode-clangd";
-                vscodeExtUniqueId = "llvm-vs-code-extensions.vscode-clangd";
+                vscodeExtPublisher = "cab404";
+                vscodeExtName = "vscode-direnv";
+                vscodeExtUniqueId = "cab404.vscode-direnv";
             })
-        ]);
+        ];
         # ++
         # (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         #     # {
