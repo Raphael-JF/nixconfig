@@ -9,50 +9,43 @@ home-manager.users.raph = {
         ./gnome.nix
     ];
 
+
     home.username = "raph";
     home.homeDirectory = "/home/raph";
 
-    programs.ssh = {
-        enable = true;
-        enableDefaultConfig = false;
+    home.file.".ssh/config_source" = {
+    text = ''
+        Host enseirb
+        HostName ssh.enseirb-matmeca.fr
+        User rjontef
+        IdentityFile ~/.ssh/laptop
+        AddKeysToAgent yes
+        ForwardAgent yes
 
-        matchBlocks = {
+        Host almapedago travail64
+        User rjontef
+        ProxyJump enseirb
 
-            "enseirb" = {
-            hostname = "ssh.enseirb-matmeca.fr";
-            user = "rjontef";
-            identityFile = "~/.ssh/laptop";
-            addKeysToAgent = "yes";
-            forwardAgent = true;
-            };
+        Host thor thor.enseirb-matmeca.fr
+        HostName thor.enseirb-matmeca.fr
+        IdentityFile ~/.ssh/laptop
+        IdentitiesOnly yes
+        AddKeysToAgent yes
 
-            "almapedago travail64" = {
-            user = "rjontef";
-            proxyJump = "enseirb";
-            };
+        Host github.com
+        User git
+        IdentityFile ~/.ssh/laptop
+        IdentitiesOnly yes
+        AddKeysToAgent yes
+    '';
 
-            "thor thor.enseirb-matmeca.fr" = {
-            hostname = "thor.enseirb-matmeca.fr";
-            identityFile = "~/.ssh/laptop";
-            identitiesOnly = true;
-            addKeysToAgent = "yes";
-
-            };
-
-            "github.com" = {
-            user = "git";
-            identityFile = "~/.ssh/laptop";
-            identitiesOnly = true;
-            addKeysToAgent = "yes";
-
-            };
-
-        };
-    };
-
-
-    home.file.".ssh/config".force = true;
-    home.file.".ssh/config".mode = "0600";
+    onChange = ''
+        mkdir -p ~/.ssh
+        chmod 700 ~/.ssh
+        cat ~/.ssh/config_source > ~/.ssh/config
+        chmod 600 ~/.ssh/config
+    '';
+};
 
     programs.git = {
         enable = true;
@@ -82,6 +75,7 @@ home-manager.users.raph = {
         # grimblast
         # wofi
         # waybar
+        # ssh
         firefox
         texliveFull
         gnumake
