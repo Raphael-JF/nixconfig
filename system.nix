@@ -102,13 +102,8 @@ nixpkgs.config.allowUnfree = true;
 environment.systemPackages = with pkgs; [
     # home-manager
 
-    vscode
-    git
-    valgrind
-    evince
-    gdb
-    direnv
-    dconf-editor
+    # vscode
+    
 
     (python3.withPackages (python-pkgs: with python-pkgs; [
     platformio
@@ -116,13 +111,12 @@ environment.systemPackages = with pkgs; [
     matplotlib
     ]))
 
-    gcc
-    gsl
-    gnumake
-    graphviz
-    libimobiledevice
-    nodejs
-    libclang
+    # gcc
+    # gsl
+    
+    
+    # nodejs
+    # libclang
 ];
 
 
