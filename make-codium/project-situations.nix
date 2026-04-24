@@ -21,6 +21,7 @@
       pkgs.gcc
       pkgs.bear
       pkgs.gsl
+      pkgs.gsl.dev
     ];
   };
 
@@ -63,6 +64,7 @@
       pkgs.gcc
       pkgs.bear
       pkgs.gsl
+      pkgs.gsl.dev
     ];
   };
 }
