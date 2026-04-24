@@ -114,27 +114,16 @@ programs.vscode = {
         # The extensions Visual Studio Code should be started with
         extensions = [
             # --- Nix ---
-            pkgs.vscode-extensions.bbenoist.nix
-
-
+            (pkgs.vscode-extensions.bbenoist.nix)
             # --- Python ---
-            pkgs.vscode-extensions.ms-python.python
-            pkgs.vscode-extensions.ms-python.vscode-pylance
-
+            (pkgs.vscode-extensions.ms-python.python)
+            (pkgs.vscode-extensions.ms-python.vscode-pylance)
             # --- Debug JS ---
-            pkgs.vscode-extensions.ms-vscode.js-debug
-
+            (pkgs.vscode-extensions.ms-vscode.js-debug)
             # --- UI ---
-            pkgs.vscode-extensions.usernamehw.errorlens
-
-
-            pkgs.vscode-extensions.mkhl.direnv
-
-            
-
-            pkgs.vscode-extensions.llvm-vs-code-extensions.vscode-clangd
-
-
+            (pkgs.vscode-extensions.usernamehw.errorlens)
+            (pkgs.vscode-extensions.llvm-vs-code-extensions.vscode-clangd)
+            # (pkgs.vscode-extensions.mkhl.direnv)
             (pkgs.vscode-utils.buildVscodeExtension {
                 pname = "github-copilot-chat";
                 version = "0.40.0";
