@@ -51,6 +51,9 @@ home-manager.users.raph = {
     };
 
 
+    home.file.".ssh/config".force = true;
+    home.file.".ssh/config".mode = "0600";
+
     programs.git = {
         enable = true;
         settings = {
