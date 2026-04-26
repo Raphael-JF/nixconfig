@@ -2,7 +2,7 @@
 
 
 let
-    projectSituations = import ./vscode/make-codium/project-situations.nix { inherit pkgs; };
+    projectSituations = import ../make-codium/project-situations.nix { inherit pkgs; };
 in
 
 
@@ -108,22 +108,8 @@ programs.vscode = {
         enableUpdateCheck = false;
 
         # The extensions Visual Studio Code should be started with
-        extensions = projectSituations.full.extensions;
-        # ++
-        # (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        #     # {
-        #     # name = "copilot";
-        #     # publisher = "GitHub";
-        #     # version = "1.388.0";
-        #     # sha256 = "sha256-qo+vuqdnKhZAbPVEXxdmAnGyfDE/bPfiiCbM1HapPFM=";
-        #     # }
-        #     {
-        #     name = "copilot-chat";
-        #     publisher = "GitHub";
-        #     version = "0.40";
-        #     sha256 = "sha256-eX3Id56jxPp8pHD0C8JvRIqdTRdc6+ScrP35hy39nB4=";
-        #     }
-        # ]);
+        extensions = projectSituations.minimal.extensions;
+      
         # Defines global user snippets
         globalSnippets = null;
         # Keybindings written to Visual Studio Code's keybindings.json
@@ -149,6 +135,36 @@ programs.bash = {
         rebuild() {
         cd ~/Desktop/nixconfig
         git pull && sudo nixos-rebuild switch --flake ~/Desktop/nixconfig#$1
+        }
+
+        ide() {
+        local repo="$HOME/Desktop/nixconfig/make-codium"
+        local key
+        local open_path=""
+        local -a args
+
+        args=("$@")
+
+        if [[ $# -gt 0 ]]; then
+            local last="''${args[$(( $# - 1 ))]}"
+
+            if [[ "$last" == "." || "$last" == ".." || "$last" == ./* || "$last" == ../* || "$last" == /* || "$last" == ~* || "$last" == */* || -e "$last" ]]; then
+                open_path="$last"
+                unset 'args[$(( $# - 1 ))]'
+            fi
+        fi
+
+        if [[ ''${#args[@]} -eq 0 ]]; then
+            key="minimal"
+        else
+            key="$(printf '%s\n' "''${args[@]}" | sort -u | paste -sd- -)"
+        fi
+
+        if [[ -n "$open_path" ]]; then
+            nix run "''${repo}#''${key}" -- "$open_path"
+        else
+            nix run "''${repo}#''${key}" -- --new-window
+        fi
         }
     '';
 };

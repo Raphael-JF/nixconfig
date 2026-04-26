@@ -12,25 +12,9 @@
                 inherit system;
                 config.allowUnfree = true;
             };
-            projectSituations = import ./project-situations.nix { inherit pkgs; };
-
-            mkVscodium = profile:
-                pkgs.vscode-with-extensions.override {
-                    vscode = pkgs.vscodium.fhsWithPackages (_: profile.packages);
-
-                    vscodeExtensions = profile.extensions;
-                };
+            makeCodium = import ./make-codium.nix { inherit pkgs; };
 
         in {
-            packages.${system} = {
-
-                default = mkVscodium projectSituations.default;
-
-                c = mkVscodium projectSituations.c;
-
-                python = mkVscodium projectSituations.python;
-
-                full = mkVscodium projectSituations.full;
-            };
+            packages.${system} = makeCodium.packages;
         };
 }
