@@ -58,4 +58,27 @@
         ]))
     ];
   };
+
+  latex = {
+    extensions = [
+
+    ];
+    
+    packages = [
+        pkgs.texliveFull
+    ];
+  };
+
+  pio = {
+    extensions = [
+
+    ];
+    
+    packages = [
+        pkgs.platformio
+        pkgs.avrdude
+    ];
+  };
 }
+
+    

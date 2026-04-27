@@ -1,13 +1,13 @@
 # ================= File Explorer =======================
 {
 	# Controls whether the Explorer should automatically open a file when it is dropped into the explorer
-	"explorer.autoOpenDroppedFile" = true;
+	"explorer.autoOpenDroppedFile" = false;
 
 	# Controls whether the Explorer should automatically reveal and select files when opening them.
 	#  - true: Files will be revealed and selected.
 	#  - false: Files will not be revealed and selected.
 	#  - focusNoScroll: Files will not be scrolled into view, but will still be focused.
-	"explorer.autoReveal" = true;
+	"explorer.autoReveal" = "focusNoScroll";
 
 	# Configure paths or [glob patterns](https://aka.ms/vscode-glob-patterns) for excluding files and folders from being revealed and selected in the Explorer when they are opened. Glob patterns are always evaluated relative to the path of the workspace folder unless they are absolute paths.
 	"explorer.autoRevealExclude" = {
@@ -16,16 +16,16 @@
 	};
 
 	# Controls whether the Explorer should render folders in a compact form. In such a form, single child folders will be compressed in a combined tree element. Useful for Java package structures, for example.
-	"explorer.compactFolders" = true;
+	"explorer.compactFolders" = false;
 
 	# Controls whether the Explorer should ask for confirmation when deleting files and folders.
 	"explorer.confirmDelete" = true;
 
 	# Controls whether the Explorer should ask for confirmation to move files and folders via drag and drop.
-	"explorer.confirmDragAndDrop" = true;
+	"explorer.confirmDragAndDrop" = false;
 
 	# Controls whether the Explorer should ask for confirmation when pasting native files and folders.
-	"explorer.confirmPasteNative" = true;
+	"explorer.confirmPasteNative" = false;
 
 	# Controls whether the Explorer should ask for confirmation when undoing.
 	#  - verbose: Explorer will prompt before all undo operations.
@@ -37,13 +37,13 @@
 	#  - /: Use slash as path separation character.
 	#  - \: Use backslash as path separation character.
 	#  - auto: Uses operating system specific path separation character.
-	"explorer.copyPathSeparator" = "auto";
+	"explorer.copyPathSeparator" = "/";
 
 	# The path separation character used when copying relative file paths.
 	#  - /: Use slash as path separation character.
 	#  - \: Use backslash as path separation character.
 	#  - auto: Uses operating system specific path separation character.
-	"explorer.copyRelativePathSeparator" = "auto";
+	"explorer.copyRelativePathSeparator" = "/";
 
 	# Controls whether file decorations should use badges.
 	"explorer.decorations.badges" = true;
@@ -64,7 +64,7 @@
 	"explorer.expandSingleFolderWorkspaces" = true;
 
 	# Controls whether file nesting is enabled in the Explorer. File nesting allows for related files in a directory to be visually grouped together under a single parent file.
-	"explorer.fileNesting.enabled" = false;
+	"explorer.fileNesting.enabled" = true;
 
 	# Controls whether file nests are automatically expanded. `explorer.fileNesting.enabled` must be set for this to take effect.
 	"explorer.fileNesting.expand" = true;
@@ -82,13 +82,14 @@
 		"*.tsx" = "\${capture}.ts";
 		"tsconfig.json" = "tsconfig.*.json";
 		"package.json" = "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb, bun.lock";
+        "*.c" = "\${capture}.h";
 	};
 
 	# Controls which naming strategy to use when giving a new name to a duplicated Explorer item on paste.
 	#  - simple: Appends the word "copy" at the end of the duplicated name potentially followed by a number.
 	#  - smart: Adds a number at the end of the duplicated name. If some number is already part of the name, tries to increase that number.
 	#  - disabled: Disables incremental naming. If two files with the same name exist you will be prompted to overwrite the existing file.
-	"explorer.incrementalNaming" = "simple";
+	"explorer.incrementalNaming" = "smart";
 
 	# The minimum number of editor slots pre-allocated in the Open Editors pane. If set to 0 the Open Editors pane will dynamically resize based on the number of editors.
 	"explorer.openEditors.minVisible" = 0;
@@ -109,7 +110,7 @@
 	#  - type: Files and folders are grouped by extension type then sorted by their names. Folders are displayed before files.
 	#  - modified: Files and folders are sorted by last modified date in descending order. Folders are displayed before files.
 	#  - foldersNestsFiles: Files and folders are sorted by their names. Folders are displayed before files. Files with nested children are displayed before other files.
-	"explorer.sortOrder" = "default";
+	"explorer.sortOrder" = "type";
 
 	# Controls the lexicographic sorting of file and folder names in the Explorer.
 	#  - default: Uppercase and lowercase names are mixed together.

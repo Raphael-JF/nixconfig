@@ -14,46 +14,6 @@ in
 
     "files.autoSave" = "afterDelay";
     "files.autoSaveDelay" = 5000;
-
-    # Explorer
-    # "explorer.autoOpenDroppedFile" = false;
-    # "explorer.autoReveal" = true;
-    # "explorer.compactFolders" = true;
-    # "explorer.confirmDelete" = true;
-    # "explorer.confirmDragAndDrop" = true;
-    # "explorer.confirmPasteNative" = true;
-    # "explorer.confirmUndo" = "default";
-
-    # "explorer.decorations.badges" = true;
-    # "explorer.decorations.colors" = true;
-
-    # "explorer.enableDragAndDrop" = true;
-    # "explorer.enableUndo" = true;
-
-    # "explorer.fileNesting.enabled" = false;
-
-    # "explorer.incrementalNaming" = "simple";
-
-    # "explorer.openEditors.visible" = 9;
-
-    # "explorer.sortOrder" = "default";
-    # "explorer.sortOrderLexicographicOptions" = "default";
-    # "explorer.sortOrderReverse" = false;
-
-    # # Nested object
-    # "explorer.autoRevealExclude" = {
-    # "**/node_modules" = true;
-    # "**/bower_components" = true;
-    # };
-
-    # "explorer.fileNesting.patterns" = {
-    # "*.ts" = "\${capture}.js";
-    # "*.js" = "\${capture}.js.map, \${capture}.min.js, \${capture}.d.ts";
-    # "*.jsx" = "\${capture}.js";
-    # "*.tsx" = "\${capture}.ts";
-    # "tsconfig.json" = "tsconfig.*.json";
-    # "package.json" = "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb, bun.lock";
-    # };
 }
 //
     explorerSettings
@@ -114,7 +74,6 @@ in
 
     "extensions.ignoreRecommendations" = true;
 
-    "latex-workshop.latex.autoBuild.run" = "never";
 
     "editor.find.cursorMoveOnType" = false;
 
