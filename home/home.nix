@@ -89,7 +89,7 @@ home-manager.users.raph = {
         evince
         gdb
         dconf-editor
-
+        terminus-font
     ];
 
 programs.direnv = {
@@ -145,9 +145,19 @@ programs.bash = {
         local codium_profile_dir
         local codium_user_data_dir
         local codium_profile_user_dir
+        local codium_profile_global_storage
+        local codium_profile_machine_id
+        local codium_profile_storage_json
+        local codium_profile_state_db
+        local codium_profile_state_db_backup
         local shared_settings
         local shared_keybindings
         local shared_snippets
+        local codium_shared_machine_id
+        local codium_shared_global_storage
+        local codium_shared_storage_json
+        local codium_shared_state_db
+        local codium_shared_state_db_backup
         local -a args
 
         args=("$@")
@@ -170,9 +180,19 @@ programs.bash = {
         codium_profile_dir="$codium_state_root/$key"
         codium_user_data_dir="$codium_profile_dir/user-data"
         codium_profile_user_dir="$codium_user_data_dir/User"
+        codium_profile_global_storage="$codium_profile_user_dir/globalStorage"
+        codium_profile_machine_id="$codium_user_data_dir/machineid"
+        codium_profile_storage_json="$codium_profile_user_dir/storage.json"
+        codium_profile_state_db="$codium_profile_user_dir/state.vscdb"
+        codium_profile_state_db_backup="$codium_profile_user_dir/state.vscdb.backup"
         shared_settings="$codium_shared_user_dir/settings.json"
         shared_keybindings="$codium_shared_user_dir/keybindings.json"
         shared_snippets="$codium_shared_user_dir/snippets"
+        codium_shared_machine_id="$HOME/.config/VSCodium/machineid"
+        codium_shared_global_storage="$HOME/.config/VSCodium/globalStorage"
+        codium_shared_storage_json="$codium_shared_user_dir/storage.json"
+        codium_shared_state_db="$codium_shared_user_dir/state.vscdb"
+        codium_shared_state_db_backup="$codium_shared_user_dir/state.vscdb.backup"
 
         if [[ -L "$codium_profile_user_dir" ]]; then
             rm "$codium_profile_user_dir"
@@ -180,6 +200,44 @@ programs.bash = {
 
         mkdir -p "$codium_profile_user_dir"
         mkdir -p "$codium_shared_user_dir"
+
+        if [[ -d "$codium_profile_global_storage" && ! -L "$codium_profile_global_storage" ]]; then
+            mkdir -p "$codium_shared_global_storage"
+            cp -an "$codium_profile_global_storage/." "$codium_shared_global_storage/" 2>/dev/null || true
+            rm -rf "$codium_profile_global_storage"
+        fi
+
+        mkdir -p "$codium_shared_global_storage"
+        ln -sfn "$codium_shared_global_storage" "$codium_profile_global_storage"
+
+        if [[ -e "$codium_profile_machine_id" && ! -L "$codium_profile_machine_id" && ! -e "$codium_shared_machine_id" ]]; then
+            cp -a "$codium_profile_machine_id" "$codium_shared_machine_id"
+        fi
+
+        if [[ ! -e "$codium_shared_machine_id" ]]; then
+            cat /proc/sys/kernel/random/uuid > "$codium_shared_machine_id"
+        fi
+
+        ln -sfn "$codium_shared_machine_id" "$codium_profile_machine_id"
+
+        if [[ -e "$codium_profile_storage_json" && ! -L "$codium_profile_storage_json" && ! -e "$codium_shared_storage_json" ]]; then
+            cp -a "$codium_profile_storage_json" "$codium_shared_storage_json"
+        fi
+
+        if [[ -e "$codium_profile_state_db" && ! -L "$codium_profile_state_db" && ! -e "$codium_shared_state_db" ]]; then
+            cp -a "$codium_profile_state_db" "$codium_shared_state_db"
+        fi
+
+        if [[ -e "$codium_profile_state_db_backup" && ! -L "$codium_profile_state_db_backup" && ! -e "$codium_shared_state_db_backup" ]]; then
+            cp -a "$codium_profile_state_db_backup" "$codium_shared_state_db_backup"
+        fi
+
+        ln -sfn "$codium_shared_storage_json" "$codium_profile_storage_json"
+        ln -sfn "$codium_shared_state_db" "$codium_profile_state_db"
+
+        if [[ -e "$codium_shared_state_db_backup" ]]; then
+            ln -sfn "$codium_shared_state_db_backup" "$codium_profile_state_db_backup"
+        fi
 
         if [[ -e "$shared_settings" ]]; then
             ln -sfn "$shared_settings" "$codium_profile_user_dir/settings.json"

@@ -1,5 +1,6 @@
 let 
     explorerSettings = import ./settings/explorer.nix;
+    editorSettings = import ./settings/editor.nix;
 in
 
 {
@@ -17,6 +18,8 @@ in
 }
 //
     explorerSettings
+//
+    editorSettings
 //
 {
     "files.exclude" = {
