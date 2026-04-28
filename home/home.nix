@@ -89,7 +89,7 @@ home-manager.users.raph = {
         evince
         gdb
         dconf-editor
-        terminus-font
+        
     ];
 
 programs.direnv = {

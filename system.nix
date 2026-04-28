@@ -100,23 +100,7 @@ nixpkgs.config.allowUnfree = true;
 
 # ===== PACKAGES =====
 environment.systemPackages = with pkgs; [
-    # home-manager
 
-    # vscode
-    
-
-    (python3.withPackages (python-pkgs: with python-pkgs; [
-    platformio
-    numpy
-    matplotlib
-    ]))
-
-    # gcc
-    # gsl
-    
-    
-    # nodejs
-    # libclang
 ];
 
 

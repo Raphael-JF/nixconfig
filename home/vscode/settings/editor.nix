@@ -366,7 +366,7 @@
 	"editor.foldingStrategy" = "auto";
     
 	# Controls the font family.
-	"editor.fontFamily" = "terminus, 'Droid Sans Mono', monospace";
+	"editor.fontFamily" = "'Droid Sans Mono', monospace";
     
 	# Configures font ligatures or font features. Can be either a boolean to enable/disable ligatures or a string for the value of the CSS 'font-feature-settings' property.
 	"editor.fontLigatures" = true;
@@ -451,7 +451,7 @@
 	#  - true: Enables bracket pair guides.
 	#  - active: Enables bracket pair guides only for the active bracket pair.
 	#  - false: Disables bracket pair guides.
-	"editor.guides.bracketPairs" = active;
+	"editor.guides.bracketPairs" = "active";
     
 	# Controls whether horizontal bracket pair guides are enabled or not.
 	#  - true: Enables horizontal guides as addition to vertical bracket pair guides.
@@ -499,7 +499,7 @@
 	"editor.indentSize" = "tabSize";
     
 	# Make scrolling inertial - mostly useful with touchpad on linux.
-	"editor.inertialScroll" = true;
+	"editor.inertialScroll" = false;
     
 	# Enables the inlay hints in the editor.
 	#  - on: Inlay hints are enabled
@@ -608,7 +608,7 @@
 	"editor.lineNumbers" = "on";
     
 	# Controls whether the editor has linked editing enabled. Depending on the language, related symbols such as HTML tags, are updated while editing.
-	"editor.linkedEditing" = false;
+	"editor.linkedEditing" = true;
     
 	# Controls whether the editor should detect links and make them clickable.
 	"editor.links" = true;
@@ -623,13 +623,13 @@
 	#  - none: The minimap is always shown.
 	#  - mouseover: The minimap is hidden when mouse is not over the minimap and shown when mouse is over the minimap.
 	#  - scroll: The minimap is only shown when the editor is scrolled
-	"editor.minimap.autohide" = "none";
+	"editor.minimap.autohide" = "scroll";
     
 	# Controls whether the minimap is shown.
 	"editor.minimap.enabled" = true;
     
 	# Defines the regular expression used to find section headers in comments. The regex must contain a named match group `label` (written as `(?<label>.+)`) that encapsulates the section header, otherwise it will not work. Optionally you can include another match group named `separator`. Use \n in the pattern to match multi-line headers.
-	"editor.minimap.markSectionHeaderRegex" = "\\bMARK:\\s*(?<separator>-?)\\s*(?<label>.*)$";
+	"editor.minimap.markSectionHeaderRegex" = "(?:\\bMARK:\\s*(?<separator>-?)\\s*(?<label>[^\\n]*)$|^\\s*/{0,2}\\s*(?<label>=+.*)$)";
     
 	# Limit the width of the minimap to render at most a certain number of columns.
 	"editor.minimap.maxColumn" = 120;
@@ -693,7 +693,7 @@
 	#  - off: Does not highlight occurrences.
 	#  - singleFile: Highlights occurrences only in the current file.
 	#  - multiFile: Experimental: Highlights occurrences across all valid open files.
-	"editor.occurrencesHighlight" = "singleFile";
+	"editor.occurrencesHighlight" = "multiFile";
     
 	# Controls the delay in milliseconds after which occurrences are highlighted.
 	"editor.occurrencesHighlightDelay" = 0;
@@ -741,7 +741,7 @@
 	"editor.quickSuggestions" = {
 		"other" = "on";
         		"comments" = "off";
-        		"strings" = "off"
+        		"strings" = "off";
 	};
     
 	# Controls the delay in milliseconds after which quick suggestions will show up.
@@ -776,7 +776,7 @@
 	#  - selection: Render whitespace characters only on selected text.
 	#  - trailing: Render only trailing whitespace characters.
 	#  - all
-	"editor.renderWhitespace" = "selection";
+	"editor.renderWhitespace" = "none";
     
 	# Controls whether selections should have rounded corners.
 	"editor.roundedSelection" = true;
@@ -833,7 +833,7 @@
 	"editor.selectionHighlightMaxLength" = 200;
     
 	# Controls whether the editor should highlight selection matches that span multiple lines.
-	"editor.selectionHighlightMultiline" = false;
+	"editor.selectionHighlightMultiline" = true;
     
 	# Controls whether the semanticHighlighting is shown for the languages that support it.
 	#  - true: Semantic highlighting enabled for all color themes.
@@ -903,10 +903,10 @@
 	"editor.suggest.insertMode" = "insert";
     
 	# Controls whether sorting favors words that appear close to the cursor.
-	"editor.suggest.localityBonus" = false;
+	"editor.suggest.localityBonus" = true;
     
 	# When enabled IntelliSense filtering requires that the first character matches on a word start. For example, `c` on `Console` or `WebContext` but _not_ on `description`. When disabled IntelliSense will show more results but still sorts them by match quality.
-	"editor.suggest.matchOnWordStartOnly" = true;
+	"editor.suggest.matchOnWordStartOnly" = false;
     
 	# This setting is deprecated. The suggest widget can now be resized.
 	# 
@@ -1037,7 +1037,7 @@
 	#  - first: Always select the first suggestion.
 	#  - recentlyUsed: Select recent suggestions unless further typing selects one, e.g. `console.| -> console.log` because `log` has been completed recently.
 	#  - recentlyUsedByPrefix: Select suggestions based on previous prefixes that have completed those suggestions, e.g. `co -> console` and `con -> const`.
-	"editor.suggestSelection" = "first";
+	"editor.suggestSelection" = "recentlyUsedByPrefix";
     
 	# Enables tab completions.
 	#  - on: Tab complete will insert the best matching suggestion when pressing tab.
@@ -1066,7 +1066,7 @@
 	# Unicode characters that are common in allowed locales are not being highlighted.
 	"editor.unicodeHighlight.allowedLocales" = {
 		"_os" = true;
-        		"_vscode" = true
+        "_vscode" = true;
 	};
     
 	# Controls whether characters are highlighted that can be confused with basic ASCII characters, except those that are common in the current user locale.
@@ -1140,7 +1140,7 @@
 	#  - same: Wrapped lines get the same indentation as the parent.
 	#  - indent: Wrapped lines get +1 indentation toward the parent.
 	#  - deepIndent: Wrapped lines get +2 indentation toward the parent.
-	"editor.wrappingIndent" = "same";
+	"editor.wrappingIndent" = "indent";
     
 	# Controls the algorithm that computes wrapping points. Note that when in accessibility mode, advanced will be used for the best experience.
 	#  - simple: Assumes that all characters are of the same width. This is a fast algorithm that works correctly for monospace fonts and certain scripts (like Latin characters) where glyphs are of equal width.
