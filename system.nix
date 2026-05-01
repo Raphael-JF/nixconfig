@@ -98,7 +98,7 @@ SystemAccount=false
 EOF
     chown root:root /var/lib/AccountsService/users/raph
     chmod 644 /var/lib/AccountsService/users/raph
-';
+'';
 
 # ===== PROGRAMS =====
 programs.firefox.enable = true;
