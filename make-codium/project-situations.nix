@@ -59,6 +59,23 @@
     ];
   };
 
+  python-recherche-operationnelle = {
+    extensions = [
+      pkgs.vscode-extensions.ms-python.python
+      pkgs.vscode-extensions.ms-python.vscode-pylance
+    ];
+
+    packages = [
+        (pkgs.python3.withPackages (python-pkgs: with python-pkgs; [
+            numpy
+            matplotlib
+            scipy
+            mip 
+            highspy
+        ]))
+    ];
+  };
+
   latex = {
     extensions = [
 
