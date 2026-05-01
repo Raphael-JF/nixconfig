@@ -3,7 +3,7 @@
 {
 # ===== IMPORTS =====
 imports = [
-    ./hardware-configuration.nix
+    /etc/nixos/hardware-configuration.nix
 ];
 
 # ===== NIX =====
@@ -14,7 +14,6 @@ boot.loader.systemd-boot.enable = true;
 boot.loader.efi.canTouchEfiVariables = true;
 
 # ===== NETWORK =====
-networking.hostName = "raph-laptop";
 networking.networkmanager.enable = true;
 
 # ===== TIME =====
@@ -31,7 +30,29 @@ programs.hyprland = {
     xwayland.enable = true; # Xwayland can be disabled.
 };
 
-# clavier
+environment.sessionVariables = {
+    WLR_NO_HARDWARE_CURSORS = "1";
+};
+
+# ===== GNOME (clean) =====
+environment.gnome.excludePackages = with pkgs; [
+    cheese
+    epiphany
+    gedit
+    simple-scan
+    yelp
+    file-roller
+    geary
+    seahorse
+    gnome-calendar
+    gnome-clocks
+    gnome-contacts
+    gnome-music
+    gnome-photos
+    gnome-weather
+];
+
+# ===== KEYBOARD =====
 services.xserver.xkb.layout = "fr";
 
 # pour les formats de dates etc.
@@ -68,32 +89,6 @@ programs.nix-ld.enable = true;
 programs.nix-ld.libraries = with pkgs; [
     avrdude
 ];
-
-environment.sessionVariables = {
-    WLR_NO_HARDWARE_CURSORS = "1";
-};
-
-# ===== GNOME (clean) =====
-environment.gnome.excludePackages = with pkgs; [
-    cheese
-    epiphany
-    gedit
-    simple-scan
-    yelp
-    file-roller
-    geary
-    seahorse
-    gnome-calendar
-    gnome-clocks
-    gnome-contacts
-    gnome-music
-    gnome-photos
-    gnome-weather
-];
-
-
-# ===== USB / APPLE =====
-services.usbmuxd.enable = true;
 
 # ===== UNFREE =====
 nixpkgs.config.allowUnfree = true;

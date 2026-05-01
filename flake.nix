@@ -30,8 +30,25 @@
         home-manager.nixosModules.home-manager
         ./home/home.nix
 
-        stylix.nixosModules.stylix
-        ./stylix.nix
+        ./specific-raph-laptop.nix
+      ];
+    };
+    nixosConfigurations.raph-desktop = nixpkgs.lib.nixosSystem {
+      modules = [
+        ({ pkgs, ... }: {
+          nixpkgs.overlays = [
+            nix-vscode-extensions.overlays.default
+          ];
+
+          nixpkgs.config.allowUnfree = true;
+        })
+
+        ./system.nix
+
+        home-manager.nixosModules.home-manager
+        ./home/home.nix
+
+        ./specific-raph-desktop.nix
       ];
     };
   };

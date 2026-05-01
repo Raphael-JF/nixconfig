@@ -133,7 +133,7 @@ programs.bash = {
     initExtra = ''
         rebuild() {
         cd ~/Desktop/nixconfig
-        git pull && sudo nixos-rebuild switch --flake ~/Desktop/nixconfig#$1
+        git pull && sudo nixos-rebuild switch --flake ~/Desktop/nixconfig#$1 --impure
         }
 
         ide() {
