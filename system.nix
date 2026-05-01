@@ -23,7 +23,14 @@ time.timeZone = "Europe/Paris";
 services.xserver.enable = true;
 
 services.displayManager.gdm.enable = true;
+services.displayManager.defaultSession = "gnome";
 services.desktopManager.gnome.enable = true;
+
+services.accounts-daemon.enable = true;
+services.gnome.gnome-keyring.enable = true;
+security.pam.services.gdm.enableGnomeKeyring = true;
+
+
 programs.hyprland = {
     enable = false;
     withUWSM = true; # recommended for most users
@@ -80,6 +87,18 @@ users.users.raph = {
     isNormalUser = true;
     extraGroups = [ "wheel" "dialout" ];
 };
+
+system.activationScripts.accountsServiceRaph = ''
+    mkdir -p /var/lib/AccountsService/users
+    cat > /var/lib/AccountsService/users/raph <<'EOF'
+[User]
+Language=
+XSession=gnome
+SystemAccount=false
+EOF
+    chown root:root /var/lib/AccountsService/users/raph
+    chmod 644 /var/lib/AccountsService/users/raph
+';
 
 # ===== PROGRAMS =====
 programs.firefox.enable = true;
