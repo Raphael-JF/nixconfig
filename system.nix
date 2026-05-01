@@ -24,6 +24,7 @@ services.xserver.enable = true;
 
 services.displayManager.gdm.enable = true;
 services.displayManager.defaultSession = "gnome";
+services.displayManager.hiddenUsers = [ ];
 services.desktopManager.gnome.enable = true;
 
 services.accounts-daemon.enable = true;
@@ -99,6 +100,11 @@ EOF
     chown root:root /var/lib/AccountsService/users/raph
     chmod 644 /var/lib/AccountsService/users/raph
 '';
+
+systemd.tmpfiles.rules = [
+    "d /var/lib/AccountsService/users 0755 root root - -"
+    "f /var/lib/AccountsService/users/raph 0644 root root - [User]\nLanguage=\nXSession=gnome\nSystemAccount=false\n"
+];
 
 # ===== PROGRAMS =====
 programs.firefox.enable = true;
