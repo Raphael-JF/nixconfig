@@ -132,12 +132,12 @@ programs.bash = {
     enable = true;
     initExtra = ''
         rebuild() {
-        cd ~/Desktop/nixconfig
-        git pull && sudo nixos-rebuild switch --flake ~/Desktop/nixconfig#$1 --impure
+        cd ~/nixconfig
+        git pull && sudo nixos-rebuild switch --flake ~/nixconfig#$1 --impure
         }
 
         ide() {
-        local repo="$HOME/Desktop/nixconfig/make-codium"
+        local repo="$HOME/nixconfig/make-codium"
         local key
         local open_path=""
         local codium_state_root="$HOME/.local/share/codium-profiles"
@@ -265,7 +265,7 @@ programs.bash = {
 
         _ide_complete() {
         local cur
-        local profiles_file="$HOME/Desktop/nixconfig/make-codium/project-situations.nix"
+        local profiles_file="$HOME/nixconfig/make-codium/project-situations.nix"
         local profiles
         local profile_list=""
         local w
