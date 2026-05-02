@@ -54,10 +54,10 @@ home-manager.users.raph = {
         chmod 600 ~/.ssh/config
     '';
 };
-
-    home.file.".config/monitors.xml" = {
+    home.file.".config/monitors.xml" = if config.raph.hostType == "desktop" then {
         source = ./monitors.xml;
-    };
+    } else 
+        null;
 
     programs.git = {
         enable = true;
