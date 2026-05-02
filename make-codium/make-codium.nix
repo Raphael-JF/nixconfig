@@ -50,3 +50,4 @@ in
     default = generatedPackages.${baseProfileName};
   };
 }
+
