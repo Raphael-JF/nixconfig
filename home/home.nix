@@ -54,9 +54,11 @@ home-manager.users.raph = {
         chmod 600 ~/.ssh/config
     '';
 };
-    home.file.".config/monitors.xml" = lib.optionalAttrs (config.raph.hostType == "desktop") {
-        source = ./monitors.xml;
-    };
+    home.file = lib.mkMerge [
+        (lib.mkIf (config.raph.hostType == "desktop") {
+            ".config/monitors.xml".source = ./monitors.xml;
+        })
+    ];
     programs.git = {
         enable = true;
         settings = {
