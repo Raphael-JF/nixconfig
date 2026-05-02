@@ -59,7 +59,6 @@ dconf.settings = {
     dynamic-workspaces = false;
     workspaces-only-on-primary = false;
     attach-modal-dialogs = false;
-    auto-raise = true;
     focus-new-windows = "smart";
     focus-change-on-pointer-rest = false;
     focus-on-map = true;
