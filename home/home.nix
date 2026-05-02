@@ -100,7 +100,11 @@ home-manager.users.raph = {
         
         
     ] ++ 
-    (if config.raph.hostType == "desktop" then [ pkgs.heroic ] else []);
+    (if config.raph.hostType == "desktop" then [ 
+        pkgs.heroic 
+        pkgs.discord
+        # pkgs.zerotierone
+    ] else []);
 
 
 

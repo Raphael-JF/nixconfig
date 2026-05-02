@@ -8,6 +8,8 @@
   # ===== NETWORK =====
   networking.hostName = "raph-desktop";
 
+  services.zerotierone.enable = true;
+
 
 
   # ===== NVIDIA GRAPHICS =====
