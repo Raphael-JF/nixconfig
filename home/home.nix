@@ -55,13 +55,15 @@ home-manager.users.raph = {
     '';
 };
 
+    home.file.".config/monitor.xml" = {
+        source = ./monitor.xml;
+    };
+
     programs.git = {
         enable = true;
         settings = {
-            user = {
-                userName = "Raphaël Jontef";
-                userEmail = "raphael.jontef@enseirb-matmeca.fr";
-            };
+            user.name = "Raphaël Jontef";
+            user.email = "raphael.jontef@enseirb-matmeca.fr";
         };
         ignores = [
             ".clangd"
@@ -92,6 +94,7 @@ home-manager.users.raph = {
         evince
         gdb
         dconf-editor
+        (if config.raph.hostType == "desktop" then heroic else null)
         
     ];
 
