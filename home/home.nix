@@ -54,8 +54,8 @@ home-manager.users.raph = {
         chmod 600 ~/.ssh/config
     '';
 };
-    home.file = lib.optionalAttrs (config.raph.hostType == "desktop") {
-        ".config/monitors.xml".source = ./monitors.xml;
+    home.file.".config/monitors.xml". = lib.optionalAttrs (config.raph.hostType == "desktop") {
+        source = ./monitors.xml;
     };
     programs.git = {
         enable = true;
