@@ -5,8 +5,6 @@ in
 
 {
     "telemetry.telemetryLevel" = "off";
-    "telemetry.enableTelemetry" = false;
-    "telemetry.enableCrashReporter" = false;
     "security.workspace.trust.untrustedFiles" = "open";
     "editor.smoothScrolling" = true;
     "editor.unicodeHighlight.nonBasicASCII" = false;

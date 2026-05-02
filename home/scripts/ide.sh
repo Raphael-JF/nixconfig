@@ -20,4 +20,20 @@ fi
 name=$(IFS=-; echo "${presets[*]}")
 
 # Exécute l'environnement Nix avec le chemin
-exec nix run ".#$name" -- "$path"
+local_vscodium_dir="$HOME/.local/share/make-codium/$name/VSCodium"
+local_extensions_dir="$HOME/.local/share/make-codium/$name/extensions"
+
+public_vscodium_dir="$HOME/.config/VSCodium"
+
+mkdir -p "$local_vscodium_dir" "$local_vscodium_dir/User"
+
+# Symlink for settings.json
+ln -sf "$public_vscodium_dir/User/settings.json" "$local_vscodium_dir/User/settings.json"
+
+# Symlink for keybindings.json
+ln -sf "$public_vscodium_dir/User/keybindings.json" "$local_vscodium_dir/User/keybindings.json"
+
+# Symlink for snippets
+ln -sf "$public_vscodium_dir/User/snippets" "$local_vscodium_dir/User/snippets"
+
+exec nix run ~/nixconfig/make-codium#$name -- --user-data-dir "$local_vscodium_dir" --extensions-dir "$local_extensions_dir" -- "$path"

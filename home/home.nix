@@ -102,13 +102,11 @@ home-manager.users.raph = {
         (if config.raph.hostType == "desktop" then heroic else null)
         
         
-    ];
+    ] ++ 
+    (if config.raph.hostType == "desktop" then [ pkgs.heroic ] else []);
 
 
-home.file.".config/VSCodium/User/settings.json" = {
-    text = builtins.toJSON (import ./vscode/settings.nix);
-    force = true;
-};
+
 
 programs.vscode = {
     enable = true;
@@ -132,11 +130,11 @@ programs.vscode = {
             latex = builtins.fromJSON (builtins.readFile ./vscode/snippets/latex.json);
         };
         # Configuration written to Visual Studio Code's mcp.json
-        # userMcp = {};
+        userMcp = {};
         # Configuration written to Visual Studio Code's settings.json
-        # userSettings = import ./vscode/settings.nix;
+        userSettings = import ./vscode/settings.nix;
         # Configuration written to Visual Studio Code's tasks.json
-        # userTasks = {};
+        userTasks = {};
     };
 };
 

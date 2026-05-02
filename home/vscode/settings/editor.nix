@@ -413,9 +413,6 @@
 	# Alternative command id that is being executed when the result of 'Go to Type Definition' is the current location.
 	"editor.gotoLocation.alternativeTypeDefinitionCommand" = "editor.action.goToReferences";
     
-	# This setting is deprecated, please use separate settings like 'editor.editor.gotoLocation.multipleDefinitions' or 'editor.editor.gotoLocation.multipleImplementations' instead.
-	# 
-	"editor.gotoLocation.multiple" = null;
     
 	# Controls the behavior the 'Go to Declaration'-command when multiple target locations exist.
 	#  - peek: Show Peek view of the results (default)
@@ -747,10 +744,6 @@
 	# Controls the delay in milliseconds after which quick suggestions will show up.
 	"editor.quickSuggestionsDelay" = 10;
     
-	# Deprecated, use `editor.linkedEditing` instead.
-	# Controls whether the editor auto renames on type.
-	"editor.renameOnType" = false;
-    
 	# Controls whether the editor should render control characters.
 	"editor.renderControlCharacters" = true;
     
@@ -890,10 +883,6 @@
 	# Emulate selection behavior of tab characters when using spaces for indentation. Selection will stick to tab stops.
 	"editor.stickyTabStops" = false;
     
-	# This setting is deprecated, please use separate settings like 'editor.suggest.showKeywords' or 'editor.suggest.showSnippets' instead.
-	# 
-	"editor.suggest.filteredTypes" = {};
-    
 	# Controls whether filtering and sorting suggestions accounts for small typos.
 	"editor.suggest.filterGraceful" = true;
     
@@ -908,9 +897,6 @@
 	# When enabled IntelliSense filtering requires that the first character matches on a word start. For example, `c` on `Console` or `WebContext` but _not_ on `description`. When disabled IntelliSense will show more results but still sorts them by match quality.
 	"editor.suggest.matchOnWordStartOnly" = false;
     
-	# This setting is deprecated. The suggest widget can now be resized.
-	# 
-	"editor.suggest.maxVisibleSuggestions" = 0;
     
 	# Controls whether to preview the suggestion outcome in the editor.
 	"editor.suggest.preview" = false;
