@@ -4,7 +4,9 @@
 let
     projectSituations = import ../make-codium/project-situations.nix { inherit pkgs; };
 in
-
+let
+        sshIdentity = if config.raph.hostType == "desktop" then "~/.ssh/desktop" else "~/.ssh/laptop";
+in
 
 {
 
@@ -18,12 +20,13 @@ home-manager.users.raph = {
     home.username = "raph";
     home.homeDirectory = "/home/raph";
 
+    
     home.file.".ssh/config_source" = {
-    text = ''
+        text = ''
         Host enseirb
         HostName ssh.enseirb-matmeca.fr
         User rjontef
-        IdentityFile ~/.ssh/laptop
+        IdentityFile ${sshIdentity}
         AddKeysToAgent yes
         ForwardAgent yes
 
@@ -33,16 +36,16 @@ home-manager.users.raph = {
 
         Host thor thor.enseirb-matmeca.fr
         HostName thor.enseirb-matmeca.fr
-        IdentityFile ~/.ssh/laptop
+        IdentityFile ${sshIdentity}
         IdentitiesOnly yes
         AddKeysToAgent yes
 
         Host github.com
         User git
-        IdentityFile ~/.ssh/laptop
+        IdentityFile ${sshIdentity}
         IdentitiesOnly yes
         AddKeysToAgent yes
-    '';
+        '';
 
     onChange = ''
         mkdir -p ~/.ssh

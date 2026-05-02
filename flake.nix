@@ -24,13 +24,14 @@
 
           nixpkgs.config.allowUnfree = true;
         })
+        ./specific-raph-laptop.nix
+
 
         ./system.nix
 
         home-manager.nixosModules.home-manager
         ./home/home.nix
 
-        ./specific-raph-laptop.nix
       ];
     };
     nixosConfigurations.raph-desktop = nixpkgs.lib.nixosSystem {
@@ -42,13 +43,13 @@
 
           nixpkgs.config.allowUnfree = true;
         })
+        ./specific-raph-desktop.nix
 
         ./system.nix
 
         home-manager.nixosModules.home-manager
         ./home/home.nix
 
-        ./specific-raph-desktop.nix
       ];
     };
   };

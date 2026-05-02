@@ -1,8 +1,14 @@
 { config, pkgs, lib, ... }:
 
 {
+  # ===== DEVICE-SPECIFIC CONFIG =====
+  raph.hostType = "desktop";
+
+  
   # ===== NETWORK =====
   networking.hostName = "raph-desktop";
+
+
 
   # ===== NVIDIA GRAPHICS =====
   hardware.graphics.enable = true;
