@@ -56,7 +56,7 @@ home-manager.users.raph = {
 };
 
     home.file.".config/monitor.xml" = {
-        source = ./monitor.xml;
+        source = ./monitors.xml;
     };
 
     programs.git = {
