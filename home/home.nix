@@ -97,9 +97,6 @@ home-manager.users.raph = {
 
         (pkgs.writeShellScriptBin "ide" (builtins.readFile ./scripts/ide.sh))
         (pkgs.writeShellScriptBin "rebuild" (builtins.readFile ./scripts/rebuild.sh))
-
-
-        (if config.raph.hostType == "desktop" then heroic else null)
         
         
     ] ++ 
