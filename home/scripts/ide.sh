@@ -16,12 +16,17 @@ else
   presets=("${@:1:$#-1}")
 fi
 
+# trie les presets pour garantir un nom d'environnement cohérent
+IFS=$'\n' presets=($(sort <<<"${presets[*]}"))
+unset IFS
+
 # Construit le nom de l'environnement Nix
 name=$(IFS=-; echo "${presets[*]}")
 
+echo "Lancement de l'environnement Nix pour VSCodium avec les presets: $name"
+
 # Exécute l'environnement Nix avec le chemin
 local_vscodium_dir="$HOME/.local/share/make-codium/$name/VSCodium"
-local_extensions_dir="$HOME/.local/share/make-codium/$name/extensions"
 
 public_vscodium_dir="$HOME/.config/VSCodium"
 
@@ -36,4 +41,4 @@ ln -sf "$public_vscodium_dir/User/keybindings.json" "$local_vscodium_dir/User/ke
 # Symlink for snippets
 ln -sf "$public_vscodium_dir/User/snippets" "$local_vscodium_dir/User/snippets"
 
-exec nix run ~/nixconfig/make-codium#$name -- --user-data-dir "$local_vscodium_dir" --extensions-dir "$local_extensions_dir" -- "$path"
+exec nix run ~/nixconfig/make-codium#$name -- --user-data-dir "$local_vscodium_dir" -- "$path"
