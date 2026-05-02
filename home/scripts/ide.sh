@@ -44,16 +44,16 @@ public_global_storage="$public_vscodium_dir/User/globalStorage"
 public_machine_id="$public_vscodium_dir/machineid"
 
 if [ -d "$public_global_storage" ]; then
-  echo "Copie de globalStorage depuis $public_global_storage vers $local_global_storage"
+  echo globalStorage trouvé dans le local $name, pas de copie nécessaire.
 else
-  echo "Aucun globalStorage trouvé à $public_global_storage, copie du globalStorage public vers le local."
+  echo "Aucun globalStorage trouvé dans le local $name, copie du globalStorage public vers le local."
     cp -r "$public_global_storage" "$local_global_storage"
 fi
 
 if [ -f "$public_machine_id" ]; then
-  echo "Copie de machineid depuis $public_machine_id vers $local_machine_id"
+  echo machineid trouvé dans le local $name, pas de copie nécessaire.
 else
-  echo "Aucun machineid trouvé à $public_machine_id, copie du machineid public vers le local."
+  echo "Aucun machineid trouvé dans le local $name, copie du machineid public vers le local."
     cp "$public_machine_id" "$local_machine_id"
 fi
 
