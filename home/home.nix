@@ -5,7 +5,7 @@ let
     projectSituations = import ../make-codium/project-situations.nix { inherit pkgs; };
 in
 let
-        sshIdentity = if config.raph.hostType == "desktop" then "~/.ssh/desktop" else "~/.ssh/laptop";
+    sshIdentity = if config.raph.hostType == "desktop" then "~/.ssh/desktop" else "~/.ssh/laptop";
 in
 
 {
@@ -94,13 +94,20 @@ home-manager.users.raph = {
         evince
         gdb
         dconf-editor
+
+        (pkgs.writeShellScriptBin "ide" (builtins.readFile ./scripts/ide.sh))
+        (pkgs.writeShellScriptBin "rebuild" (builtins.readFile ./scripts/rebuild.sh))
+
+
         (if config.raph.hostType == "desktop" then heroic else null)
+        
         
     ];
 
-programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
+
+home.file.".config/VSCodium/User/settings.json" = {
+    text = builtins.toJSON (import ./vscode/settings.nix);
+    force = true;
 };
 
 programs.vscode = {
@@ -125,188 +132,15 @@ programs.vscode = {
             latex = builtins.fromJSON (builtins.readFile ./vscode/snippets/latex.json);
         };
         # Configuration written to Visual Studio Code's mcp.json
-        userMcp = {};
+        # userMcp = {};
         # Configuration written to Visual Studio Code's settings.json
-        userSettings = import ./vscode/settings.nix;
+        # userSettings = import ./vscode/settings.nix;
         # Configuration written to Visual Studio Code's tasks.json
-        userTasks = {};
+        # userTasks = {};
     };
 };
 
 
-programs.bash = {
-    enable = true;
-    initExtra = ''
-        rebuild() {
-        cd ~/nixconfig
-        git pull && sudo nixos-rebuild switch --flake ~/nixconfig#$1 --impure
-        }
-
-        ide() {
-        local repo="$HOME/nixconfig/make-codium"
-        local key
-        local open_path=""
-        local codium_state_root="$HOME/.local/share/codium-profiles"
-        local codium_shared_user_dir="$HOME/.config/VSCodium/User"
-        local codium_profile_dir
-        local codium_user_data_dir
-        local codium_profile_user_dir
-        local codium_profile_global_storage
-        local codium_profile_machine_id
-        local codium_profile_storage_json
-        local codium_profile_state_db
-        local codium_profile_state_db_backup
-        local shared_settings
-        local shared_keybindings
-        local shared_snippets
-        local codium_shared_machine_id
-        local codium_shared_global_storage
-        local codium_shared_storage_json
-        local codium_shared_state_db
-        local codium_shared_state_db_backup
-        local -a args
-
-        args=("$@")
-
-        if [[ $# -gt 0 ]]; then
-            local last="''${args[$(( $# - 1 ))]}"
-
-            if [[ "$last" == "." || "$last" == ".." || "$last" == ./* || "$last" == ../* || "$last" == /* || "$last" == ~* || "$last" == */* || -e "$last" ]]; then
-                open_path="$last"
-                unset 'args[$(( $# - 1 ))]'
-            fi
-        fi
-
-        if [[ ''${#args[@]} -eq 0 ]]; then
-            key="minimal"
-        else
-            key="$(printf '%s\n' "''${args[@]}" | sort -u | paste -sd- -)"
-        fi
-
-        codium_profile_dir="$codium_state_root/$key"
-        codium_user_data_dir="$codium_profile_dir/user-data"
-        codium_profile_user_dir="$codium_user_data_dir/User"
-        codium_profile_global_storage="$codium_profile_user_dir/globalStorage"
-        codium_profile_machine_id="$codium_user_data_dir/machineid"
-        codium_profile_storage_json="$codium_profile_user_dir/storage.json"
-        codium_profile_state_db="$codium_profile_user_dir/state.vscdb"
-        codium_profile_state_db_backup="$codium_profile_user_dir/state.vscdb.backup"
-        shared_settings="$codium_shared_user_dir/settings.json"
-        shared_keybindings="$codium_shared_user_dir/keybindings.json"
-        shared_snippets="$codium_shared_user_dir/snippets"
-        codium_shared_machine_id="$HOME/.config/VSCodium/machineid"
-        codium_shared_global_storage="$HOME/.config/VSCodium/globalStorage"
-        codium_shared_storage_json="$codium_shared_user_dir/storage.json"
-        codium_shared_state_db="$codium_shared_user_dir/state.vscdb"
-        codium_shared_state_db_backup="$codium_shared_user_dir/state.vscdb.backup"
-
-        if [[ -L "$codium_profile_user_dir" ]]; then
-            rm "$codium_profile_user_dir"
-        fi
-
-        mkdir -p "$codium_profile_user_dir"
-        mkdir -p "$codium_shared_user_dir"
-
-        if [[ -d "$codium_profile_global_storage" && ! -L "$codium_profile_global_storage" ]]; then
-            mkdir -p "$codium_shared_global_storage"
-            cp -an "$codium_profile_global_storage/." "$codium_shared_global_storage/" 2>/dev/null || true
-            rm -rf "$codium_profile_global_storage"
-        fi
-
-        mkdir -p "$codium_shared_global_storage"
-        ln -sfn "$codium_shared_global_storage" "$codium_profile_global_storage"
-
-        if [[ -e "$codium_profile_machine_id" && ! -L "$codium_profile_machine_id" && ! -e "$codium_shared_machine_id" ]]; then
-            cp -a "$codium_profile_machine_id" "$codium_shared_machine_id"
-        fi
-
-        if [[ ! -e "$codium_shared_machine_id" ]]; then
-            cat /proc/sys/kernel/random/uuid > "$codium_shared_machine_id"
-        fi
-
-        ln -sfn "$codium_shared_machine_id" "$codium_profile_machine_id"
-
-        if [[ -e "$codium_profile_storage_json" && ! -L "$codium_profile_storage_json" && ! -e "$codium_shared_storage_json" ]]; then
-            cp -a "$codium_profile_storage_json" "$codium_shared_storage_json"
-        fi
-
-        if [[ -e "$codium_profile_state_db" && ! -L "$codium_profile_state_db" && ! -e "$codium_shared_state_db" ]]; then
-            cp -a "$codium_profile_state_db" "$codium_shared_state_db"
-        fi
-
-        if [[ -e "$codium_profile_state_db_backup" && ! -L "$codium_profile_state_db_backup" && ! -e "$codium_shared_state_db_backup" ]]; then
-            cp -a "$codium_profile_state_db_backup" "$codium_shared_state_db_backup"
-        fi
-
-        ln -sfn "$codium_shared_storage_json" "$codium_profile_storage_json"
-        ln -sfn "$codium_shared_state_db" "$codium_profile_state_db"
-
-        if [[ -e "$codium_shared_state_db_backup" ]]; then
-            ln -sfn "$codium_shared_state_db_backup" "$codium_profile_state_db_backup"
-        fi
-
-        if [[ -e "$shared_settings" ]]; then
-            ln -sfn "$shared_settings" "$codium_profile_user_dir/settings.json"
-        fi
-
-        if [[ -e "$shared_keybindings" ]]; then
-            ln -sfn "$shared_keybindings" "$codium_profile_user_dir/keybindings.json"
-        fi
-
-        if [[ -e "$shared_snippets" ]]; then
-            ln -sfn "$shared_snippets" "$codium_profile_user_dir/snippets"
-        fi
-
-        if [[ -n "$open_path" ]]; then
-            nix run "''${repo}#''${key}" -- \
-                --user-data-dir "$codium_user_data_dir" \
-                --new-window \
-                "$open_path"
-        else
-            nix run "''${repo}#''${key}" -- \
-                --user-data-dir "$codium_user_data_dir" \
-                --new-window
-        fi
-        }
-
-        _ide_complete() {
-        local cur
-        local profiles_file="$HOME/nixconfig/make-codium/project-situations.nix"
-        local profiles
-        local profile_list=""
-        local w
-
-        cur="''${COMP_WORDS[COMP_CWORD]}"
-
-        if [[ "$cur" == .* || "$cur" == /* || "$cur" == ~* ]]; then
-            COMPREPLY=( $(compgen -f -- "$cur") )
-            return 0
-        fi
-
-        if [[ -r "$profiles_file" ]]; then
-            profiles="$(awk '/^  [a-zA-Z0-9_-]+ = \{/ {print $1}' "$profiles_file" | sed 's/$//' | grep -v '^full$')"
-        fi
-
-        if [[ -z "$profiles" ]]; then
-            COMPREPLY=( $(compgen -W '. ..' -- "$cur") )
-            return 0
-        fi
-
-        for w in $profiles; do
-            case " ''${COMP_WORDS[*]} " in
-                *" $w "*) ;;
-                *) profile_list+="$w " ;;
-            esac
-        done
-
-        COMPREPLY=( $(compgen -W "$profile_list" -- "$cur") )
-        return 0
-        }
-
-        complete -F _ide_complete ide
-    '';
-};
-    
 
     # wayland.windowManager.hyprland = {
     #     settings = import ./hyprland/hyprland.nix;

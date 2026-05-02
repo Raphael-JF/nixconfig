@@ -67,7 +67,7 @@
 	"explorer.fileNesting.enabled" = true;
 
 	# Controls whether file nests are automatically expanded. `explorer.fileNesting.enabled` must be set for this to take effect.
-	"explorer.fileNesting.expand" = true;
+	"explorer.fileNesting.expand" = false;
 
 	# Controls nesting of files in the Explorer. `explorer.fileNesting.enabled` must be set for this to take effect. Each __Item__ represents a parent pattern and may contain a single `*` character that matches any string. Each __Value__ represents a comma separated list of the child patterns that should be shown nested under a given parent. Child patterns may contain several special tokens:
 	# - `${capture}`: Matches the resolved value of the `*` from the parent pattern

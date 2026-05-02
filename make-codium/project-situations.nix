@@ -59,6 +59,14 @@
     ];
   };
 
+  pdf = {
+    extensions =
+    [];
+    
+    packages = [
+        pkgs.poppler-utils
+    ];
+};
   python-recherche-operationnelle = {
     extensions = [
       pkgs.vscode-extensions.ms-python.python

@@ -5,7 +5,7 @@ let
 
   baseProfileName = "minimal";
   availableProfileNames = builtins.attrNames projectSituations;
-  selectableProfileNames = builtins.filter (name: name != baseProfileName && name != "full") availableProfileNames;
+  selectableProfileNames = builtins.filter (name: name != baseProfileName) availableProfileNames;
 
   mkVscodium = profiles:
     let
@@ -48,6 +48,5 @@ in
 
   packages = generatedPackages // {
     default = generatedPackages.${baseProfileName};
-    full = mkFromNames [ "full" ];
   };
 }
