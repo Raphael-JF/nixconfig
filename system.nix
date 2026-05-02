@@ -77,6 +77,10 @@ config = {
     # ===== INPUT =====
     services.libinput.enable = true;
 
+    # ===== USBMUXD =====
+    services.usbmuxd.enable = true;
+
+
     # ===== USERS =====
     users.users.raph = {
         isNormalUser = true;

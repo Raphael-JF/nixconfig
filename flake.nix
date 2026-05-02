@@ -4,7 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    stylix.url = "github:danth/stylix";
+    prismlauncher = {
+      url = "github:PrismLauncher/PrismLauncher";
+    };
+
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -14,7 +17,7 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, stylix, nix-vscode-extensions, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, prismlauncher, nix-vscode-extensions, ... }: {
     nixosConfigurations.raph-laptop = nixpkgs.lib.nixosSystem {
       modules = [
         ({ pkgs, ... }: {
@@ -43,6 +46,12 @@
 
           nixpkgs.config.allowUnfree = true;
         })
+        (
+            { pkgs, ... }:
+            {
+              environment.systemPackages = [ prismlauncher.packages.${pkgs.system}.prismlauncher ];
+            }
+          )
         ./specific-raph-desktop.nix
 
         ./system.nix

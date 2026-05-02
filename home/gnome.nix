@@ -57,6 +57,15 @@ dconf.settings = {
 
     "org/gnome/mutter" = {
     dynamic-workspaces = false;
+    workspaces-only-on-primary = false;
+    attach-modal-dialogs = false;
+    auto-raise = true;
+    focus-new-windows = "smart";
+    focus-change-on-pointer-rest = false;
+    focus-on-map = true;
+    focus-mode = "click";
+    action-double-click-titlebar = "toggle-maximize";
+    action-middle-click-titlebar = "toggle-maximize";
     };
 
     "org/gnome/desktop/interface" = {

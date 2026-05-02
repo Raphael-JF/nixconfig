@@ -55,7 +55,7 @@ home-manager.users.raph = {
     '';
 };
 
-    home.file.".config/monitor.xml" = {
+    home.file.".config/monitors.xml" = {
         source = ./monitors.xml;
     };
 
