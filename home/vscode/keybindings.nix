@@ -2,28 +2,11 @@ let
     disableKeybindings = import ./keybindings/disable.nix;
     cursorNavigationKeybindings = import ./keybindings/cursor/navigation.nix;
     cursorTypingKeybindings = import ./keybindings/cursor/typing.nix;
-
-
-
-    essentialKeybindings = [
-
-        { command = "workbench.action.showCommands"; key = "ctrl+shift+p"; }
-        { command = "workbench.action.quickOpen"; key = "ctrl+p"; }
-
-        { command = "editor.action.formatDocument"; key = "shift+alt+f"; when = "editorTextFocus && !editorReadonly"; }
-        
-
-
-       
-        { command = "workbench.action.files.save"; key = "ctrl+s"; }
-        { command = "workbench.action.closeActiveEditor"; key = "ctrl+w"; }
-        { command = "workbench.action.nextEditor"; key = "ctrl+tab"; }
-        { command = "workbench.action.previousEditor"; key = "ctrl+shift+tab"; }
-    ];
+    workspaceKeybindings = import ./keybindings/workspace.nix;
 
 in
 
-disableKeybindings ++ cursorNavigationKeybindings ++ cursorTypingKeybindings ++ essentialKeybindings ++
+disableKeybindings ++ cursorNavigationKeybindings ++ cursorTypingKeybindings ++ workspaceKeybindings ++
 [
     { command = "editor.action.addCommentLine"; key = "ctrl+3"; when = "editorTextFocus && !editorReadonly"; }
     { command = "editor.action.removeCommentLine"; key = "ctrl+shift+3"; when = "editorTextFocus && !editorReadonly"; }
