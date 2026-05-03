@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 set -e
 
+# Fonction de nettoyage en cas d'erreur
+cleanup() {
+  local exit_code=$?
+  if [ $exit_code -ne 0 ] && [ -n "$local_vscodium_dir" ] && [ -d "$local_vscodium_dir" ]; then
+    echo "Erreur - suppression du dossier créé: $local_vscodium_dir"
+    rm -rf "$HOME/.local/share/make-codium/$name/"
+  fi
+}
+trap cleanup EXIT
+
 # Vérifie qu'au moins une option est fournie
 if [ "$#" -lt 1 ]; then
   echo "Usage: ide <option1> [<option2> ...] [path]"
@@ -68,4 +78,4 @@ ln -sf "$public_vscodium_dir/User/keybindings.json" "$local_vscodium_dir/User/ke
 # Symlink for snippets
 ln -sf "$public_vscodium_dir/User/snippets" "$local_vscodium_dir/User/snippets"
 
-exec nix run ~/nixconfig/make-codium#$name -- --user-data-dir "$local_vscodium_dir" -- "$path"
+nix run ~/nixconfig/make-codium#$name -- --user-data-dir "$local_vscodium_dir" -- "$path"
