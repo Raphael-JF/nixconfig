@@ -4,8 +4,10 @@
 
     { command = "deleteLeft"; key = "backspace"; when = "textInputFocus && !editorReadonly"; }
     { command = "deleteRight"; key = "delete"; when = "textInputFocus && !editorReadonly"; }
-    { command = "deleteWordLeft"; key = "ctrl+backspace"; when = "textInputFocus && !editorReadonly"; }
-    { command = "deleteWordRight"; key = "ctrl+delete"; when = "textInputFocus && !editorReadonly"; }
+    { command = "deleteWordPartLeft"; key = "ctrl+backspace"; when = "textInputFocus && !editorReadonly"; }
+    { command = "deleteWordPartRight"; key = "ctrl+delete"; when = "textInputFocus && !editorReadonly"; }
+    { command = "deleteWordLeft"; key = "alt+backspace"; when = "textInputFocus && !editorReadonly"; }
+    { command = "deleteWordRight"; key = "alt+delete"; when = "textInputFocus && !editorReadonly"; }
 
     { command = "commentLine"; key = "ctrl+3"; when = "editorTextFocus && !editorReadonly"; }
     { command = "editor.action.removeCommentLine"; key = "ctrl+shift+3"; when = "editorTextFocus && !editorReadonly"; 

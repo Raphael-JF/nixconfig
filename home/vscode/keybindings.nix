@@ -2,11 +2,13 @@ let
     disableKeybindings = import ./keybindings/disable.nix;
     cursorNavigationKeybindings = import ./keybindings/cursor/navigation.nix;
     cursorTypingKeybindings = import ./keybindings/cursor/typing.nix;
-    workspaceKeybindings = import ./keybindings/workspace.nix;
+    workspaceKeybindings = import ./keybindings/workbench.nix;
+    enterKeybindings = import ./keybindings/enter.nix;
+
 
 in
 
-disableKeybindings ++ cursorNavigationKeybindings ++ cursorTypingKeybindings ++ workspaceKeybindings ++
+
 [
     { command = "editor.action.addCommentLine"; key = "ctrl+3"; when = "editorTextFocus && !editorReadonly"; }
     { command = "editor.action.removeCommentLine"; key = "ctrl+shift+3"; when = "editorTextFocus && !editorReadonly"; }
@@ -29,4 +31,4 @@ disableKeybindings ++ cursorNavigationKeybindings ++ cursorTypingKeybindings ++ 
     { command = "editor.action.inlineSuggest.commit"; key = "f1"; when = "inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"; }
     { command = "editor.action.inlineSuggest.commit"; key = "f1"; when = "inInlineEditsPreviewEditor"; }
     { command = "github.copilot.chat.completions.toggle"; key = "ctrl+[Backquote]"; when = "github.copilot.activated && github.copilot.extensionUnification.activated"; }
-]
+] ++ disableKeybindings ++ cursorNavigationKeybindings ++ cursorTypingKeybindings ++ workspaceKeybindings ++ enterKeybindings

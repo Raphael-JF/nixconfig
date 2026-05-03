@@ -1103,10 +1103,10 @@
 	#  - on: Lines will wrap at the viewport width.
 	#  - wordWrapColumn: Lines will wrap at `editor.wordWrapColumn`.
 	#  - bounded: Lines will wrap at the minimum of viewport and `editor.wordWrapColumn`.
-	"editor.wordWrap" = "off";
+	"editor.wordWrap" = "on";
     
 	# Controls the wrapping column of the editor when `editor.wordWrap` is `wordWrapColumn` or `bounded`.
-	"editor.wordWrapColumn" = 80;
+	# "editor.wordWrapColumn" = 80;
     
 	# Controls whether literal `\n` shall trigger a wordWrap when `editor.wordWrap` is enabled.
 	# 

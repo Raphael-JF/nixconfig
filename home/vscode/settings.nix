@@ -6,10 +6,6 @@ in
 {
     "telemetry.telemetryLevel" = "off";
     "security.workspace.trust.untrustedFiles" = "open";
-    "editor.smoothScrolling" = true;
-    "editor.unicodeHighlight.nonBasicASCII" = false;
-    "editor.multiCursorModifier" = "ctrlCmd";
-    "editor.renderWhitespace" = "none";
 
     "files.autoSave" = "afterDelay";
     "files.autoSaveDelay" = 5000;
@@ -40,16 +36,9 @@ in
     };
 
     # divers
-    "editor.wordWrap" = "bounded";
-    "editor.wrappingIndent" = "deepIndent";
-    "editor.detectIndentation" = false;
 
-    "editor.fontFamily" = "Consolas, Monocraft, 'Courier New', monospace";
 
-    "workbench.editor.wrapTabs" = true;
-    "workbench.editor.enablePreview" = false;
 
-    "workbench.startupEditor" = "none";
     "workbench.panel.defaultLocation" = "right";
 
     "workbench.colorTheme" = "Solarized Light";
@@ -62,11 +51,7 @@ in
     "git.autofetch" = true;
     "git.openRepositoryInParentFolders" = "always";
 
-    "diffEditor.ignoreTrimWhitespace" = false;
-    "diffEditor.renderSideBySide" = true;
 
-    "editor.mouseWheelScrollSensitivity" = 2.5;
-    "editor.minimap.enabled" = false;
 
     "terminal.integrated.gpuAcceleration" = "off";
     "terminal.integrated.smoothScrolling" = true;
@@ -76,7 +61,6 @@ in
     "extensions.ignoreRecommendations" = true;
 
 
-    "editor.find.cursorMoveOnType" = false;
 
     "chat.viewSessions.orientation" = "stacked";
     "chat.disableAIFeatures" = false;

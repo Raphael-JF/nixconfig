@@ -45,4 +45,14 @@
         { command = "cursorDownSelect"; key = "alt+shift+down"; when = "textInputFocus"; }
         { command = "cursorHomeSelect"; key = "alt+shift+home"; when = "textInputFocus"; }
         { command = "cursorEndSelect"; key = "alt+shift+end"; when = "textInputFocus"; }
+
+
+        # pattern navigation
+        { command = "actions.find"; key = "ctrl+f"; when = "textInputFocus"; }
+        { command = "editor.action.addSelectionToNextFindMatch"; key = "ctrl+d"; when = "textInputFocus"; }
+        { command = "cursorUndo"; key = "ctrl+shift+d"; when = "textInputFocus"; }
+        { command = }
+
+        { command = "editor.action.selectAllMatches"; key = "ctrl+shift+a"; when = "textInputFocus"; }
+        { command = "editor.action.selectAll"; key = "ctrl+a"; when = "textInputFocus"; }
 ]
