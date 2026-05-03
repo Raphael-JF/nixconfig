@@ -124,7 +124,7 @@ programs.vscode = {
         # Defines global user snippets
         globalSnippets = null;
         # Keybindings written to Visual Studio Code's keybindings.json
-        keybindings = builtins.fromJSON (builtins.readFile ./vscode/keybindings.json);
+        keybindings = import ./vscode/keybindings.nix;
         # Defines user snippets for different languages
         languageSnippets = {
             c = builtins.fromJSON (builtins.readFile ./vscode/snippets/c.json);
