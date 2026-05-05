@@ -56,5 +56,12 @@
         { command = "editor.action.changeAll"; key = "ctrl+shift+a"; when = "editorTextFocus"; }
         { command = "editor.action.selectAll"; key = "ctrl+a"; when = "textInputFocus"; }
 
+
+
+        #menus
+        { command = "workbench.action.navigateLast"; key = "alt+left"}
+        { command = "workbench.action.navigateNext"; key = "alt+right"}
+
+
         
 ]
