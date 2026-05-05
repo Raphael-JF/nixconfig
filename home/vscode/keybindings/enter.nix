@@ -4,7 +4,6 @@
     { command = "editor.action.nextMatchFindAction"; key = "enter"; when = "editorFocus && findInputFocussed"; }
     { command = "workbench.action.chat.submit"; key = "enter"; when = "chatInputHasText && chatSessionOptionsValid && inChatInput && !chatSessionRequestInProgress && !withinEditSessionDiff"; }
     { command = "acceptRenameInput"; key = "enter"; when = "editorFocus && renameInputVisible && !isComposing"; }
-    { command = "breadcrumbs.selectFocused"; key = "enter"; when = "breadcrumbsActive && breadcrumbsVisible"; }
     { command = "iconSelectBox.selectFocused"; key = "enter"; when = "iconSelectBoxFocus"; }
     { command = "list.select"; key = "enter"; when = "listFocus && !inputFocus && !treestickyScrollFocused"; }
     { command = "quickInput.accept"; key = "enter"; when = "inQuickInput && !isComposing && quickInputType != 'quickWidget'"; }

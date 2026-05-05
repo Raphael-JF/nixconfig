@@ -78,7 +78,10 @@ config = {
     services.libinput.enable = true;
 
     # ===== USBMUXD =====
-    services.usbmuxd.enable = true;
+    services.usbmuxd = {
+        enable = true;
+        package = pkgs.usbmuxd2;
+    };
 
 
     # ===== USERS =====

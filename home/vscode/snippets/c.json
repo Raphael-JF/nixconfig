@@ -1,6 +1,28 @@
 {
-    "start":{
-        "prefix":["go", "start"],
-        "body": ["#include <stdio.h>","", "int main(int argc, char* argv[]){","\t$0", "}"]
+    "start": {
+        "prefix": [
+            "go",
+            "start"
+        ],
+        "body": [
+            "#include <stdio.h>",
+            "",
+            "int main(int argc, char* argv[]){",
+            "\t$0",
+            "}"
+        ]
+    },
+    "#ifndef": {
+        "prefix": [
+            "#ifndef"
+        ],
+        "body": [
+            "#ifndef ${1:HEADER_NAME}",
+            "#define ${1:HEADER_NAME}",
+            "",
+            "$0",
+            "",
+            "#endif /* ${1:HEADER_NAME} */"
+        ]
     }
 }

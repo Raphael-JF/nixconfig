@@ -90,6 +90,7 @@ home-manager.users.raph = {
         gnumake
         graphviz
         libimobiledevice
+        ifuse
         valgrind
         evince
         gdb

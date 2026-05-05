@@ -52,7 +52,8 @@
         { command = "editor.action.addSelectionToNextFindMatch"; key = "ctrl+d"; when = "textInputFocus"; }
         { command = "cursorUndo"; key = "ctrl+shift+d"; when = "textInputFocus"; }
 
-        { command = "editor.action.selectAllMatches"; key = "ctrl+shift+a"; when = "textInputFocus"; }
+
+        { command = "editor.action.changeAll"; key = "ctrl+shift+a"; when = "editorTextFocus"; }
         { command = "editor.action.selectAll"; key = "ctrl+a"; when = "textInputFocus"; }
 
         
