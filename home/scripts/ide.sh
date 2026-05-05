@@ -46,12 +46,21 @@ local_vscodium_dir="$HOME/.local/share/make-codium/$name/VSCodium"
 local_vscodium_dir="$HOME/.local/share/make-codium/$name/VSCodium"
 public_vscodium_dir="$HOME/.config/VSCodium"
 
+
+if [-d "$local_vscodium_dir" ]; then
+  echo "Le dossier local $local_vscodium_dir existe déjà, suppression pour réinitialisation."
+    rm -rf "$local_vscodium_dir"
+fi
+echo "Création du dossier local $local_vscodium_dir pour VSCodium."
 mkdir -p "$local_vscodium_dir" "$local_vscodium_dir/User"
 
 local_global_storage="$local_vscodium_dir/User/globalStorage"
 local_machine_id="$local_vscodium_dir/machineid"
 public_global_storage="$public_vscodium_dir/User/globalStorage"
 public_machine_id="$public_vscodium_dir/machineid"
+
+
+rm -rf "$local_vscodium_dir" && mkdir -p "$local_vscodium_dir/User"
 
 if [ -d "$local_global_storage" ]; then
   echo globalStorage trouvé dans le local $name, pas de copie nécessaire.

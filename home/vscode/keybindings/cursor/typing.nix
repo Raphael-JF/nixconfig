@@ -9,7 +9,7 @@
     { command = "deleteWordLeft"; key = "alt+backspace"; when = "textInputFocus && !editorReadonly"; }
     { command = "deleteWordRight"; key = "alt+delete"; when = "textInputFocus && !editorReadonly"; }
 
-    { command = "commentLine"; key = "ctrl+3"; when = "editorTextFocus && !editorReadonly"; }
+    { command = "editor.action.addCommentLine"; key = "ctrl+3"; when = "editorTextFocus && !editorReadonly"; }
     { command = "editor.action.removeCommentLine"; key = "ctrl+shift+3"; when = "editorTextFocus && !editorReadonly"; 
     }
 

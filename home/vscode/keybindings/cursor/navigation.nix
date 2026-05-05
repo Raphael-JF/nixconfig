@@ -30,25 +30,29 @@
         { command = "cursorHomeSelect"; key = "ctrl+shift+home"; when = "textInputFocus"; }
         { command = "cursorEndSelect"; key = "ctrl+shift+end"; when = "textInputFocus"; }
 
-        #with alt : word by word
-        { command = "cursorWordLeft"; key = "alt+left"; when = "textInputFocus"; }
-        { command = "cursorWordRight"; key = "alt+right"; when = "textInputFocus"; }
-        { command = "cursorUp"; key = "alt+up"; when = "textInputFocus"; }
-        { command = "cursorDown"; key = "alt+down"; when = "textInputFocus"; }
-        { command = "cursorHome"; key = "alt+home"; when = "textInputFocus"; }
-        { command = "cursorEnd"; key = "alt+end"; when = "textInputFocus"; }
+        # #with alt : word by word
+        # { command = "cursorWordLeft"; key = "alt+left"; when = "textInputFocus"; }
+        # { command = "cursorWordRight"; key = "alt+right"; when = "textInputFocus"; }
+        # { command = "cursorUp"; key = "alt+up"; when = "textInputFocus"; }
+        # { command = "cursorDown"; key = "alt+down"; when = "textInputFocus"; }
+        # { command = "cursorHome"; key = "alt+home"; when = "textInputFocus"; }
+        # { command = "cursorEnd"; key = "alt+end"; when = "textInputFocus"; }
 
-        # with alt+shift
-        { command = "cursorWordLeftSelect"; key = "alt+shift+left"; when = "textInputFocus"; }
-        { command = "cursorWordRightSelect"; key = "alt+shift+right"; when = "textInputFocus"; }
-        { command = "cursorUpSelect"; key = "alt+shift+up"; when = "textInputFocus"; }
-        { command = "cursorDownSelect"; key = "alt+shift+down"; when = "textInputFocus"; }
-        { command = "cursorHomeSelect"; key = "alt+shift+home"; when = "textInputFocus"; }
-        { command = "cursorEndSelect"; key = "alt+shift+end"; when = "textInputFocus"; }
+        # # with alt+shift
+        # { command = "cursorWordLeftSelect"; key = "alt+shift+left"; when = "textInputFocus"; }
+        # { command = "cursorWordRightSelect"; key = "alt+shift+right"; when = "textInputFocus"; }
+        # { command = "cursorUpSelect"; key = "alt+shift+up"; when = "textInputFocus"; }
+        # { command = "cursorDownSelect"; key = "alt+shift+down"; when = "textInputFocus"; }
+        # { command = "cursorHomeSelect"; key = "alt+shift+home"; when = "textInputFocus"; }
+        # { command = "cursorEndSelect"; key = "alt+shift+end"; when = "textInputFocus"; }
 
 
         # pattern navigation
         { command = "actions.find"; key = "ctrl+f"; when = "textInputFocus"; }
+        { command = "toggleFindWholeWord"; key = "ctrl+h"; when = "textInputFocus"; }
+        { command = "toggleFindCaseSensitive"; key = "ctrl+g"; when = "textInputFocus"; }
+        { command = "editor.action.nextMatchFindAction"; key = "enter"; when = "editorFocus && findInputFocussed"; }
+        { command = "editor.action.previousMatchFindAction"; key = "shift+enter"; when = "editorFocus && findInputFocussed"; }
         { command = "editor.action.addSelectionToNextFindMatch"; key = "ctrl+d"; when = "textInputFocus"; }
         { command = "cursorUndo"; key = "ctrl+shift+d"; when = "textInputFocus"; }
 
@@ -59,8 +63,8 @@
 
 
         #menus
-        { command = "workbench.action.navigateLast"; key = "alt+left"}
-        { command = "workbench.action.navigateNext"; key = "alt+right"}
+        { command = "workbench.action.navigateBackInNavigationLocations"; key = "alt+left"; }
+        { command = "workbench.action.navigateForwardInNavigationLocations"; key = "alt+right"; }
 
 
         
