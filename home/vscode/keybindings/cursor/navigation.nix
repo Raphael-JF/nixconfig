@@ -55,16 +55,26 @@
         { command = "editor.action.previousMatchFindAction"; key = "shift+enter"; when = "editorFocus && findInputFocussed"; }
         { command = "editor.action.addSelectionToNextFindMatch"; key = "ctrl+d"; when = "textInputFocus"; }
         { command = "cursorUndo"; key = "ctrl+shift+d"; when = "textInputFocus"; }
-
-
         { command = "editor.action.changeAll"; key = "ctrl+shift+a"; when = "editorTextFocus"; }
+
+        # selection
         { command = "editor.action.selectAll"; key = "ctrl+a"; when = "textInputFocus"; }
+
+        # quick open menu
+        { command = "workbench.action.quickOpen"; key = "ctrl+p"; }
+
+        # navigation fluide dans la liste
+        { command = "workbench.action.quickOpenNavigateNext"; key = "down"; when = "inQuickOpen"; }
+        { command = "workbench.action.quickOpenNavigatePrevious"; key = "up"; when = "inQuickOpen"; }
+
+        # accès direct symboles workspace (fallback rapide)
+        { command = "workbench.action.showAllSymbols"; key = "ctrl+t"; }
 
 
 
         #menus
-        { command = "workbench.action.navigateBackInNavigationLocations"; key = "alt+left"; }
-        { command = "workbench.action.navigateForwardInNavigationLocations"; key = "alt+right"; }
+        { command = "workbench.action.navigateBack"; key = "alt+left"; }
+        { command = "workbench.action.navigateForward"; key = "alt+right"; }
 
 
         
