@@ -68,7 +68,7 @@
         { command = "workbench.action.quickOpenNavigatePrevious"; key = "up"; when = "inQuickOpen"; }
 
         # accès direct symboles workspace (fallback rapide)
-        # { command = "workbench.action.showAllSymbols"; key = "ctrl+t"; }
+        { command = "workbench.action.showAllSymbols"; key = "ctrl+t"; }
 
 
 
