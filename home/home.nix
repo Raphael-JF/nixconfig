@@ -95,6 +95,7 @@ home-manager.users.raph = {
         evince
         gdb
         dconf-editor
+        anki-bin
 
         (pkgs.writeShellScriptBin "ide" (builtins.readFile ./scripts/ide.sh))
         (pkgs.writeShellScriptBin "rebuild" (builtins.readFile ./scripts/rebuild.sh))
