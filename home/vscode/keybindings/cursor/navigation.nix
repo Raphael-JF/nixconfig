@@ -62,14 +62,11 @@
 
         # quick open menu
         { command = "workbench.action.quickOpen"; key = "ctrl+p"; }
-
-        # navigation fluide dans la liste
         { command = "workbench.action.quickOpenNavigateNext"; key = "down"; when = "inQuickOpen"; }
         { command = "workbench.action.quickOpenNavigatePrevious"; key = "up"; when = "inQuickOpen"; }
 
-        # accès direct symboles workspace (fallback rapide)
+        # accès direct symboles workspace
         { command = "workbench.action.showAllSymbols"; key = "ctrl+t"; }
-
 
 
         #menus
