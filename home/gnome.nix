@@ -23,11 +23,14 @@ dconf.settings = {
     switch-to-workspace-right = ["<Alt>c"];
     switch-to-workspace-left  = ["<Alt>x"];
 
-    switch-group = ["<Alt>Tab"];
-    switch-group-backward = ["<Shift><Alt>Tab"];
+    switch-applications = [ ];
+    switch-applications-backward = [ ];
 
-    switch-applications = ["<Alt>Tab"];
-    switch-applications-backward = ["<Shift><Alt>Tab"];
+    switch-group = [ ];
+    switch-group-backward = [ ];
+
+    switch-windows = [ "<Alt>Tab" ];
+    switch-windows-backward = [ "<Shift><Alt>Tab" ];
     };
 
     # --- Touchpad ---

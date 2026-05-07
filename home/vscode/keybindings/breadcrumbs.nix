@@ -1,7 +1,6 @@
 [
     # Breadcrumbs keybindings
-    { command = "breadcrumbs.focus"; key = "ctrl+[Period]"; when = "breadcrumbsPossible && breadcrumbsVisible"; }
-    { command = "breadcrumbs.focusAndSelect"; key = "ctrl+shift+[IntlBackslash]"; when = "breadcrumbsPossible && breadcrumbsVisible"; }
+    { command = "breadcrumbs.focusAndSelect"; key = "ctrl+e"; when = "breadcrumbsPossible && breadcrumbsVisible"; }
     { command = "breadcrumbs.focusNext"; key = "ctrl+right"; when = "breadcrumbsActive && breadcrumbsVisible"; }
     { command = "breadcrumbs.focusNext"; key = "right"; when = "breadcrumbsActive && breadcrumbsVisible"; }
     { command = "breadcrumbs.focusPrevious"; key = "ctrl+left"; when = "breadcrumbsActive && breadcrumbsVisible"; }

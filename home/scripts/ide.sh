@@ -47,7 +47,7 @@ local_vscodium_dir="$HOME/.local/share/make-codium/$name/VSCodium"
 public_vscodium_dir="$HOME/.config/VSCodium"
 
 
-if [-d "$local_vscodium_dir" ]; then
+if [ -d "$local_vscodium_dir" ]; then
   echo "Le dossier local $local_vscodium_dir existe déjà, suppression pour réinitialisation."
     rm -rf "$local_vscodium_dir"
 fi
