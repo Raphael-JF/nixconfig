@@ -10,8 +10,6 @@
 
   services.zerotierone.enable = true;
 
-
-
   # ===== NVIDIA GRAPHICS =====
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];

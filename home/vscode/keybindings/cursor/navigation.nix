@@ -62,17 +62,32 @@
 
         # quick open menu
         { command = "workbench.action.quickOpen"; key = "ctrl+p"; }
+
+        # navigation fluide dans la liste
         { command = "workbench.action.quickOpenNavigateNext"; key = "down"; when = "inQuickOpen"; }
         { command = "workbench.action.quickOpenNavigatePrevious"; key = "up"; when = "inQuickOpen"; }
 
-        # accès direct symboles workspace
+        # accès direct symboles workspace (fallback rapide)
         { command = "workbench.action.showAllSymbols"; key = "ctrl+t"; }
+
 
 
         #menus
         { command = "workbench.action.navigateBack"; key = "alt+left"; }
         { command = "workbench.action.navigateForward"; key = "alt+right"; }
 
+        #suggestions
+        { command = "editor.action.triggerSuggest"; key = "ctrl+space"; }
+        { command = "acceptSelectedSuggestion"; key = "enter"; when = "suggestWidgetVisible"; }
+        { command = "selectNextSuggestion"; key = "down"; when = "suggestWidgetVisible"; }
+        { command = "selectPrevSuggestion"; key = "up"; when = "suggestWidgetVisible"; }
+        { command = "hideSuggestWidget"; key = "escape"; when = "suggestWidgetVisible"; }
+
+        #liste quelconque
+        { command = "list.focusDown"; key = "down"; when = "listFocus"; }
+        { command = "list.focusUp"; key = "up"; when = "listFocus"; }
+
+        { command = "list.select"; key = "enter"; when = "listFocus"; }
 
         
 ]

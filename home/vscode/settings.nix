@@ -38,8 +38,9 @@ in
     # divers
 
 
-
+    "workbench.tree.indent" = 20;
     "workbench.panel.defaultLocation" = "right";
+    "workbench.list.smoothScrolling" = true;
 
     "workbench.colorTheme" = "Solarized Light";
     "workbench.preferredLightColorTheme" = "Solarized Light";

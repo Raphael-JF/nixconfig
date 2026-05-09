@@ -23,7 +23,6 @@ in
     { command = "cursorUndo"; key = "ctrl+shift+d"; when = "textInputFocus"; }
     { command = "editor.action.addSelectionToPreviousFindMatch"; key = "ctrl+q"; }
     { command = "welcome.showNewFileEntries"; key = "ctrl+n"; }
-    { command = "latex-workshop.close-env"; key = "ctrl+space"; }
     { command = "workbench.action.zoomIn"; key = "ctrl+shift+oem_plus"; }
     { command = "workbench.action.focusNextPart"; key = "ctrl+g"; }
     { command = "workbench.action.focusPreviousPart"; key = "ctrl+t"; }

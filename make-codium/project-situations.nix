@@ -104,6 +104,14 @@
         pkgs.avrdude
     ];
   };
+
+  npm = {
+    extensions = [
+    ];
+
+    packages = [
+        pkgs.nodejs
+    ];};
 }
 
     
