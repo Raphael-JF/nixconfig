@@ -89,5 +89,11 @@
 
         { command = "list.select"; key = "enter"; when = "listFocus"; }
 
+        # Collapse dossier
+        { command = "list.collapse"; key = "shift+up"; when = "listFocus"; }
+
+        # Expand dossier
+        { command = "list.expand"; key = "shift+down"; when = "listFocus"; }
+
         
 ]

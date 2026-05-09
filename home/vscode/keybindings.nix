@@ -5,6 +5,7 @@ let
     workspaceKeybindings = import ./keybindings/workbench.nix;
     enterKeybindings = import ./keybindings/enter.nix;
     breadcrumbsKeybindings = import ./keybindings/breadcrumbs.nix;
+    explorerKeybindings = import ./keybindings/explorer.nix;
 
 
 in
@@ -31,4 +32,4 @@ in
     { command = "editor.action.inlineSuggest.commit"; key = "f1"; when = "inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"; }
     { command = "editor.action.inlineSuggest.commit"; key = "f1"; when = "inInlineEditsPreviewEditor"; }
     { command = "github.copilot.chat.completions.toggle"; key = "ctrl+[Backquote]"; when = "github.copilot.activated && github.copilot.extensionUnification.activated"; }
-] ++ disableKeybindings ++ cursorNavigationKeybindings ++ cursorTypingKeybindings ++ workspaceKeybindings ++ enterKeybindings ++ breadcrumbsKeybindings
+] ++ disableKeybindings ++ cursorNavigationKeybindings ++ cursorTypingKeybindings ++ workspaceKeybindings ++ enterKeybindings ++ breadcrumbsKeybindings ++ explorerKeybindings

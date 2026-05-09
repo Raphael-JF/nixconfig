@@ -19,7 +19,7 @@
 	"explorer.compactFolders" = false;
 
 	# Controls whether the Explorer should ask for confirmation when deleting files and folders.
-	"explorer.confirmDelete" = true;
+	"explorer.confirmDelete" = false;
 
 	# Controls whether the Explorer should ask for confirmation to move files and folders via drag and drop.
 	"explorer.confirmDragAndDrop" = false;
@@ -101,7 +101,7 @@
 	"explorer.openEditors.sortOrder" = "editorOrder";
 
 	# The initial maximum number of editors shown in the Open Editors pane. Exceeding this limit will show a scroll bar and allow resizing the pane to display more items.
-	"explorer.openEditors.visible" = 9;
+	"explorer.openEditors.visible" = 0;
 
 	# Controls the property-based sorting of files and folders in the Explorer. When `explorer.fileNesting.enabled` is enabled, also controls sorting of nested files.
 	#  - default: Files and folders are sorted by their names. Folders are displayed before files.

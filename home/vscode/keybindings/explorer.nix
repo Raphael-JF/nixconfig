@@ -1,6 +1,6 @@
 [   
     # Focus explorateur
-    { command = "workbench.view.explorer"; key = "ctrl+e"; }
+    { command = "workbench.view.explorer"; key = "ctrl+shift+e"; }
 
     # Nouveau fichier / dossier
     { command = "explorer.newFile"; key = "ctrl+n"; when = "filesExplorerFocus && !inputFocus"; }

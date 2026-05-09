@@ -52,7 +52,7 @@ in
     "git.autofetch" = true;
     "git.openRepositoryInParentFolders" = "always";
 
-
+    "breadcrumbs.symbolSortOrder" = "type";
 
     "terminal.integrated.gpuAcceleration" = "off";
     "terminal.integrated.smoothScrolling" = true;
