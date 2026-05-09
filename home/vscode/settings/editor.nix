@@ -679,7 +679,7 @@
 	# The modifier to be used to add multiple cursors with the mouse. The Go to Definition and Open Link mouse gestures will adapt such that they do not conflict with the [multicursor modifier](https:#code.visualstudio.com/docs/editor/codebasics#_multicursor-modifier).
 	#  - ctrlCmd: Maps to `Control` on Windows and Linux and to `Command` on macOS.
 	#  - alt: Maps to `Alt` on Windows and Linux and to `Option` on macOS.
-	"editor.multiCursorModifier" = "alt";
+	"editor.multiCursorModifier" = "ctrlCmd";
     
 	# Controls pasting when the line count of the pasted text matches the cursor count.
 	#  - spread: Each cursor pastes a single line of the text.
