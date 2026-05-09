@@ -72,6 +72,10 @@
 
 
 
+        # snippets
+        { command = "jumpToNextSnippetPlaceholder"; key = "tab"; when = "hasNextTabstop && inSnippetMode && textInputFocus"; }
+        { command = "jumpToPrevSnippetPlaceholder"; key = "shift+tab"; when = "hasPrevTabstop && inSnippetMode && textInputFocus"; }
+
         #menus
         { command = "workbench.action.navigateBack"; key = "alt+left"; }
         { command = "workbench.action.navigateForward"; key = "alt+right"; }
@@ -94,6 +98,8 @@
 
         # Expand dossier
         { command = "list.expand"; key = "shift+down"; when = "listFocus"; }
+
+        
 
         
 ]
