@@ -83,6 +83,7 @@ in
 
         (pkgs.writeShellScriptBin "ide" (builtins.readFile ./scripts/ide.sh))
         (pkgs.writeShellScriptBin "rebuild" (builtins.readFile ./scripts/rebuild.sh))
+        (pkgs.writeShellScriptBin "detach" (builtins.readFile ./scripts/detach.sh))
     ] ++
     (if raph.hostType == "desktop" then [
         pkgs.heroic

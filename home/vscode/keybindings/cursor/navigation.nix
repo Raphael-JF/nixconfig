@@ -90,14 +90,13 @@
         #liste quelconque
         { command = "list.focusDown"; key = "down"; when = "listFocus"; }
         { command = "list.focusUp"; key = "up"; when = "listFocus"; }
-
         { command = "list.select"; key = "enter"; when = "listFocus"; }
-
-        # Collapse dossier
         { command = "list.collapse"; key = "shift+up"; when = "listFocus"; }
-
-        # Expand dossier
         { command = "list.expand"; key = "shift+down"; when = "listFocus"; }
+
+        # open recent
+        { command = "workbench.action.openRecent"; key = "ctrl+r"; }
+
 
         
 
