@@ -76,5 +76,9 @@ dconf.settings = {
     "org/gnome/shell" = {
     startup-overview = false;
     };
+    "org/gnome/desktop/session" = {
+        idle-delay = lib.gvariant.mkUint32 900;
+    };
 };
+
 }
