@@ -80,6 +80,7 @@ in
         gdb
         dconf-editor
         anki-bin
+	neovim
 
         (pkgs.writeShellScriptBin "ide" (builtins.readFile ./scripts/ide.sh))
         (pkgs.writeShellScriptBin "rebuild" (builtins.readFile ./scripts/rebuild.sh))
