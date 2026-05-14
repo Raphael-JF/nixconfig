@@ -108,6 +108,10 @@ config = {
 
     ];
 
+    fonts.packages = with pkgs; [
+        nerd-fonts.departure-mono
+    ];
+
 
 
     # ===== STATE VERSION =====

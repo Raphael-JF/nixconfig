@@ -40,6 +40,8 @@
       pkgs.bear
       pkgs.gsl
       pkgs.gsl.dev
+      pkgs.llvmPackages.compiler-rt
+      pkgs.clang
     ];
   };
 

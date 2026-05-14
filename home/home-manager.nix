@@ -9,6 +9,8 @@ in
         ./gnome.nix
     ];
 
+    fonts.fontconfig.enable = true;
+
     home.username = "raph";
     home.homeDirectory = "/home/raph";
 
@@ -80,7 +82,6 @@ in
         gdb
         dconf-editor
         anki-bin
-	neovim
 
         (pkgs.writeShellScriptBin "ide" (builtins.readFile ./scripts/ide.sh))
         (pkgs.writeShellScriptBin "rebuild" (builtins.readFile ./scripts/rebuild.sh))
@@ -111,6 +112,75 @@ in
             userSettings = import ./vscode/settings.nix;
             userTasks = {};
         };
+    };
+
+    programs.neovim = {
+        enable = true;
+        defaultEditor = true;
+        viAlias = true;
+        vimAlias = true;
+        vimdiffAlias = true;
+        extraPackages = with pkgs; [
+        # for vim usage
+        ripgrep
+        fd
+
+        #for C development
+        gcc
+        gdb
+        clang-tools
+
+        # for nix development
+        nil
+        ];
+
+        plugins = with pkgs.vimPlugins; [
+        nvim-lspconfig
+        nvim-web-devicons
+        {
+            plugin = nvim-treesitter.withAllGrammars;
+            config = toLua ''
+                require("nvim-treesitter.configs").setup({
+                    highlight = {
+                        enable = true,
+                    },
+                })
+            '';
+        }
+        {
+           plugin = lualine-nvim;
+            config = toLua ''
+                require("lualine").setup()
+            '';
+        }
+        {
+            plugin = which-key.nvim;
+            config = toLua ''
+                require("which-key").setup()
+            '';
+        }
+        {
+            plugin = nvim-cmp;
+            config = toLuaFile ./nvim/plugin/cmp.lua;
+        }
+
+        {
+            plugin = comment-nvim;
+            config = toLua ''
+                require("Comment").setup()
+            '';
+        }
+
+        {
+            plugin = telescope-nvim;
+            config = toLuaFile ./nvim/plugin/telescope.lua;
+        }
+    ];
+
+        withRuby = false;
+        withPython3 = false;
+
+        
     };
 
     home.stateVersion = "25.11";
