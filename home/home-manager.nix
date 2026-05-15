@@ -116,8 +116,8 @@ in
 
     programs.neovim = 
     let
-        toLua = str: "lua << EOF\n${str}\nEOF\n";
-        toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
+        toLua = str: "\n${str}\n";
+        toLuaFile = file: "\n${builtins.readFile file}\n";
     in
     {
         enable = true;
@@ -142,34 +142,39 @@ in
         plugins = with pkgs.vimPlugins; [
         nvim-lspconfig
         nvim-web-devicons
+        # {
+        #     type = "lua";
+        #     plugin = nvim-treesitter.withAllGrammars;
+        #     config = toLua ''
+        #         require("nvim-treesitter.configs").setup({
+        #             highlight = {
+        #                 enable = true,
+        #             },
+        #         })
+        #     '';
+        # }
         {
-            plugin = nvim-treesitter.withAllGrammars;
-            config = toLua ''
-                require("nvim-treesitter.configs").setup({
-                    highlight = {
-                        enable = true,
-                    },
-                })
-            '';
-        }
-        {
+           type = "lua";
            plugin = lualine-nvim;
             config = toLua ''
                 require("lualine").setup()
             '';
         }
         {
+            type = "lua";
             plugin = which-key-nvim;
             config = toLua ''
                 require("which-key").setup()
             '';
         }
         {
+            type = "lua";
             plugin = nvim-cmp;
             config = toLuaFile ./nvim/plugin/cmp.lua;
         }
 
         {
+            type = "lua";
             plugin = comment-nvim;
             config = toLua ''
                 require("Comment").setup()
@@ -177,6 +182,7 @@ in
         }
 
         {
+            type = "lua";
             plugin = telescope-nvim;
             config = toLuaFile ./nvim/plugin/telescope.lua;
         }
