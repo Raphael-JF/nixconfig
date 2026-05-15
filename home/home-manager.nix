@@ -158,7 +158,18 @@ in
         plugins = with pkgs.vimPlugins; [
         nvim-lspconfig
         nvim-web-devicons
-        nvim-treesitter.withAllGrammars
+
+        {
+            plugin = (nvim-treesitter.withPlugins (p: [
+            p.tree-sitter-nix
+            p.tree-sitter-vim
+            p.tree-sitter-bash
+            p.tree-sitter-lua
+            p.tree-sitter-python
+            p.tree-sitter-json
+            ]));
+            config = toLuaFile ./nvim/plugin/treesitter.lua;
+        }
         {
            type = "lua";
            plugin = lualine-nvim;
