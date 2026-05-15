@@ -8,5 +8,5 @@
         inherit pkgs;
     };
 
-    home-manager.users.raph = import ./home-manager.nix;
+    home-manager.users.raph = ./home-manager.nix;
 }

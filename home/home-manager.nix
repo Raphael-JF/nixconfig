@@ -2,6 +2,7 @@
 
 let
     projectSituations = import ../make-codium/project-situations.nix { inherit pkgs; };
+    treeSitter = pkgs.callPackage ./packages/tree-sitter.nix {};
     sshIdentity = if raph.hostType == "desktop" then "~/.ssh/desktop" else "~/.ssh/laptop";
 in
 {
@@ -83,6 +84,8 @@ in
         dconf-editor
         anki-bin
         nerd-fonts.fira-code
+        treeSitter
+
 
         (pkgs.writeShellScriptBin "ide" (builtins.readFile ./scripts/ide.sh))
         (pkgs.writeShellScriptBin "rebuild" (builtins.readFile ./scripts/rebuild.sh))
@@ -141,6 +144,7 @@ in
         # for vim usage
         ripgrep
         fd
+        
 
         #for C development
         gcc
@@ -154,17 +158,7 @@ in
         plugins = with pkgs.vimPlugins; [
         nvim-lspconfig
         nvim-web-devicons
-        # {
-        #     type = "lua";
-        #     plugin = nvim-treesitter.withAllGrammars;
-        #     config = toLua ''
-        #         require("nvim-treesitter.configs").setup({
-        #             highlight = {
-        #                 enable = true,
-        #             },
-        #         })
-        #     '';
-        # }
+        nvim-treesitter.withAllGrammars
         {
            type = "lua";
            plugin = lualine-nvim;
