@@ -108,11 +108,6 @@ config = {
 
     ];
 
-    fonts.packages = with pkgs; [
-        nerd-fonts.departure-mono
-    ];
-
-
 
     # ===== STATE VERSION =====
     system.stateVersion = "25.11";

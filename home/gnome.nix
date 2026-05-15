@@ -12,7 +12,7 @@ dconf.settings = {
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
     name = "Terminal";
-    command = "kgx";
+    command = "kitty";
     binding = "<Ctrl><Alt>T";
     };
 

@@ -82,6 +82,7 @@ in
         gdb
         dconf-editor
         anki-bin
+        nerd-fonts.fira-code
 
         (pkgs.writeShellScriptBin "ide" (builtins.readFile ./scripts/ide.sh))
         (pkgs.writeShellScriptBin "rebuild" (builtins.readFile ./scripts/rebuild.sh))
@@ -91,6 +92,17 @@ in
         pkgs.heroic
         pkgs.discord
     ] else []);
+
+
+    programs.kitty = {
+        enable = true;
+        extraConfig = ''
+        confirm_os_window_close 0
+        font_size 12
+        font_family FiraCode\ Nerd\ Font
+    '';
+        
+    };
 
     programs.vscode = {
         enable = true;
@@ -190,6 +202,7 @@ in
 
         withRuby = false;
         withPython3 = false;
+        initLua = toLuaFile ./nvim/init.lua;
 
         
     };
