@@ -162,11 +162,14 @@ in
         nvim-lspconfig
         nvim-web-devicons
         mini-icons
-        tokyonight-nvim
+
+        #color theme
+        kanagawa-nvim
 
         {
             type = "lua";
-            plugin = nvim-treesitter.withAllGrammars;
+            
+            plugin = nvim-treesitter;
             config = toLuaFile ./nvim/plugin/treesitter.lua;
         }
         nvim-treesitter-textobjects
