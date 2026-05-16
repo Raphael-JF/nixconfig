@@ -103,6 +103,9 @@ in
         confirm_os_window_close 0
         font_size 12
         font_family FiraCode\ Nerd\ Font
+        sync_to_monitor no
+        input_delay 0
+        repaint_delay 1
     '';
         
     };
@@ -158,6 +161,7 @@ in
         plugins = with pkgs.vimPlugins; [
         nvim-lspconfig
         nvim-web-devicons
+        mini-icons
         tokyonight-nvim
 
         {
@@ -165,6 +169,7 @@ in
             plugin = nvim-treesitter.withAllGrammars;
             config = toLuaFile ./nvim/plugin/treesitter.lua;
         }
+        nvim-treesitter-textobjects
         {
            type = "lua";
            plugin = lualine-nvim;
@@ -197,6 +202,13 @@ in
             type = "lua";
             plugin = telescope-nvim;
             config = toLuaFile ./nvim/plugin/telescope.lua;
+        }
+        {
+            type = "lua";
+            plugin = persistence-nvim;
+            config = toLua ''
+                require("persistence").setup()
+            '';
         }
     ];
 
