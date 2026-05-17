@@ -15,7 +15,7 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.number = true
-
+vim.opt.clipboard = "unnamedplus"
 -- auto save on insert leave and text changed
 vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
   pattern = "*",

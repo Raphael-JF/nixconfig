@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=CopyQ
+Exec=copyq
+X-GNOME-Autostart-enabled=true
+NoDisplay=false
+StartupNotify=false
+Categories=Utility;

@@ -85,6 +85,7 @@ in
         anki-bin
         nerd-fonts.fira-code
         gh
+        copyq
 
 
 
@@ -151,6 +152,8 @@ in
         elmPackages.nodejs
         treeSitter
         lynx
+        wl-clipboard
+        xclip
         
 
         #for C development
