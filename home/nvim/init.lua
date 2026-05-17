@@ -22,13 +22,14 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
   command = "silent! write",
 })
 
--- persistence.nvim
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = vim.api.nvim_create_augroup("persistence", { clear = true }),
-  callback = function()
-    require("persistence").load()
-  end,
-  nested = true,
+
+
+-- LSP diagnostics configuration
+vim.diagnostic.config({
+  virtual_text = true,   -- affiche les erreurs à droite de la ligne
+  signs = true,
+  underline = true,
+  update_in_insert = false,
 })
 
 
