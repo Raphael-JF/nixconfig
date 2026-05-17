@@ -84,7 +84,8 @@ in
         dconf-editor
         anki-bin
         nerd-fonts.fira-code
-        treeSitter
+        gh
+
 
 
         (pkgs.writeShellScriptBin "ide" (builtins.readFile ./scripts/ide.sh))
@@ -147,6 +148,9 @@ in
         # for vim usage
         ripgrep
         fd
+        elmPackages.nodejs
+        treeSitter
+        lynx
         
 
         #for C development
@@ -159,16 +163,41 @@ in
         ];
 
         plugins = with pkgs.vimPlugins; [
-        nvim-lspconfig
         nvim-web-devicons
         mini-icons
 
         #color theme
         kanagawa-nvim
 
+        plenary-nvim
+
+        {
+            plugin = copilot-lua;
+            type = "lua";
+            config = ''
+            require("copilot").setup({
+                suggestion = { enabled = false },
+                panel = { enabled = false },
+            })
+            '';
+        }
+
+        {
+            plugin = CopilotChat-nvim;
+            type = "lua";
+            config = ''
+            require("CopilotChat").setup({
+                debug = false,
+            })
+            '';
+        }
         {
             type = "lua";
-            
+            plugin = nvim-lspconfig;
+            config = toLuaFile ./nvim/plugin/lsp.lua;
+        }
+        {
+            type = "lua";
             plugin = nvim-treesitter;
             config = toLuaFile ./nvim/plugin/treesitter.lua;
         }
@@ -192,6 +221,9 @@ in
             plugin = nvim-cmp;
             config = toLuaFile ./nvim/plugin/cmp.lua;
         }
+        cmp-buffer
+        cmp-path
+        cmp-nvim-lsp
 
         {
             type = "lua";
