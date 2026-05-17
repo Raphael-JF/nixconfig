@@ -3,11 +3,26 @@
 {
 dconf.settings = {
 
+    # --- Extensions ---
+    "org/gnome/shell" = {
+        enabled-extensions = [
+            "all-in-one-clipboard@NiffirgkcaJ.github.com"
+        ];
+        disabled-extensions = [
+        ];
+    };
+
+    "/org/gnome/shell/extensions/all-in-one-clipboard" = {
+        show-in-top-bar = true;
+        shortcut-open-clipboard = ["<Super>v"];
+        enable-auto-paste = true;
+        hide-panel-icon = true;
+    };
+
     # --- Custom keybindings ---
     "org/gnome/settings-daemon/plugins/media-keys" = {
     custom-keybindings = [
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
     ];
     };
 
@@ -17,12 +32,6 @@ dconf.settings = {
     binding = "<Ctrl><Alt>T";
     };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-    name = "Clipboard history";
-    command = "copyq toggle";
-    binding = "<Super>v";
-    };
-
     # --- Window manager ---
     "org/gnome/desktop/wm/keybindings" = {
     move-to-workspace-left  = ["<Shift><Alt>x"];
@@ -30,6 +39,7 @@ dconf.settings = {
     switch-to-workspace-right = ["<Alt>c"];
     switch-to-workspace-left  = ["<Alt>x"];
 
+    toggle-message-tray = [ ];
     switch-applications = [ ];
     switch-applications-backward = [ ];
 

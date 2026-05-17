@@ -76,6 +76,7 @@ in
         firefox
         gnumake
         graphviz
+        gnomeExtensions.all-in-one-clipboard
         libimobiledevice
         ifuse
         valgrind
@@ -85,9 +86,6 @@ in
         anki-bin
         nerd-fonts.fira-code
         gh
-        copyq
-
-
 
         (pkgs.writeShellScriptBin "ide" (builtins.readFile ./scripts/ide.sh))
         (pkgs.writeShellScriptBin "rebuild" (builtins.readFile ./scripts/rebuild.sh))
