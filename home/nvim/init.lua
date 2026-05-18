@@ -16,6 +16,20 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.number = true
 vim.opt.clipboard = "unnamedplus"
+
+-- Configure clipboard for Wayland using wl-clipboardj
+-- vim.g.clipboard = {
+--   name = "wl-clipboard",
+--   copy = {
+--     ["+"] = "wl-copy --foreground --type text/plain",
+--     ["*"] = "wl-copy --primary --foreground --type text/plain",
+--   },
+--   paste = {
+--     ["+"] = "wl-paste --no-newline",
+--     ["*"] = "wl-paste --primary --no-newline",
+--   },
+-- }
+
 -- auto save on insert leave and text changed
 vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
   pattern = "*",
@@ -30,7 +44,8 @@ vim.diagnostic.config({
   signs = true,
   underline = true,
   update_in_insert = false,
-})
+  })
+
 
 
 -- doing it the hard way

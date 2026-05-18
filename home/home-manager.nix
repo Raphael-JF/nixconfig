@@ -76,7 +76,8 @@ in
         firefox
         gnumake
         graphviz
-        gnomeExtensions.all-in-one-clipboard
+        wl-clipboard
+        gnomeExtensions.copyous
         libimobiledevice
         ifuse
         valgrind
@@ -150,7 +151,6 @@ in
         elmPackages.nodejs
         treeSitter
         lynx
-        wl-clipboard
         xclip
         
 
@@ -199,6 +199,12 @@ in
             config = ''
             require("CopilotChat").setup({
                 debug = false,
+                mappings = {
+                    submit_prompt = {
+                    normal = "<CR>",
+                    insert = "<C-CR>",
+                    },
+                },
             })
             '';
         }

@@ -6,17 +6,34 @@ dconf.settings = {
     # --- Extensions ---
     "org/gnome/shell" = {
         enabled-extensions = [
-            "all-in-one-clipboard@NiffirgkcaJ.github.com"
+            "copyous@boerdereinar.dev"
         ];
         disabled-extensions = [
         ];
     };
 
-    "/org/gnome/shell/extensions/all-in-one-clipboard" = {
-        show-in-top-bar = true;
-        shortcut-open-clipboard = ["<Super>v"];
-        enable-auto-paste = true;
-        hide-panel-icon = true;
+    "org/gnome/shell/extensions/copyous" = {
+        clipboard-orientation = "vertical";
+        clipboard-position-horizontal = "top";
+        clipboard-position-vertical = "fill";
+        clipboard-size = 500;
+        disable-hljs-dialog = true;
+        dynamic-item-height = true;
+        header-controls-visibility = "visible-on-hover";
+        item-height = 100;
+        item-width = 300;
+        show-at-pointer = true;
+        show-header = false;
+        show-indicator = false;
+        sync-primary = true;
+        open-clipboard-dialog-shortcut = ["<Super>v"];
+
+    };
+    "org/gnome/shell/extensions/copyous/file-item" = {
+        file-preview-visibility = "file-info";
+    };
+    "org/gnome/shell/extensions/copyous/link-item" = {
+        link-preview-orientation = "horizontal";
     };
 
     # --- Custom keybindings ---
