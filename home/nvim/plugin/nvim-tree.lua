@@ -2,6 +2,7 @@ require("nvim-tree").setup({
   view = {
     width = 40,
     side = "left",
+    preserve_window_proportions = true,
   },
   renderer = {
     icons = {
@@ -16,21 +17,46 @@ require("nvim-tree").setup({
   filters = {
     dotfiles = false,
   },
+  actions = {
+    open_file = {
+      quit_on_open = false,
+    },
+  },
   on_attach = function(bufnr)
     local api = require("nvim-tree.api")
     local keymap = vim.keymap.set
 
-    keymap("n", "E", api.tree.expand_all, { buffer = bufnr })
-    keymap("n", "W", api.tree.collapse_all, { buffer = bufnr })
-  end,
-})
+    -- Navigation and expand/collapse
+    keymap("n", "E", api.tree.expand_all, { buffer = bufnr, noremap = true, silent = true })
+    keymap("n", "W", api.tree.collapse_all, { buffer = bufnr, noremap = true, silent = true })
+    keymap("n", "<Right>", api.node.open.edit, { buffer = bufnr, noremap = true, silent = true })
+    keymap("n", "<Left>", api.node.navigate.parent_close, { buffer = bufnr, noremap = true, silent = true })
 
--- Auto-open nvim-tree when starting vim with no arguments
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    if vim.fn.argc() == 0 then
-      require("nvim-tree.api").tree.open()
-    end
+    -- Open file
+    keymap("n", "<CR>", api.node.open.edit, { buffer = bufnr, noremap = true, silent = true })
+
+    -- Create
+    keymap("n", "a", api.fs.create, { buffer = bufnr, noremap = true, silent = true })
+
+    -- Create folder
+    keymap("n", "d", function()
+      api.fs.create(vim.fn.input("Folder name: ") .. "/")
+    end, { buffer = bufnr, noremap = true, silent = true })
+
+    -- Delete
+    keymap("n", "<Del>", api.fs.remove, { buffer = bufnr, noremap = true, silent = true })
+
+    -- Rename
+    keymap("n", "r", api.fs.rename, { buffer = bufnr, noremap = true, silent = true })
+
+    -- Copy
+    keymap("n", "c", api.fs.copy.node, { buffer = bufnr, noremap = true, silent = true })
+
+    -- Cut
+    keymap("n", "x", api.fs.cut, { buffer = bufnr, noremap = true, silent = true })
+
+    -- Paste
+    keymap("n", "v", api.fs.paste, { buffer = bufnr, noremap = true, silent = true })
   end,
 })
 
