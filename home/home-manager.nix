@@ -255,6 +255,11 @@ in
             plugin = telescope-nvim;
             config = toLuaFile ./nvim/plugin/telescope.lua;
         }
+        {
+            type = "lua";
+            plugin = nvim-tree-lua;
+            config = toLuaFile ./nvim/plugin/nvim-tree.lua;
+        }
     ];
 
         withRuby = false;

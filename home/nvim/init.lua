@@ -17,6 +17,39 @@ vim.opt.expandtab = true
 vim.opt.number = true
 vim.opt.clipboard = "unnamedplus"
 
+-- Tab configuration
+vim.opt.showtabline = 2  -- Always show tabline
+
+local function tab_label(tabpage)
+  local window = vim.fn.tabpagewinnr(tabpage)
+  local buffer = vim.fn.tabpagebuflist(tabpage)[window]
+  local buffer_name = vim.api.nvim_buf_get_name(buffer)
+
+  if buffer_name == "" then
+    return "[No Name]"
+  end
+
+  return vim.fn.fnamemodify(buffer_name, ":.")
+end
+
+function _G.TabLine()
+  local tabline = {}
+  local current_tab = vim.fn.tabpagenr()
+  local tab_count = vim.fn.tabpagenr("$")
+
+  for tabpage = 1, tab_count do
+    local selected = tabpage == current_tab and "%#TabLineSel#" or "%#TabLine#"
+    table.insert(tabline, selected)
+    table.insert(tabline, "%" .. tabpage .. "T")
+    table.insert(tabline, " " .. tab_label(tabpage) .. " ")
+  end
+
+  table.insert(tabline, "%#TabLineFill#%T")
+  return table.concat(tabline)
+end
+
+vim.opt.tabline = "%!v:lua.TabLine()"
+
 -- Configure clipboard for Wayland using wl-clipboardj
 -- vim.g.clipboard = {
 --   name = "wl-clipboard",
@@ -47,6 +80,12 @@ vim.diagnostic.config({
   })
 
 
+
+-- Tab navigation keymaps
+vim.keymap.set('n', '<C-t>', ':tabnew<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<Tab>', ':tabnext<CR>', { silent = true })
+vim.keymap.set('n', '<S-Tab>', ':tabprevious<CR>', { silent = true })
+vim.keymap.set('n', '<C-q>', ':tabclose<CR>', { noremap = true, silent = true })
 
 -- doing it the hard way
 vim.keymap.set('', '<Up>', '<Nop>', { noremap = true, silent = true })
