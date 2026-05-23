@@ -56,7 +56,6 @@ dconf.settings = {
     switch-to-workspace-right = ["<Alt>c"];
     switch-to-workspace-left  = ["<Alt>x"];
 
-    toggle-message-tray = [ ];
     switch-applications = [ ];
     switch-applications-backward = [ ];
 
@@ -65,6 +64,10 @@ dconf.settings = {
 
     switch-windows = [ "<Alt>Tab" ];
     switch-windows-backward = [ "<Shift><Alt>Tab" ];
+    };
+
+    "/org/gnome/shell/keybindings" = {
+        toggle-message-tray = [ ];
     };
 
     # --- Touchpad ---

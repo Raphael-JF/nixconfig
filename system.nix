@@ -57,13 +57,10 @@ config = {
     # ===== KEYBOARD =====
     services.xserver.xkb.layout = "fr";
 
-    # pour les formats de dates etc.
-    i18n = {
-      defaultLocale = "fr_FR.UTF-8";
-      supportedLocales = [
-        "fr_FR.UTF-8/UTF-8"
-      ];
-    };
+        # formats de dates, langue système
+ i18n.extraLocaleSettings = {
+    LC_ALL = "en_US.UTF-8"; # This overrides all other LC_* settings.
+ };
 
     # ===== UDEV / EMBEDDED =====
     services.udev.packages = [
