@@ -88,6 +88,18 @@ in
         nerd-fonts.fira-code
         gh
         dejavu_fonts
+        aider-chat
+        (pkgs.python3.withPackages (python-pkgs: with python-pkgs; [
+            numpy
+            matplotlib
+            scipy
+            mip 
+            highspy
+            pyserial
+        ]))
+        
+        platformio
+        avrdude
 
         (pkgs.writeShellScriptBin "ide" (builtins.readFile ./scripts/ide.sh))
         (pkgs.writeShellScriptBin "rebuild" (builtins.readFile ./scripts/rebuild.sh))
@@ -111,6 +123,16 @@ in
     '';
         
     };
+
+    programs.yazi = {
+        enable = true;
+    };
+
+    home.sessionVariables = {
+        EDITOR = "nvim";
+        VISUAL = "nvim";
+    };
+
 
     programs.vscode = {
         enable = true;
@@ -173,6 +195,13 @@ in
 
         plenary-nvim
 
+        { plugin = indent-blankline-nvim;
+          type = "lua";
+          config = toLua ''
+            require("ibl").setup()
+          '';
+        }
+
         {
             plugin = copilot-lua;
             type = "lua";
@@ -189,25 +218,57 @@ in
                 dismiss = "<C-h>",
                 },
             },
-            panel = { enabled = false },
+            panel = { enabled = true },
             })
             '';
         }
 
         {
-            plugin = CopilotChat-nvim;
+            plugin = sidekick-nvim;
             type = "lua";
             config = ''
-            require("CopilotChat").setup({
-                debug = false,
-                mappings = {
-                    submit_prompt = {
-                    normal = "<CR>",
-                    insert = "<C-CR>",
-                    },
+                require("sidekick").setup({
+                suggestions = {
+                    enabled = true,
+                    debounce = 300,
+                    auto_trigger = true,
                 },
-            })
-            '';
+
+                agent = {
+                    enabled = false, -- important: on reste "light", pas agent lourd
+                },
+
+                ui = {
+                    border = "rounded",
+                },
+                })
+
+                -- Keymaps
+                local map = vim.keymap.set
+
+                -- accepter suggestion inline
+                map("n", "<C-l>", function()
+                    -- if there is a next edit, jump to it, otherwise apply it if any
+                    if not require("sidekick").nes_jump_or_apply() then
+                        return "<C-l>" -- fallback to normal tab
+                    end
+                end, { expr = true })
+
+                -- refuser suggestion
+                map("i", "<C-]>", function()
+                require("sidekick").dismiss()
+                end)
+
+                -- demander une suggestion manuellement
+                map("n", "<leader>as", function()
+                require("sidekick").suggest()
+                end)
+
+                -- appliquer modifications proposées (multi-line / diff)
+                map("n", "<leader>ae", function()
+                require("sidekick").apply()
+                end)
+                '';
         }
         {
             type = "lua";

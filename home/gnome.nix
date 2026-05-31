@@ -66,7 +66,7 @@ dconf.settings = {
     switch-windows-backward = [ "<Shift><Alt>Tab" ];
     };
 
-    "/org/gnome/shell/keybindings" = {
+    "org/gnome/shell/keybindings" = {
         toggle-message-tray = [ ];
     };
 

@@ -87,6 +87,14 @@ vim.keymap.set('n', '<Tab>', ':tabnext<CR>', { silent = true })
 vim.keymap.set('n', '<S-Tab>', ':tabprevious<CR>', { silent = true })
 vim.keymap.set('n', '<C-q>', ':tabclose<CR>', { noremap = true, silent = true })
 
+-- Source - https://stackoverflow.com/a/74584098
+-- Posted by Brotify Force, modified by community. See post 'Timeline' for change history
+-- Retrieved 2026-05-26, License - CC BY-SA 4.0
+
+vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
+
+
 -- doing it the hard way
 vim.keymap.set('', '<Up>', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set('', '<Down>', '<Nop>', { noremap = true, silent = true })
