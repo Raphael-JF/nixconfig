@@ -74,6 +74,7 @@ in
 
     home.packages = with pkgs; [
         firefox
+        chromium
         gnumake
         graphviz
         wl-clipboard
@@ -89,6 +90,7 @@ in
         gh
         dejavu_fonts
         aider-chat
+        fritzing
         (pkgs.python3.withPackages (python-pkgs: with python-pkgs; [
             numpy
             matplotlib
