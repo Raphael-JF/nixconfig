@@ -24,7 +24,7 @@ in
         AddKeysToAgent yes
         ForwardAgent yes
 
-        Host almapedago travail64
+        Host almapedago travail64 deepeirb
         User rjontef
         ProxyJump enseirb
 
