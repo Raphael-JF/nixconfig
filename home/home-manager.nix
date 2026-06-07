@@ -177,6 +177,9 @@ in
         treeSitter
         lynx
         xclip
+
+        #latex
+        texliveFull
         
 
         #for C development
