@@ -67,6 +67,7 @@ in
             "flake.lock"
             ".envrc"
             "*.idx"
+            ".aider*"
         ];
     };
 
