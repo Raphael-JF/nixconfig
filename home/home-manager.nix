@@ -103,6 +103,7 @@ in
         
         platformio
         avrdude
+        caneda
 
         (pkgs.writeShellScriptBin "ide" (builtins.readFile ./scripts/ide.sh))
         (pkgs.writeShellScriptBin "rebuild" (builtins.readFile ./scripts/rebuild.sh))
@@ -178,6 +179,9 @@ in
         treeSitter
         lynx
         xclip
+
+        #latex
+        texliveFull
         
 
         #for C development
