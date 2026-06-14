@@ -77,6 +77,7 @@ in
         firefox
         chromium
         gnumake
+        bear
         graphviz
         wl-clipboard
         gnomeExtensions.copyous
