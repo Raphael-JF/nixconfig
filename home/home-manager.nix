@@ -210,6 +210,15 @@ in
           '';
         }
 
+
+        { # flash-nvim
+          plugin = flash-nvim;
+          type = "lua";
+          config = toLua ''
+            require("flash").setup()
+          '';
+        }
+
         {
             plugin = copilot-lua;
             type = "lua";
