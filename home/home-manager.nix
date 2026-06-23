@@ -77,6 +77,7 @@ in
         firefox
         chromium
         gnumake
+        cmake
         bear
         graphviz
         wl-clipboard
@@ -105,6 +106,7 @@ in
         platformio
         avrdude
         caneda
+        cura
 
         (pkgs.writeShellScriptBin "ide" (builtins.readFile ./scripts/ide.sh))
         (pkgs.writeShellScriptBin "rebuild" (builtins.readFile ./scripts/rebuild.sh))
