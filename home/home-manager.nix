@@ -87,6 +87,7 @@ in
         valgrind
         evince
         gdb
+        gcc
         dconf-editor
         anki-bin
         nerd-fonts.fira-code
@@ -188,8 +189,6 @@ in
         
 
         #for C development
-        gcc
-        gdb
         clang-tools
 
         # for nix development
