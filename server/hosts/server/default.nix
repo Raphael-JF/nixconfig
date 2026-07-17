@@ -15,6 +15,7 @@
     ../../modules/core/firewall.nix
     ../../modules/core/users.nix
     ../../modules/core/ssh.nix
+    ../../modules/core/bash.nix
 
     # services
     ../../modules/services/docker.nix
