@@ -19,5 +19,4 @@
     ];
   };
 
-  users.users.root.hashedPassword = "!";
 }
