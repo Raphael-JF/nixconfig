@@ -15,7 +15,7 @@ let
     ];
 
     text = ''
-      set -euo pipefail
+      set -euxo pipefail
 
       REPO=/var/lib/public-ip
       FILE=$REPO/ip.txt
@@ -38,16 +38,15 @@ let
 
       git add ip.txt
       git commit -m "Update IP: $NEW_IP"
-      git push
- echo "Nouvelle IP : $NEW_IP"
-echo "Ancienne IP : $OLD_IP"
+      eval "$(ssh-agent -s)"
 
-if [ "$NEW_IP" = "$OLD_IP" ]; then
-    echo "Aucun changement."
-    exit 0
-fi
+ssh-add /home/raph/.ssh/server
 
-echo "IP modifiée, push sur GitHub..."   '';
+egit config user.name "raph"
+git config user.email "ton-email-github@example.com"
+echo "IP modifiée, push sur GitHub..."
+
+      git push'';
   };
 in
 {
@@ -58,6 +57,10 @@ in
     serviceConfig = {
       Type = "oneshot";
       User = "raph";
+  Environment = [
+    "HOME=/home/raph"
+    "GIT_SSH_COMMAND=ssh -i /home/raph/.ssh/server -o IdentitiesOnly=yes"
+  ];
     };
 
     script = "${script}/bin/update-public-ip";
