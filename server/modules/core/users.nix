@@ -4,7 +4,7 @@
   users.mutableUsers = false;
 
   users.users.raph = {
-
+    initialPassword = "a";
     isNormalUser = true;
 
     extraGroups = [
@@ -17,6 +17,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIESTCleHAfmgUQfFz0Rp3xtKmgDzowuKmRiwE6m6H6RA raph@raph-laptop"
  
     ];
+
   };
 
 }
