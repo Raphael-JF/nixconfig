@@ -39,7 +39,15 @@ let
       git add ip.txt
       git commit -m "Update IP: $NEW_IP"
       git push
-    '';
+ echo "Nouvelle IP : $NEW_IP"
+echo "Ancienne IP : $OLD_IP"
+
+if [ "$NEW_IP" = "$OLD_IP" ]; then
+    echo "Aucun changement."
+    exit 0
+fi
+
+echo "IP modifiée, push sur GitHub..."   '';
   };
 in
 {
