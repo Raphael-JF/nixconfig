@@ -49,7 +49,7 @@ in
 
     serviceConfig = {
       Type = "oneshot";
-      User = "root";
+      User = "raph";
     };
 
     script = "${script}/bin/update-public-ip";
