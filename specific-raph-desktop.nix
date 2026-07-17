@@ -22,5 +22,6 @@
     openSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
     settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
     persistencedSha256 = lib.fakeSha256;
-  }; 
+  };
+  hardware.nvidia.powerManagement.enable = true;
 }
