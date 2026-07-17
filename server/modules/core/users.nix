@@ -1,8 +1,6 @@
 { ... }:
 
 {
-  users.mutableUsers = false;
-
   users.users.raph = {
     initialPassword = "a";
     isNormalUser = true;
