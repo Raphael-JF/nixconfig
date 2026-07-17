@@ -19,6 +19,7 @@
 
     # services
     ../../modules/services/docker.nix
+    ../../modules/services/public-ip.nix
   ];
 
   system.stateVersion = "26.05";
