@@ -37,13 +37,13 @@ let
       echo "$NEW_IP" > "$FILE"
 
       git add ip.txt
+      git config user.name "raph"
+      git config user.email "ton-email-github@example.com"
       git commit -m "Update IP: $NEW_IP"
       eval "$(ssh-agent -s)"
 
 ssh-add /home/raph/.ssh/server
 
-egit config user.name "raph"
-git config user.email "ton-email-github@example.com"
 echo "IP modifiée, push sur GitHub..."
 
       git push'';
