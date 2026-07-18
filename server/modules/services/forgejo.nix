@@ -55,9 +55,6 @@
     '';
   };
 
-  # Ouvrir les ports nécessaires dans le firewall
-  security.firewall.allowedTCPPorts = [ 3000 2222 ];
-
   # Créer un utilisateur système pour Forgejo (optionnel, mais recommandé)
   users.users.forgejo = {
     isSystemUser = true;
