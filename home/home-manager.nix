@@ -39,6 +39,13 @@ in
         IdentityFile ${sshIdentity}
         IdentitiesOnly yes
         AddKeysToAgent yes
+
+        Host server 
+        HostName 82.126.172.121
+        User raph
+        IdentityFile ${sshIdentity}
+        IdentitiesOnly yes
+        AddKeysToAgent yes
         '';
 
     onChange = ''
@@ -107,7 +114,6 @@ in
         platformio
         avrdude
         caneda
-        cura
 
         (pkgs.writeShellScriptBin "ide" (builtins.readFile ./scripts/ide.sh))
         (pkgs.writeShellScriptBin "rebuild" (builtins.readFile ./scripts/rebuild.sh))

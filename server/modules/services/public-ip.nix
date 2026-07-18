@@ -40,11 +40,9 @@ let
       git config user.name "raph"
       git config user.email "ton-email-github@example.com"
       git commit -m "Update IP: $NEW_IP"
-      eval "$(ssh-agent -s)"
 
-ssh-add /home/raph/.ssh/server
 
-echo "IP modifiée, push sur GitHub..."
+      echo "IP modifiée, push sur GitHub..."
 
       git push'';
   };
