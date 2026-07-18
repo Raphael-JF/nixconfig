@@ -20,6 +20,7 @@
     # services
     ../../modules/services/docker.nix
     ../../modules/services/public-ip.nix
+    ../../modules/services/forgejo.nix
   ];
 
   system.stateVersion = "26.05";
