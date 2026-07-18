@@ -47,7 +47,7 @@
     };
 
     # Configuration supplémentaire (optionnelle)
-    customConfig = ''
+    extraConfig = ''
       [repository]
       DEFAULT_PUSH_CREATE_PRIVATE = true
       [service]
