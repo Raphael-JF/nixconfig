@@ -4,7 +4,7 @@
   services.forgejo = {
     enable = true;
     # Configuration de base
-    host = "0.0.0.0";  # Écoute sur toutes les interfaces
+    #host = "0.0.0.0";  # Écoute sur toutes les interfaces
     port = 3000;       # Port par défaut pour Forgejo
     protocol = "http"; # ou "https" si tu utilises un reverse proxy avec SSL
 
