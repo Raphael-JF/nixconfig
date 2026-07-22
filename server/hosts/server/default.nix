@@ -20,7 +20,8 @@
     # services
     ../../modules/services/docker.nix
     ../../modules/services/public-ip.nix
-    ../../modules/services/forgejo.nix
+    #../../modules/services/forgejo.nix
+    ../../modules/services/icloud-backup.nix
   ];
 
   system.stateVersion = "26.05";
