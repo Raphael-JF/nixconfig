@@ -40,20 +40,41 @@
       };
     };
 
-    lvm_vg = {
-      pool = {
-        type = "lvm_vg";
+    lvm_vg.pool = {
+      type = "lvm_vg";
 
-        lvs = {
-          root = {
-            size = "100%FREE";
+      lvs = {
+        swap = {
+          size = "8G"; # adapte selon ta RAM
 
-            content = {
-              type = "filesystem";
-              format = "ext4";
-              mountpoint = "/";
-              mountOptions = [ "defaults" ];
-            };
+          content = {
+            type = "swap";
+            randomEncryption = true;
+          };
+        };
+
+        root = {
+          size = "40G"; # ou 30G, selon tes besoins
+
+          content = {
+            type = "filesystem";
+            format = "ext4";
+            mountpoint = "/";
+          };
+        };
+
+        data = {
+          size = "100%FREE";
+
+          content = {
+            type = "filesystem";
+            format = "btrfs";
+            mountpoint = "/data";
+
+            mountOptions = [
+              "compress=zstd:6"
+              "noatime"
+            ];
           };
         };
       };
