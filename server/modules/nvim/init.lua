@@ -1,6 +1,5 @@
 require("ibl").setup() -- "indent-blankline.nvim" : traits d'indentation
 
-
 -------------------- SIDEKICK --------------
 
 require("sidekick").setup({
@@ -234,27 +233,23 @@ require("nvim-tree").setup({
   },
   actions = {
     open_file = {
-      quit_on_open = false,
+        quit_on_open = true,
+        resize_window = true,
     },
   },
   on_attach = function(bufnr)
     local api = require("nvim-tree.api")
     local keymap = vim.keymap.set
 
-    -- Navigation and expand/collapse
-    keymap("n", "E", api.tree.expand_all, { buffer = bufnr, noremap = true, silent = true })
-    keymap("n", "W", api.tree.collapse_all, { buffer = bufnr, noremap = true, silent = true })
-    keymap("n", "<Right>", api.node.open.edit, { buffer = bufnr, noremap = true, silent = true })
-    keymap("n", "<Left>", api.node.navigate.parent_close, { buffer = bufnr, noremap = true, silent = true })
 
     -- Open file
     keymap("n", "<CR>", api.node.open.edit, { buffer = bufnr, noremap = true, silent = true })
 
     -- Create
-    keymap("n", "a", api.fs.create, { buffer = bufnr, noremap = true, silent = true })
+    keymap("n", "<C-n>", api.fs.create, { buffer = bufnr, noremap = true, silent = true })
 
     -- Create folder
-    keymap("n", "d", function()
+    keymap("n", "<C-N>", function()
       api.fs.create(vim.fn.input("Folder name: ") .. "/")
     end, { buffer = bufnr, noremap = true, silent = true })
 
@@ -280,6 +275,25 @@ vim.keymap.set("n", "<C-b>", function()
   require("nvim-tree.api").tree.toggle()
 end, { noremap = true, silent = true })
 
+-------------- BUFFERLINE ------------------
+vim.opt.termguicolors = true
+require("bufferline").setup({
+  options = {
+    offsets = {
+      {
+        filetype = "NvimTree",
+        text = "󰙅 Explorer",
+        text_align = "left",
+        separator = true,
+      },
+    },
+  },
+})
+
+
+
+vim.keymap.set("n", "<S-l>", "<Cmd>BufferLineCycleNext<CR>")
+vim.keymap.set("n", "<S-h>", "<Cmd>BufferLineCyclePrev<CR>")
 
 ---------------- OTHER ------------------
 vim.g.mapleader = " "
@@ -332,7 +346,7 @@ function _G.TabLine()
   return table.concat(tabline)
 end
 
-vim.opt.tabline = "%!v:lua.TabLine()"
+-- vim.opt.tabline = "%!v:lua.TabLine()"
 
 -- Configure clipboard for Wayland using wl-clipboardj
 -- vim.g.clipboard = {
@@ -375,12 +389,25 @@ vim.keymap.set('n', '<C-q>', ':tabclose<CR>', { noremap = true, silent = true })
 -- Posted by Brotify Force, modified by community. See post 'Timeline' for change history
 -- Retrieved 2026-05-26, License - CC BY-SA 4.0
 
-vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
-
+vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+vim.keymap.set("n", "gr", vim.lsp.buf.references)
+vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
+vim.keymap.set("n", "K", vim.lsp.buf.hover)
 
 -- doing it the hard way
 vim.keymap.set('', '<Up>', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set('', '<Down>', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set('', '<Left>', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set('', '<Right>', '<Nop>', { noremap = true, silent = true })
+
+-- removing the J thing
+vim.keymap.set("n", "J", "<Nop>")
+vim.keymap.set("n", "K", "<Nop>")
+
+-- easy indenting
+vim.keymap.set("v", "<Tab>", ">gv", { desc = "Indent and keep selection" })
+vim.keymap.set("v", "<S-Tab>", "<gv", { desc = "Unindent and keep selection" })
+
+vim.opt.number = true
+vim.opt.relativenumber = true
+

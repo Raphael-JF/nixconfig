@@ -47,6 +47,7 @@
             kanagawa-nvim #color theme
             plenary-nvim
             indent-blankline-nvim
+            bufferline-nvim
             #flash-nvim
             sidekick-nvim
             nvim-lspconfig 
@@ -58,9 +59,10 @@
             cmp-buffer
             cmp-path
             cmp-nvim-lsp
-            #comment-nvim
+            comment-nvim
             telescope-nvim
             nvim-tree-lua
+
 
 
 
@@ -70,7 +72,8 @@
         ## Configuration Lua
         ###########################################################
 
-        luaRcContent = builtins.readFile ./init.lua;
+        #luaRcContent = builtins.readFile ./init.lua;
+        luaRcContent = ''dofile("/home/raph/nixconfig/server/modules/nvim/init.lua")'';
       };
   };
 }

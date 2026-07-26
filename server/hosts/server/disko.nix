@@ -54,7 +54,7 @@
         };
 
         root = {
-          size = "40G"; # ou 30G, selon tes besoins
+          size = "30G"; # ou 30G, selon tes besoins
 
           content = {
             type = "filesystem";
