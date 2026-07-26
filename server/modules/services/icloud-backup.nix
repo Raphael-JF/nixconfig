@@ -9,7 +9,7 @@ let
     ];
 
     text = ''
-      exec icloudpd   --directory ~/Photos --folder-structure "%Y/%m" --username poweraphael2@gmail.com
+      exec icloudpd   --directory ~/Photos --folder-structure "{:%Y/%m}" --username poweraphael2@gmail.com
     '';
   };
 in

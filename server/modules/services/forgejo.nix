@@ -36,15 +36,6 @@
       port = 2222; # Port personnalisé pour éviter les conflits avec le SSH système
     };
 
-    # Configuration SMTP (optionnel, pour les notifications par email)
-    mail = {
-      enabled = false; # Désactivé par défaut
-      # host = "smtp.tondomaine.local";
-      # port = 587;
-      # username = "user";
-      # password = "password";
-      # from = "forgejo@tondomaine.local";
-    };
 
     # Configuration supplémentaire (optionnelle)
     extraConfig = ''
