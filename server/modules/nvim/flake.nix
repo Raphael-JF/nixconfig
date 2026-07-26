@@ -34,6 +34,7 @@
             pkgs.tmux
             pkgs.nil
             pkgs.clang-tools
+            pkgs.lsof
           ])
         ];
 
@@ -46,9 +47,10 @@
             mini-icons
             kanagawa-nvim #color theme
             plenary-nvim
-            indent-blankline-nvim
             bufferline-nvim
             #flash-nvim
+            copilot-lsp
+            # copilot-lua
             sidekick-nvim
             nvim-lspconfig 
             nvim-treesitter
@@ -61,7 +63,8 @@
             cmp-nvim-lsp
             comment-nvim
             telescope-nvim
-            nvim-tree-lua
+            snacks-nvim
+            
 
 
 
