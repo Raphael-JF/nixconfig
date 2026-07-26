@@ -248,25 +248,20 @@ require("nvim-tree").setup({
     -- Create
     keymap("n", "<C-n>", api.fs.create, { buffer = bufnr, noremap = true, silent = true })
 
-    -- Create folder
-    keymap("n", "<C-N>", function()
-      api.fs.create(vim.fn.input("Folder name: ") .. "/")
-    end, { buffer = bufnr, noremap = true, silent = true })
-
     -- Delete
     keymap("n", "<Del>", api.fs.remove, { buffer = bufnr, noremap = true, silent = true })
 
     -- Rename
-    keymap("n", "r", api.fs.rename, { buffer = bufnr, noremap = true, silent = true })
+    keymap("n", "<F2>", api.fs.rename, { buffer = bufnr, noremap = true, silent = true })
 
     -- Copy
-    keymap("n", "c", api.fs.copy.node, { buffer = bufnr, noremap = true, silent = true })
+    keymap("n", "y", api.fs.copy.node, { buffer = bufnr, noremap = true, silent = true })
 
     -- Cut
-    keymap("n", "x", api.fs.cut, { buffer = bufnr, noremap = true, silent = true })
+    keymap("n", "c", api.fs.cut, { buffer = bufnr, noremap = true, silent = true })
 
     -- Paste
-    keymap("n", "v", api.fs.paste, { buffer = bufnr, noremap = true, silent = true })
+    keymap("n", "p", api.fs.paste, { buffer = bufnr, noremap = true, silent = true })
   end,
 })
 
