@@ -643,3 +643,12 @@ end, { desc = "Terminal" })
 keymap("n", "<leader>nh", function()
   Snacks.notifier.show_history()
 end, { desc = "Notification history" })
+
+
+------------ multicursor nvim -----
+local mc = require("multicursors")
+
+mc.setup({})
+vim.keymap.set("v", "<C-d>", "<Cmd>MCvisualPattern<CR>", { desc = "Multicursor: sélection" })
+vim.keymap.set("n", "<C-d>", "<Cmd>MCunderCursor<CR>", { desc = "Multicursor: sous le curseur" })
+vim.keymap.set("n", "<leader>ma", "<Cmd>MCpattern<CR>", { desc = "Multicursor: toutes les occurrences" })

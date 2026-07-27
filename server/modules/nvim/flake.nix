@@ -62,6 +62,7 @@
             cmp-nvim-lsp
             comment-nvim
             snacks-nvim
+            multicursors-nvim
             
 
 
