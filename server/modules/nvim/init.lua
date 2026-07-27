@@ -115,12 +115,11 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -------------------- SIDEKICK --------------
-require("copilot").setup({
-  suggestions = {
-    enabled = true,
-    auto_trigger  = true,
-  }
-})
+-- require("copilot").setup({
+--   should_attach = function()
+--     return false
+--   end,
+-- })
 vim.lsp.config('copilot', {
   settings = {
     telemetry = {
@@ -130,13 +129,29 @@ vim.lsp.config('copilot', {
 })
 
 vim.lsp.enable('copilot')
-require("sidekick").setup({
+vim.lsp.inline_completion.enable()
+  require("sidekick").setup({
   nes = {
     enabled = true,
-    debounce = 300,
+    debounce = 100,        -- ms avant de demander une nouvelle suggestion
+    trigger = {
+      -- événements qui déclenchent une requête NES
+      events = { "ModeChanged i:n", "TextChanged", "User SidekickNesDone" },
+    },
+    clear = {
+      -- événements qui effacent la suggestion active
+      events = { },
+      esc = true,           -- <Esc> efface aussi la suggestion
+    },
+    diff = {
+      inline = "chars",     -- "words" | "chars" | false — granularité du diff inline
+      show = "always",      -- "always" | "cursor" — "cursor" n'affiche le diff que quand le curseur est sur l'édition
+    },
+    signs = true,            -- signes dans la colonne de gauche
+    jumplist = true,         -- ajoute une entrée dans la jumplist quand tu sautes vers une édition
   },
   cli = {
-    enabled = false,
+    enable = false,
   },
 })
 
@@ -151,6 +166,10 @@ map("n", "<C-l>", function()
         return "<C-l>" -- fallback to normal tab
     end
 end, { expr = true })
+
+map("i", "<C-l>", function()
+  vim.lsp.inline_completion.get()
+end)
 
 -- refuser suggestion
 map("i", "<C-]>", function()
@@ -261,8 +280,141 @@ end)
 
 
 --------------------- LUALINE -----------------
-require("lualine").setup()
+require("lualine").setup({
+  options = {
+    icons_enabled = true,
+    theme = "auto",
+    section_separators = {
+        left = "",
+        right = "",
+    },
 
+    component_separators = {
+      left = "│",
+      right = "│",
+    },
+
+    globalstatus = true,
+    disabled_filetypes = {
+      statusline = {
+        "NvimTree",
+        "TelescopePrompt",
+      },
+    },
+  },
+
+  sections = {
+
+    -- gauche
+    lualine_a = {
+      {
+        "mode",
+        fmt = function(str)
+          return " " .. str
+        end,
+        padding = { left = 1, right = 1 },
+      },
+    },
+
+    lualine_b = {
+      {
+        "branch",
+        icon = "",
+      },
+
+      {
+        "diff",
+        symbols = {
+          added = " ",
+          modified = " ",
+          removed = " ",
+        },
+      },
+
+      {
+        "diagnostics",
+        symbols = {
+          error = " ",
+          warn = " ",
+          info = " ",
+          hint = "󰌵 ",
+        },
+      },
+    },
+
+
+    -- centre
+    lualine_c = {
+      {
+        "filename",
+        path = 1,
+        symbols = {
+          modified = " ●",
+          readonly = " ",
+          unnamed = "[No Name]",
+        },
+      },
+    },
+
+
+    -- droite
+    lualine_x = {
+      {
+        "filetype",
+        icon_only = false,
+        separator = "",
+      },
+
+      {
+        "encoding",
+        separator = "",
+      },
+
+      {
+        "fileformat",
+        symbols = {
+          unix = "LF",
+          dos = "CRLF",
+          mac = "CR",
+        },
+      },
+    },
+
+
+    lualine_y = {
+      {
+        "progress",
+        separator = "",
+      },
+    },
+
+
+    lualine_z = {
+      {
+        "location",
+      },
+    },
+  },
+
+
+  inactive_sections = {
+    lualine_c = {
+      {
+        "filename",
+        path = 1,
+      },
+    },
+
+    lualine_x = {
+      "location",
+    },
+  },
+
+
+  extensions = {
+    "nvim-tree",
+  },
+})
 --------------------- WHICH-KEY ---------------
 require("which-key").setup()
 

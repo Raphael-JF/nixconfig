@@ -50,7 +50,6 @@
             bufferline-nvim
             #flash-nvim
             copilot-lsp
-            # copilot-lua
             sidekick-nvim
             nvim-lspconfig 
             nvim-treesitter
@@ -62,7 +61,6 @@
             cmp-path
             cmp-nvim-lsp
             comment-nvim
-            telescope-nvim
             snacks-nvim
             
 
