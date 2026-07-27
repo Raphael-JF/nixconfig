@@ -62,7 +62,9 @@
             cmp-nvim-lsp
             comment-nvim
             snacks-nvim
-            multicursors-nvim
+            vim-visual-multi
+            grug-far-nvim
+
             
 
 

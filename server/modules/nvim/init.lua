@@ -5,15 +5,15 @@ vim.g.maplocalleader = " "
 -- Set colorscheme that supports treesitter
 vim.cmd("colorscheme kanagawa")
 
--- Exit terminal mode with Escape
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true })
+-- Exit terminal modewith Escape
+-- vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true })
 
 -- Enable filetype plugins and indent
 vim.cmd("filetype plugin indent on")
 
 -- Editor options
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.number = true
 vim.opt.clipboard = "unnamedplus"
@@ -21,48 +21,38 @@ vim.opt.clipboard = "unnamedplus"
 -- Tab configuration
 vim.opt.showtabline = 2  -- Always show tabline
 
-local function tab_label(tabpage)
-  local window = vim.fn.tabpagewinnr(tabpage)
-  local buffer = vim.fn.tabpagebuflist(tabpage)[window]
-  local buffer_name = vim.api.nvim_buf_get_name(buffer)
+-- Scroll configuration
+vim.opt.scrolloff = 5
 
-  if buffer_name == "" then
-    return "[No Name]"
+-- Commenting keymaps
+vim.keymap.set('v', '<C-">', "gc", { desc = 'Comment selection', remap = true })
+vim.keymap.set('v', '<C-S-">', "gc", { desc = 'Comment selection', remap = true })
+vim.keymap.set('n', '<C-">', "gcc", { desc = 'Comment line', remap = true })
+vim.keymap.set('n', '<C-S-">', "gcc", { desc = 'Comment line', remap = true })
+
+
+
+
+vim.keymap.set('n', '<leader>wk', function()
+  print("Prochaine touche pressée:")
+  local key = vim.fn.getcharstr()
+  local map = vim.fn.maparg(key, 'n', false, true)
+  if vim.tbl_isempty(map) then
+    print('Pas de mapping pour: ' .. vim.fn.keytrans(key))
+  else
+    print(vim.inspect(map))
   end
+end, { desc = 'Inspecter la prochaine touche pressée' })
 
-  return vim.fn.fnamemodify(buffer_name, ":.")
-end
 
-function _G.TabLine()
-  local tabline = {}
-  local current_tab = vim.fn.tabpagenr()
-  local tab_count = vim.fn.tabpagenr("$")
+-- copy all
+vim.keymap.set('n', '<C-a>y', ':%y<CR>', { desc = 'Yank all' })
 
-  for tabpage = 1, tab_count do
-    local selected = tabpage == current_tab and "%#TabLineSel#" or "%#TabLine#"
-    table.insert(tabline, selected)
-    table.insert(tabline, "%" .. tabpage .. "T")
-    table.insert(tabline, " " .. tab_label(tabpage) .. " ")
-  end
+-- delete all
+vim.keymap.set('n', '<C-a>d', ':%d<CR>', { desc = 'Delete all' })
 
-  table.insert(tabline, "%#TabLineFill#%T")
-  return table.concat(tabline)
-end
-
--- vim.opt.tabline = "%!v:lua.TabLine()"
-
--- Configure clipboard for Wayland using wl-clipboardj
--- vim.g.clipboard = {
---   name = "wl-clipboard",
---   copy = {
---     ["+"] = "wl-copy --foreground --type text/plain",
---     ["*"] = "wl-copy --primary --foreground --type text/plain",
---   },
---   paste = {
---     ["+"] = "wl-paste --no-newline",
---     ["*"] = "wl-paste --primary --no-newline",
---   },
--- }
+-- select all
+vim.keymap.set('n', '<C-a>a', 'ggVG', { desc = 'Select all' })
 
 -- auto save on insert leave and text changed
 vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
@@ -80,24 +70,11 @@ vim.diagnostic.config({
   update_in_insert = false,
   })
 
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Aller à la définition" }) 
+vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Voir les références" }) 
+vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Voir l'implémentation" }) 
+vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Afficher la documentation (hover)" })-- doing it the hard way 
 
-
--- Tab navigation keymaps
-vim.keymap.set('n', '<C-t>', ':tabnew<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<Tab>', ':tabnext<CR>', { silent = true })
-vim.keymap.set('n', '<S-Tab>', ':tabprevious<CR>', { silent = true })
-vim.keymap.set('n', '<C-q>', ':tabclose<CR>', { noremap = true, silent = true })
-
--- Source - https://stackoverflow.com/a/74584098
--- Posted by Brotify Force, modified by community. See post 'Timeline' for change history
--- Retrieved 2026-05-26, License - CC BY-SA 4.0
-
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-vim.keymap.set("n", "gr", vim.lsp.buf.references)
-vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
-vim.keymap.set("n", "K", vim.lsp.buf.hover)
-
--- doing it the hard way
 vim.keymap.set('', '<Up>', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set('', '<Down>', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set('', '<Left>', '<Nop>', { noremap = true, silent = true })
@@ -280,6 +257,33 @@ end)
 
 
 --------------------- LUALINE -----------------
+-- nombre de curseurs visual_multi
+local function vm_cursors()
+  if vim.fn.exists("b:visual_multi") == 0 then
+    return ""
+  end
+  local ok, infos = pcall(vim.fn.VMInfos)
+  if not ok or vim.tbl_isempty(infos) then
+    return ""
+  end
+  if infos.total == 1 then
+    return "1 cursor"
+  end
+  return string.format("%d cursors", infos.total)
+end
+
+
+
+local mode_utils = require("lualine.utils.mode")
+
+local function get_mode_text()
+  if vim.fn.exists("b:visual_multi") == 1 then
+    return "VISUAL-MULTI"
+  end
+  return mode_utils.get_mode()
+end
+
+
 require("lualine").setup({
   options = {
     icons_enabled = true,
@@ -290,29 +294,20 @@ require("lualine").setup({
     },
 
     component_separators = {
-      left = "│",
-      right = "│",
+        left = "",
+        right = "",
     },
 
     globalstatus = true,
-    disabled_filetypes = {
-      statusline = {
-        "NvimTree",
-        "TelescopePrompt",
-      },
-    },
   },
 
   sections = {
 
-    -- gauche
+    -- left
     lualine_a = {
       {
-        "mode",
-        fmt = function(str)
-          return " " .. str
-        end,
-        padding = { left = 1, right = 1 },
+        function() return "  " .. get_mode_text() end,
+        color = nil, -- leave color to lualine to handle
       },
     },
 
@@ -320,6 +315,8 @@ require("lualine").setup({
       {
         "branch",
         icon = "",
+
+        separator = "",
       },
 
       {
@@ -345,41 +342,22 @@ require("lualine").setup({
 
     -- centre
     lualine_c = {
-      {
-        "filename",
-        path = 1,
-        symbols = {
-          modified = " ●",
-          readonly = " ",
-          unnamed = "[No Name]",
-        },
+      "%=",
+     {
+        function()
+          return os.date(" %H:%M")
+        end,
       },
-    },
-
-
-    -- droite
+    },    -- droite
     lualine_x = {
-      {
+        vm_cursors, 
+        {
         "filetype",
         icon_only = false,
         separator = "",
-      },
-
-      {
-        "encoding",
-        separator = "",
-      },
-
-      {
-        "fileformat",
-        symbols = {
-          unix = "LF",
-          dos = "CRLF",
-          mac = "CR",
-        },
-      },
+        }
     },
-
+ 
 
     lualine_y = {
       {
@@ -397,20 +375,7 @@ require("lualine").setup({
   },
 
 
-  inactive_sections = {
-    lualine_c = {
-      {
-        "filename",
-        path = 1,
-      },
-    },
-
-    lualine_x = {
-      "location",
-    },
-  },
-
-
+  
   extensions = {
     "nvim-tree",
   },
@@ -565,6 +530,10 @@ require("bufferline").setup({
 vim.keymap.set("n", "<S-l>", "<Cmd>BufferLineCycleNext<CR>")
 vim.keymap.set("n", "<S-h>", "<Cmd>BufferLineCyclePrev<CR>")
 
+
+
+
+
 --------------- snacks nvim---------
 require("snacks").setup({
   -- Recherche fuzzy (remplace Telescope pour beaucoup d'usages)
@@ -645,10 +614,38 @@ keymap("n", "<leader>nh", function()
 end, { desc = "Notification history" })
 
 
------------- multicursor nvim -----
-local mc = require("multicursors")
+------------ grug-far --------------
+-- Ouvre grug-far avec Ctrl-F, depuis n'importe quel buffer
+vim.keymap.set('n', '<C-f>', function()
+    require('grug-far').open()
+end, { desc = 'Open grug-far' })
 
-mc.setup({})
-vim.keymap.set("v", "<C-d>", "<Cmd>MCvisualPattern<CR>", { desc = "Multicursor: sélection" })
-vim.keymap.set("n", "<C-d>", "<Cmd>MCunderCursor<CR>", { desc = "Multicursor: sous le curseur" })
-vim.keymap.set("n", "<leader>ma", "<Cmd>MCpattern<CR>", { desc = "Multicursor: toutes les occurrences" })
+-- Dans le buffer grug-far, Ctrl-F ferme l'instance courante
+vim.api.nvim_create_autocmd('FileType', {
+    group = vim.api.nvim_create_augroup('grug-far-keybindings', { clear = true }),
+    pattern = { 'grug-far' },
+    callback = function()
+        vim.keymap.set('n', '<C-f>', function()
+            local inst = require('grug-far').get_instance(0)
+            if inst then
+                inst:close()
+            end
+        end, { buffer = true })
+    end,
+})
+
+
+----------------- VISUAL MULTI -------------
+
+vim.g.VM_maps = {
+  ["Find Under"]         = "<C-d>",   -- comme VSCode
+  ["Find Subword Under"] = "<C-d>",
+  ["Select All"]         = "<C-S-a>", -- comme VSCode
+  ["Increase"] = "",
+  ["Goto Prev"] = "",
+  ["Goto Next"] = ""
+}
+
+vim.g.VM_silent_exit = 1 -- shuts up visual_multi when exiting visual mode
+
+
