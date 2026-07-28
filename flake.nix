@@ -15,6 +15,11 @@
     };
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
+    my-nvim = {
+        url = "path:./server/modules/nvim";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ nixpkgs, home-manager, prismlauncher, nix-vscode-extensions, ... }:

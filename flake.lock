@@ -36,6 +36,22 @@
         "type": "github"
       }
     },
+    "my-nvim": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "path": "./server/modules/nvim",
+        "type": "path"
+      },
+      "original": {
+        "path": "./server/modules/nvim",
+        "type": "path"
+      },
+      "parent": []
+    },
     "nix-vscode-extensions": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -121,6 +137,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "my-nvim": "my-nvim",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs_2",
         "prismlauncher": "prismlauncher"
