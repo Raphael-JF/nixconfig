@@ -49,7 +49,7 @@
             kanagawa-nvim #color theme
             plenary-nvim
             bufferline-nvim
-            #flash-nvim
+            flash-nvim
             copilot-lsp
             sidekick-nvim
             nvim-lspconfig 
@@ -65,6 +65,7 @@
             snacks-nvim
             vim-visual-multi
             grug-far-nvim
+
             
 
 
