@@ -35,7 +35,8 @@
             pkgs.nil
             pkgs.clang-tools
             pkgs.lsof
-          ])
+            pkgs.ast-grep
+         ])
         ];
 
         ###########################################################
@@ -64,7 +65,6 @@
             snacks-nvim
             vim-visual-multi
             grug-far-nvim
-
             
 
 

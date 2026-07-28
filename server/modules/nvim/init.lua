@@ -589,6 +589,7 @@ require("snacks").setup({
 
 local keymap = vim.keymap.set
 
+keymap("n", "<leader>ii", function() Snacks.image.hover() end, { desc = "Preview image/math" })
 keymap("n", "<C-p>", function()
   Snacks.picker.files()
 end, { desc = "Find files" })
