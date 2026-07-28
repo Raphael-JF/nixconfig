@@ -77,8 +77,10 @@
         ## Configuration Lua
         ###########################################################
 
-        #luaRcContent = builtins.readFile ./init.lua;
-        luaRcContent = ''dofile("/home/raph/nixconfig/server/modules/nvim/init.lua")'';
-      };
+        luaRcContent = ''
+          vim.opt.rtp:prepend "${./config}"
+          dofile("config/init.lua")
+        '';
+    };
   };
 }
