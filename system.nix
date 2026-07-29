@@ -81,27 +81,7 @@ config = {
     };
 
 
-    # ===== USERS =====
-    users.users.raph = {
-        isNormalUser = true;
-        extraGroups = [ "wheel" "dialout" ];
-    };
 
-
-    # ===== PROGRAMS =====
-    programs.firefox.enable = true;
-    programs.bash.enable = true;
-
-    programs.nix-ld.enable = true;
-    programs.nix-ld.libraries = with pkgs; [
-        avrdude
-    ];
-
-    # ===== UNFREE =====
-    nixpkgs.config.allowUnfree = true;
-
-    # ===== PACKAGES =====
-    environment.systemPackages = [
         my-nvim.packages.${pkgs.system}.default
     ];
 

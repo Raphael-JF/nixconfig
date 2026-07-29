@@ -1,30 +1,32 @@
 {
-  description = "Didier's NixOS infrastructure";
+  description = "raph's NixOS infrastructure";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+ 
+    my-nvim = {
+        url = "path:./modules/nvim";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, disko, ... }:
+  outputs = { self, nixpkgs, ...}@inputs:
   let
-    system = "x86_64-linux";
-  in {
+    mkHost = hostname: nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
 
-    nixosConfigurations.server =
-      nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = { inherit inputs; };
-
-        modules = [
-
-          disko.nixosModules.disko
-
-          ./hosts/server
-        ];
-      };
+      specialArgs = { inherit inputs hostname; };
+      modules = [
+        inputs.disko.nixosModules.disko
+        ./hosts/${hostname}
+      ];
+    };
+  in
+  {
+    nixosConfigurations.server = mkHost "server";
+    nixosConfigurations.laptop = mkHost "laptop";
   };
 }

@@ -1,30 +1,18 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   environment.systemPackages = with pkgs; [
-
     git
-
-    neovim
-
+    inputs.my-nvim.packages.${pkgs.system}.default #nvim
     wget
-
-    curl
-
-    htop
-
-    btop
-
-    tree
-
-    tmux
-
-    unzip
-
-    pciutils
-
-    usbutils
-
+    curl  
+    htop  
+    btop  
+    tree  
+    tmux  
+    unzip  
+    pciutils  
+    usbutils  
     lsof
   ];
 }

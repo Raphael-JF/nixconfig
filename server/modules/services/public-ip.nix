@@ -1,9 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}:
-
+{ pkgs, config, ...} :
 let
   script = pkgs.writeShellApplication {
     name = "update-public-ip";
@@ -47,31 +42,33 @@ let
       git push'';
   };
 in
+
 {
+  config = {
 
-  systemd.services.public-ip = {
-    description = "Update public IP on GitHub";
+    systemd.services.public-ip = {
+      description = "Update public IP on GitHub";
 
-    serviceConfig = {
-      Type = "oneshot";
-      User = "raph";
-  Environment = [
-    "HOME=/home/raph"
-    "GIT_SSH_COMMAND=ssh -i /home/raph/.ssh/server -o IdentitiesOnly=yes"
-  ];
+      serviceConfig = {
+        Type = "oneshot";
+        User = "raph";
+        Environment = [
+          "HOME=/home/raph"
+          "GIT_SSH_COMMAND=ssh -i /home/raph/.ssh/server -o IdentitiesOnly=yes"
+        ];
+      };
+
+      script = "${script}/bin/update-public-ip";
     };
 
-    script = "${script}/bin/update-public-ip";
-  };
+    systemd.timers.public-ip = {
+      wantedBy = [ "timers.target" ];
 
-  systemd.timers.public-ip = {
-    wantedBy = [ "timers.target" ];
-
-    timerConfig = {
-      OnBootSec = "2min";
-      OnUnitActiveSec = "15min";
-      Unit = "public-ip.service";
+      timerConfig = {
+        OnBootSec = "2min";
+        OnUnitActiveSec = "15min";
+        Unit = "public-ip.service";
+      };
     };
   };
-
 }

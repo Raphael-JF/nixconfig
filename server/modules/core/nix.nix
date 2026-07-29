@@ -1,3 +1,5 @@
+{ nixpkgs, lib, ... }:
+
 {
   nix.settings = {
 
@@ -11,10 +13,12 @@
 
   nix.gc = {
 
-    automatic = true;
+    automatic = lib.mkDefault false;
 
     dates = "weekly";
 
-    #options = "--delete-older-than 30d";
+    options = "--delete-older-than 30d";
   };
+
+  nixpkgs.config.allowUnfree = true;
 }

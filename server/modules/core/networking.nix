@@ -1,5 +1,5 @@
+{ hostname, ... }:
 {
-  networking.hostName = "raph-server";
-
+  networking.hostName = "raph-${hostname}";
   networking.networkmanager.enable = true;
 }
