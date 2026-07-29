@@ -114,7 +114,6 @@ in
         platformio
         avrdude
         caneda
-        my-nvim
 
         (pkgs.writeShellScriptBin "ide" (builtins.readFile ./scripts/ide.sh))
         (pkgs.writeShellScriptBin "rebuild" (builtins.readFile ./scripts/rebuild.sh))

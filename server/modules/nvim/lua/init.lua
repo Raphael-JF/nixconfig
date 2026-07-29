@@ -92,12 +92,12 @@ vim.opt.relativenumber = true
 
 
 -------------- imports -----------------
-dofile("config/plugins/sidekick.lua")
-dofile("config/plugins/lsp.lua")
-dofile("config/plugins/treesitter.lua")
-dofile("config/plugins/lualine.lua")
-dofile("config/plugins/nvim-tree.lua")
-dofile("config/plugins/bufferline.lua")
-dofile("config/plugins/snacks.lua")
-dofile("config/plugins/visual-multi.lua")
-dofile("config/plugins/flash.lua")
+require("plugins.sidekick")
+require("plugins.lsp")
+require("plugins.treesitter")
+require("plugins.lualine")
+require("plugins.nvim-tree")
+require("plugins.bufferline")
+require("plugins.snacks")
+require("plugins.visual-multi")
+require("plugins.flash")

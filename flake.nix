@@ -22,7 +22,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, prismlauncher, nix-vscode-extensions, ... }:
+  outputs = inputs@{ nixpkgs, my-nvim, home-manager, prismlauncher, nix-vscode-extensions, ... }:
   let
     pkgsForHome = import nixpkgs {
       system = "x86_64-linux";
@@ -48,6 +48,9 @@
     homeConfigurations.raph-desktop = mkHome "desktop";
 
     nixosConfigurations.raph-laptop = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit my-nvim;
+      };
       modules = [
         ({ pkgs, ... }: {
           nixpkgs.overlays = [
@@ -74,6 +77,10 @@
       ];
     };
     nixosConfigurations.raph-desktop = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit my-nvim;
+      };
+ 
       modules = [
         ({ pkgs, ... }: {
           nixpkgs.overlays = [

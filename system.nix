@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, my-nvim, pkgs, lib, ... }:
 
 {
 # ===== OPTIONS =====
@@ -101,8 +101,8 @@ config = {
     nixpkgs.config.allowUnfree = true;
 
     # ===== PACKAGES =====
-    environment.systemPackages = with pkgs; [
-
+    environment.systemPackages = [
+        my-nvim.packages.${pkgs.system}.default
     ];
 
 

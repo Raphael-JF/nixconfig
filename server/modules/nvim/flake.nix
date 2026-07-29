@@ -55,6 +55,7 @@
             nvim-lspconfig 
             nvim-treesitter
             nvim-treesitter-textobjects
+	    nvim-tree-lua
             lualine-nvim
             which-key-nvim
             nvim-cmp
@@ -78,9 +79,9 @@
         ###########################################################
 
         luaRcContent = ''
-          vim.opt.rtp:prepend "${./config}"
-          dofile("config/init.lua")
-        '';
+          vim.opt.rtp:prepend "${./.}"
+          require("init")
+        '';   
     };
   };
 }
