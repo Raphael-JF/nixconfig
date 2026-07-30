@@ -98,7 +98,6 @@
         )
       )
       (config.services.icloudBackup.instances);
-  };
   
 
   environment.systemPackages =
@@ -136,5 +135,5 @@
       }
     )
     config.services.icloudBackup.instances;
-
+  };
 }

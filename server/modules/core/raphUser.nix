@@ -1,8 +1,9 @@
+
 { ... }:
 
 {
   users.users.raph = {
-    initialPassword = "a";
+    initialPassword = "";
     isNormalUser = true;
 
     extraGroups = [

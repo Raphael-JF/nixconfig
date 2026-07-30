@@ -73,19 +73,7 @@ config = {
 
     # ===== INPUT =====
     services.libinput.enable = true;
-
-    # ===== USBMUXD =====
-    services.usbmuxd = {
-        enable = true;
-        package = pkgs.usbmuxd2;
-    };
-
-
-
-        my-nvim.packages.${pkgs.system}.default
-    ];
-
-
+ 
     # ===== STATE VERSION =====
     system.stateVersion = "25.11";
 };

@@ -1,4 +1,4 @@
-{ config }:
+{ config, ... }:
 {  
   imports = [
     ./hardware-configuration.nix 
@@ -7,9 +7,7 @@
     ../../modules/core
     ../../modules/desktop
   ];
-  
-  config.gnome.enable = true;
 
-
+  packages.development.enable = true; 
   system.stateVersion = "26.05";
 }

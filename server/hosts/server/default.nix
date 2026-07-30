@@ -6,28 +6,25 @@
     ./hardware-configuration.nix
     ./disko.nix
 
-    ../../modules/core/boot.nix
-    ../../modules/core/nix.nix
-    ../../modules/core/networking.nix
-    ../../modules/core/locale.nix
-    ../../modules/core/packages.nix
-    ../../modules/core/security.nix
-    ../../modules/core/firewall.nix
-    ../../modules/core/users.nix
-    ../../modules/core/ssh.nix
-    ../../modules/core/bash.nix
-
+    ../../modules/core
+     
     # services
     ../../modules/services/docker.nix
-    ../../modules/services/public-ip.nix
+    ../../modules/services/publicIp.nix
+    ../../modules/services/icloudBackup.nix
     #../../modules/services/forgejo.nix
-    ../../modules/services/icloud-backup.nix
   ];
 
 
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [
+      22   # ssh
+    ];
+  };
 
-
-
+  
+  sshServer.enable = true;
 
   system.stateVersion = "26.05";
 }

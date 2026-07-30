@@ -5,6 +5,10 @@
     ./locale.nix
     ./nix.nix
     ./boot.nix 
-    ./network.nix
+    ./networking.nix
+    ./packages.nix
+    ./raphUser.nix
+    ./security.nix
+    ./development.nix
   ];
 }

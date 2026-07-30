@@ -1,9 +1,29 @@
 { pkgs, lib, config, ... }:
 {
-  options.gnome.enable = lib.mkEnableOption "GNOME desktop";
 
-  config = lib.mkIf config.gnome.enable {
-    services.xserver.enable = true;
+  config = {
+
+
+    environment.systemPackages = with pkgs; [
+      gnome.gnome-tweaks
+      gnome.gnome-extensions-app
+      gnome.gnome-shell-extension-prefs
+      gnome.gnome-shell-extension-manager
+      gnome.gnome-shell-extension-desktop-icons-ng
+      gnome.gnome-shell-extension-dash-to-dock
+      gnome.gnome-shell-extension-caffeine
+      gnome.gnome-shell-extension-clipboard-indicator
+      gnome.gnome-shell-extension-clipboard-history
+      gnome.gnome-shell-extension-clipboard-indicator-git
+      gnome.gnome-shell-extension-clipboard-history-git
+    ];
+    
+    services.libinput.enable = true; # Enable libinput for touchpad and mouse support
+  
+    services.xserver = {
+      enable = true;
+      layout = "fr";
+    };
 
     services.displayManager.gdm.enable = true;
     services.desktopManager.gnome.enable = true;
