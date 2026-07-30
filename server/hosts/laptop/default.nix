@@ -5,7 +5,7 @@
     ./disko.nix
 
     ../../modules/core
-    ../../modules/desktop
+    ../../modules/windowManager
   ];
 
   packages.development.enable = true; 
