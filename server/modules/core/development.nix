@@ -12,8 +12,19 @@
       pkgs.gdb
       pkgs.gcc
       pkgs.bear
-      pkgs.aider-chat
+      # pkgs.aider-chat
       pkgs.graphviz
+      (
+        pkgs.python3.withPackages (python-pkgs: with python-pkgs; [
+          numpy
+          matplotlib
+          scipy
+          mip 
+          highspy
+          pyserial
+        ])
+      )
+
     ];
   };
 }

@@ -2,7 +2,6 @@
 
 {
   environment.systemPackages = with pkgs; [
-    git
     inputs.my-nvim.packages.${pkgs.system}.default #nvim
     wget
     curl  
