@@ -1,5 +1,9 @@
-{ ... }:
+{ pkgs, ... }:
 {
+  environment.systemPackages = [
+    pkgs.kitty
+  ];
+    
   environment.etc."kitty/kitty.conf".text = ''
     confirm_os_window_close 0
     font_size 12

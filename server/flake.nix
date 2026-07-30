@@ -8,7 +8,7 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
  
     my-nvim = {
-        url = "path:./modules/nvim";
+        url = "path:./packages/nvim";
         inputs.nixpkgs.follows = "nixpkgs";
     };
   };

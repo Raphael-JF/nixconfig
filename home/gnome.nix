@@ -8,8 +8,7 @@ dconf.settings = {
         enabled-extensions = [
             "copyous@boerdereinar.dev"
         ];
-        disabled-extensions = [
-        ];
+        disabled-extensions = lib.gvariant.mkEmptyArray lib.gvariant.type.string;
     };
 
     "org/gnome/shell/extensions/copyous" = {
@@ -56,18 +55,17 @@ dconf.settings = {
     switch-to-workspace-right = ["<Alt>c"];
     switch-to-workspace-left  = ["<Alt>x"];
 
-    switch-applications = [ ];
-    switch-applications-backward = [ ];
+    switch-applications = lib.gvariant.mkEmptyArray lib.gvariant.type.string;
+    switch-applications-backward = lib.gvariant.mkEmptyArray lib.gvariant.type.string;
 
-    switch-group = [ ];
-    switch-group-backward = [ ];
-
+    switch-group = lib.gvariant.mkEmptyArray lib.gvariant.type.string;
+    switch-group-backward = lib.gvariant.mkEmptyArray lib.gvariant.type.string;
     switch-windows = [ "<Alt>Tab" ];
     switch-windows-backward = [ "<Shift><Alt>Tab" ];
     };
 
     "org/gnome/shell/keybindings" = {
-        toggle-message-tray = [ ];
+        toggle-message-tray = lib.gvariant.mkEmptyArray  lib.gvariant.type.string;
     };
 
     # --- Touchpad ---
@@ -92,7 +90,7 @@ dconf.settings = {
 
     # --- Workspaces ---
     "org/gnome/desktop/wm/preferences" = {
-    num-workspaces = 2;
+      num-workspaces = 2;
     };
 
     "org/gnome/mutter" = {
@@ -114,7 +112,7 @@ dconf.settings = {
     startup-overview = false;
     };
     "org/gnome/desktop/session" = {
-        idle-delay = lib.gvariant.mkUint32 900;
+        idle-delay = lib.gvariant.mkUint32 0;
     };
 };
 

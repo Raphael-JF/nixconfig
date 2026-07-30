@@ -12,5 +12,7 @@
     ./development.nix
     ./sshServer.nix
     ./sshClient.nix
+    ./git.nix
+    ./nvim.nix
   ];
 }

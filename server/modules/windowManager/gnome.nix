@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, ... }:
 {
 
   config = {
@@ -6,6 +6,7 @@
 
     environment.systemPackages = with pkgs; [
       gnome-tweaks
+      gnomeExtensions.copyous
     ];
     
     services.libinput.enable = true; # Enable libinput for touchpad and mouse support
@@ -26,35 +27,33 @@
     environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs ];
     
     programs.dconf.profiles.user.databases = [
-      { lockall = true;
+      { lockAll = true;
         settings = {
           # --- Extensions ---
           "org/gnome/shell" = {
               enabled-extensions = [
                   "copyous@boerdereinar.dev"
               ];
-              disabled-extensions = [
-              ];
+              disabled-extensions = lib.gvariant.mkEmptyArray lib.gvariant.type.string;
           };
 
           "org/gnome/shell/extensions/copyous" = {
-              clipboard-orientation = "vertical";
-              clipboard-position-horizontal = "top";
-              clipboard-position-vertical = "fill";
-              clipboard-size = 500;
-              disable-hljs-dialog = true;
-              dynamic-item-height = true;
-              header-controls-visibility = "visible-on-hover";
-              item-height = 100;
-              item-width = 300;
-              show-at-pointer = true;
-              show-header = false;
-              show-indicator = false;
-              sync-primary = true;
-              open-clipboard-dialog-shortcut = ["<Super>v"];
-
+            clipboard-orientation = "vertical";
+            clipboard-position-horizontal = "top";
+            clipboard-position-vertical = "fill";
+            clipboard-size = lib.gvariant.mkUint32 500;
+            disable-hljs-dialog = true;
+            dynamic-item-height = true;
+            header-controls-visibility = "visible-on-hover";
+            item-height = lib.gvariant.mkUint32 100;
+            item-width = lib.gvariant.mkUint32 300;
+            show-at-pointer = true;
+            show-header = false;
+            show-indicator = false;
+            sync-primary = true;
+            open-clipboard-dialog-shortcut = [ "<Super>v" ];
           };
-          "org/gnome/shell/extensions/copyous/file-item" = {
+"org/gnome/shell/extensions/copyous/file-item" = {
               file-preview-visibility = "file-info";
           };
           "org/gnome/shell/extensions/copyous/link-item" = {
@@ -81,18 +80,18 @@
           switch-to-workspace-right = ["<Alt>c"];
           switch-to-workspace-left  = ["<Alt>x"];
 
-          switch-applications = [ ];
-          switch-applications-backward = [ ];
+          switch-applications = lib.gvariant.mkEmptyArray  lib.gvariant.type.string;
+          switch-applications-backward = lib.gvariant.mkEmptyArray  lib.gvariant.type.string;
 
-          switch-group = [ ];
-          switch-group-backward = [ ];
+          switch-group = lib.gvariant.mkEmptyArray  lib.gvariant.type.string;
+          switch-group-backward = lib.gvariant.mkEmptyArray  lib.gvariant.type.string;
 
           switch-windows = [ "<Alt>Tab" ];
           switch-windows-backward = [ "<Shift><Alt>Tab" ];
           };
 
           "org/gnome/shell/keybindings" = {
-              toggle-message-tray = [ ];
+              toggle-message-tray = lib.gvariant.mkEmptyArray  lib.gvariant.type.string;
           };
 
           # --- Touchpad ---
@@ -117,7 +116,7 @@
 
           # --- Workspaces ---
           "org/gnome/desktop/wm/preferences" = {
-          num-workspaces = 2;
+          num-workspaces = lib.mkInt32 2;
           };
 
           "org/gnome/mutter" = {
@@ -132,13 +131,16 @@
           };
 
           "org/gnome/desktop/interface" = {
-              enable-hot-corners = false;
+            enable-hot-corners = false;
           };
           "org/gnome/shell" = {
-          startup-overview = false;
+            startup-overview = false;
           };
           "org/gnome/desktop/session" = {
-              idle-delay = lib.gvariant.mkUint32 900;
+            idle-delay = lib.gvariant.mkUint32 0;
+          };
+          "org/gnome/desktop/screensaver" = {
+            lock-enabled = false;
           };
         };
       }

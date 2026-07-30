@@ -1,4 +1,4 @@
-{ config, ... }:
+{ hostname , ... }:
 {  
   imports = [
     ./hardware-configuration.nix 
@@ -10,10 +10,13 @@
 
   packages.development.enable = true; 
 
-  fileSystems."/mnt/osShared" = {
+  fileSystems."/run/media/${hostname}/osShared" = {
     device = "/dev/disk/by-uuid/60AC-58F9";
     fsType = "exfat";
-    options = [ "nofail" ];
+    options = [
+      "x-gvfs-show"
+      "x-gvfs-name=osShared"
+    ];
   };
   system.stateVersion = "26.05";
 }

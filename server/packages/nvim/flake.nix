@@ -56,7 +56,7 @@
             nvim-lspconfig 
             nvim-treesitter
             nvim-treesitter-textobjects
-	    nvim-tree-lua
+            nvim-tree-lua
             lualine-nvim
             which-key-nvim
             nvim-cmp
