@@ -1,6 +1,6 @@
 { lib, config, ... }:
 {
-  options.sshServer.enable = lib.mkEnabledOption "Enable SSH server";
+  options.sshServer.enable = lib.mkEnableOption "Enable SSH server";
 
   config = lib.mkIf config.sshServer.enable {
     services.openssh = {

@@ -10,5 +10,6 @@
     ./raphUser.nix
     ./security.nix
     ./development.nix
+    ./sshServer.nix
   ];
 }

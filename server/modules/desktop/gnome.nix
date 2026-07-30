@@ -22,7 +22,7 @@
   
     services.xserver = {
       enable = true;
-      layout = "fr";
+      xkb.layout = "fr";
     };
 
     services.displayManager.gdm.enable = true;
