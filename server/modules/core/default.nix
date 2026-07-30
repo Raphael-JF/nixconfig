@@ -11,5 +11,6 @@
     ./security.nix
     ./development.nix
     ./sshServer.nix
+    ./sshClient.nix
   ];
 }
