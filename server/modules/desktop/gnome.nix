@@ -5,17 +5,7 @@
 
 
     environment.systemPackages = with pkgs; [
-      gnome.gnome-tweaks
-      gnome.gnome-extensions-app
-      gnome.gnome-shell-extension-prefs
-      gnome.gnome-shell-extension-manager
-      gnome.gnome-shell-extension-desktop-icons-ng
-      gnome.gnome-shell-extension-dash-to-dock
-      gnome.gnome-shell-extension-caffeine
-      gnome.gnome-shell-extension-clipboard-indicator
-      gnome.gnome-shell-extension-clipboard-history
-      gnome.gnome-shell-extension-clipboard-indicator-git
-      gnome.gnome-shell-extension-clipboard-history-git
+      gnome-tweaks
     ];
     
     services.libinput.enable = true; # Enable libinput for touchpad and mouse support

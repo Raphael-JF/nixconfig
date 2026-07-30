@@ -70,8 +70,6 @@ in
             ".clangd.local"
             "compile_commands.json"
             ".direnv"
-            "flake.nix"
-            "flake.lock"
             ".envrc"
             "*.idx"
             ".aider*"
