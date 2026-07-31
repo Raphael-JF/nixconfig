@@ -9,7 +9,7 @@
   ];
 
     sops.defaultSopsFile = ./secrets/secrets.yaml;
-    sops.defaultSopsFormat= "json";
+    sops.defaultSopsFormat= "yaml";
     
     sops.age.keyFile = "/home/${hostname}/.config/sops/age/keys.txt";
 }
