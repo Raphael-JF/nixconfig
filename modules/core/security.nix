@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, hostname,  ... }:
 {
   security.sudo.wheelNeedsPassword = true;
   services.fprintd.enable = true; # Enable fingerprint authentication
@@ -8,4 +8,8 @@
     age
   ];
 
+    sops.defaultSopsFile = ./secrets/secrets.yaml;
+    sops.defaultSopsFormat= "json";
+    
+    sops.age.keyFile = "/home/${hostname}/.config/sops/age/keys.txt";
 }

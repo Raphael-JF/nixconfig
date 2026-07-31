@@ -26,10 +26,6 @@
         ./hosts/${hostname}
       ];
 
-      sops.defaultSopsFile = ./secrets/secrets.yaml;
-      sops.defaultSopsFormat= "json";
-      
-      sops.age.keyFile = "/home/${hostname}/.config/sops/age/keys.txt";
     };
   in
   {
