@@ -53,7 +53,7 @@
             sync-primary = true;
             open-clipboard-dialog-shortcut = [ "<Super>v" ];
           };
-"org/gnome/shell/extensions/copyous/file-item" = {
+          "org/gnome/shell/extensions/copyous/file-item" = {
               file-preview-visibility = "file-info";
           };
           "org/gnome/shell/extensions/copyous/link-item" = {
@@ -107,6 +107,12 @@
           night-light-schedule-from = 0.0;
           night-light-schedule-to = 0.0;
           night-light-temperature = lib.gvariant.mkUint32 3526;
+          };
+          
+          "org/gnome/settings-daemon/plugins/power" = {
+            sleep-inactive-battery-type = "nothing";
+            sleep-inactive-ac-type = "nothing";
+            idle-dim = false;
           };
 
           # --- App switcher ---
