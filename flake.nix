@@ -1,115 +1,39 @@
 {
-  description = "My main nixOS flake";
+  description = "raph's NixOS infrastructure";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    prismlauncher = {
-      url = "github:PrismLauncher/PrismLauncher";
-    };
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+ 
+    my-nvim.url = "path:./packages/nvim";
+    my-nvim.inputs.nixpkgs.follows = "nixpkgs";
 
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-
-    my-nvim = {
-        url = "path:./server/modules/nvim";
-        inputs.nixpkgs.follows = "nixpkgs";
-    };
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ nixpkgs, my-nvim, home-manager, prismlauncher, nix-vscode-extensions, ... }:
+  outputs = { self, nixpkgs, ...}@inputs:
   let
-    pkgsForHome = import nixpkgs {
+    mkHost = hostname: nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      overlays = [
-        nix-vscode-extensions.overlays.default
-      ];
-      config.allowUnfree = true;
-    };
 
-    mkHome = hostType: home-manager.lib.homeManagerConfiguration {
-      pkgs = pkgsForHome;
+      specialArgs = { inherit inputs hostname; };
       modules = [
-        ./home/home-manager.nix
+        inputs.disko.nixosModules.disko
+        inputs.sops-nix.nixosModules.sops
+        ./hosts/${hostname}
       ];
-      extraSpecialArgs = {
-        raph = {
-          inherit hostType;
-        };
-      };
+
+      sops.defaultSopsFile = ./secrets/secrets.yaml;
+      sops.defaultSopsFormat= "json";
+      
+      sops.age.keyFile = "/home/${hostname}/.config/sops/age/keys.txt";
     };
-  in {
-    homeConfigurations.raph-laptop = mkHome "laptop";
-    homeConfigurations.raph-desktop = mkHome "desktop";
-
-    nixosConfigurations.raph-laptop = nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit my-nvim;
-      };
-      modules = [
-        ({ pkgs, ... }: {
-          nixpkgs.overlays = [
-            nix-vscode-extensions.overlays.default
-          ];
-
-          nixpkgs.config.allowUnfree = true;
-        })
-        ./specific-raph-laptop.nix
-
-
-        ./system.nix
-
-        home-manager.nixosModules.home-manager
-        ({ config, ... }: {
-          home-manager.extraSpecialArgs = {
-            raph = {
-              hostType = config.raph.hostType;
-            };
-          };
-        })
-        ./home/home.nix
-
-      ];
-    };
-    nixosConfigurations.raph-desktop = nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit my-nvim;
-      };
- 
-      modules = [
-        ({ pkgs, ... }: {
-          nixpkgs.overlays = [
-            nix-vscode-extensions.overlays.default
-          ];
-
-          nixpkgs.config.allowUnfree = true;
-        })
-        (
-            { pkgs, ... }:
-            {
-              environment.systemPackages = [ prismlauncher.packages.${pkgs.system}.prismlauncher ];
-            }
-          )
-        ./specific-raph-desktop.nix
-
-        ./system.nix
-
-        home-manager.nixosModules.home-manager
-        ({ config, ... }: {
-          home-manager.extraSpecialArgs = {
-            raph = {
-              hostType = config.raph.hostType;
-            };
-          };
-        })
-        ./home/home.nix
-
-      ];
-    };
+  in
+  {
+    nixosConfigurations.server = mkHost "server";
+    nixosConfigurations.laptop = mkHost "laptop";
   };
 }

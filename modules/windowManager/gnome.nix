@@ -116,7 +116,7 @@
 
           # --- Workspaces ---
           "org/gnome/desktop/wm/preferences" = {
-          num-workspaces = lib.mkInt32 2;
+          num-workspaces = lib.gvariant.mkUint32 2;
           };
 
           "org/gnome/mutter" = {

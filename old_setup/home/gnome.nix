@@ -90,7 +90,7 @@ dconf.settings = {
 
     # --- Workspaces ---
     "org/gnome/desktop/wm/preferences" = {
-      num-workspaces = 2;
+      num-workspaces = lib.gvariant.mkInt32;
     };
 
     "org/gnome/mutter" = {
