@@ -1,10 +1,10 @@
 
-{ ... }:
+{ config, ... }:
 
 {
   users.users.raph = {
-    initialPassword = "";
     isNormalUser = true;
+    hashedPasswordFile = config.sops.secrets.raphPassword.path;
 
     extraGroups = [
       "wheel"
@@ -12,9 +12,10 @@
     ];
 
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE+mpQTHhucCVywM74pja3n+oLvEbN3Rh6Kdr0ogjjy2 raph@raph-desktop"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIESTCleHAfmgUQfFz0Rp3xtKmgDzowuKmRiwE6m6H6RA raph@raph-laptop"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMjPNDWi4vjiqAp+MdByvlIEhKsr/TDOLQVGq4UQSiEm mobile@iPhone"
+      builtins.readFile config.sops.secrets.desktop.public.path
+      builtins.readFile config.sops.secrets.laptop.public.path
+      builtins.readFile config.sops.secrets.server.public.path
+      builtins.readFile config.sops.secrets.iphone.public.path
     ];
 
   };
