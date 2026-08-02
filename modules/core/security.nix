@@ -4,10 +4,10 @@ let
 
   mkPublicKey = host: {
     mode = "644";
-    owner = config.users.users.${hostname}.name;
-    group = config.users.users.${hostname}.group;
+    owner = config.users.users.raph.name;
+    group = config.users.users.raph.group;
     path = lib.mkIf (host == hostname)
-      "/home/${config.users.users.${hostname}.name}/.ssh/${host}.pub";
+      "/home/raph/.ssh/${host}.pub";
   };
 in
 
@@ -20,10 +20,10 @@ in
     age
   ];
 
-  sops.defaultSopsFile = ./secrets/secrets.yaml;
+  sops.defaultSopsFile = ../../secrets.yaml;
   sops.defaultSopsFormat= "yaml";
   
-  sops.age.keyFile = "/home/${hostname}/.config/sops/age/keys.txt";
+  sops.age.keyFile = "/home/raph/.config/sops/age/keys.txt";
 
   sops.secrets =
     lib.genAttrs
@@ -33,9 +33,17 @@ in
     {
       "ssh/${hostname}/private" = {
         mode = "600";
-        owner = config.users.users.${hostname}.name;
-        group = config.users.users.${hostname}.group;
-        path = "/home/${hostname}/.ssh/${hostname}";
+        owner = config.users.users.raph.name;
+        group = config.users.users.raph.group;
+        path = "/home/raph/.ssh/${hostname}";
       };
+    }
+    //
+    {
+      raphPassword = {
+        mode = "600";
+        owner = "root";
+        group = "root";
     };
+  };
 }

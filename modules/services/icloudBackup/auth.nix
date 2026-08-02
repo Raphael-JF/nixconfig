@@ -20,12 +20,14 @@
           echo "Cookie directory: $COOKIE_DIR"
 
           sudo mkdir -p "$COOKIE_DIR"
-          sudo chown raph:raph "$COOKIE_DIR"
+          sudo chown raph:users "$COOKIE_DIR"
 
-          ${pkgs.icloudpd}/bin/icloudpd \
-            --username "${cfg.appleID}" \
-            --cookie-directory "$COOKIE_DIR"
-
+          
+          ${pkgs.icloudpd}/bin/icloudpd  \
+          --auth-only \
+          --username ${cfg.appleID} \
+          --cookie-directory $COOKIE_DIR \
+          --password-provider console
           echo "Fixing permissions..."
 
           sudo chown -R icloudSystemUser-${name}:icloudSystemUser-${name} "$COOKIE_DIR"
@@ -35,24 +37,5 @@
         '';
       }
     )
-    config.services.icloudBackup.instances;
-
-  systemd.timers = 
-    lib.mapAttrs' (name: cfg: lib.nameValuePair
-      ("icloudAuth-${name}")
-      (
-        {
-          description = "Timer for iCloud authentication for ${name}";
-
-          timerConfig = {
-            OnCalendar = "*-*-01 03:00:00"; # Run on the first day of every month at 3 AM
-            Persistent = true; # Run the job immediately if it was missed (e.g., if the computer was off)
-          };
-
-          wantedBy = [ "timers.target" ];
-        }
-      )
-    )
-    (config.services.icloudBackup.instances);
- 
+    config.services.icloudBackup.instances; 
 }

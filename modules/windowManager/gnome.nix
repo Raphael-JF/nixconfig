@@ -146,7 +146,7 @@
             idle-delay = lib.gvariant.mkUint32 0;
           };
           "org/gnome/desktop/screensaver" = {
-            lock-enabled = false;
+            lock-enabled = true;
           };
         };
       }

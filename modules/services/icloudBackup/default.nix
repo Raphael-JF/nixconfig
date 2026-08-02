@@ -18,8 +18,8 @@
 
           directory = lib.mkOption {
             type = lib.types.path;
-            default = "/var/lib/icloud-backup";
-            description = "Backup directory";
+            default = "/home/raph/Photos/";
+            description = "Backup directory's symlink";
           };
 
         };

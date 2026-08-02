@@ -11,14 +11,12 @@
 
             serviceConfig = {
               Type = "oneshot";
-              User = "icloudBackupUser-${name}";
-            };
-
-            stateDir = "/var/lib/icloudBackup/${name}";
-
+              User = "icloudSystemUser-${name}";
+              UMask = "0007";
+           };
             script = ''
               ${pkgs.icloudpd}/bin/icloudpd \
-                --directory ${cfg.directory} \
+                --directory ~/Photos \
                 --folder-structure "{:%Y/%m}" \
                 --username ${cfg.appleID}\
                 --cookie-directory /var/lib/icloudBackup/${name}/cookies \
@@ -31,7 +29,7 @@
 
   systemd.timers = 
     lib.mapAttrs' (name: cfg: lib.nameValuePair
-      ("icloud-backup-${name}")
+      ("icloudBackup-${name}")
       (
         {
           description = "Timer for iCloud backup for ${name}";
