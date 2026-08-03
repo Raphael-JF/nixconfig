@@ -7,6 +7,8 @@
     ../../modules/core
     ../../modules/windowManager
 
+
+    ../../modules/services/backup.nix
     ../../modules/services/icloudBackup
   ];
 
@@ -24,18 +26,7 @@
   # };
   #
 
-  fileSystems."/mnt/backupDisk" = {
-    device = "/dev/disk/by-label/backupDisk";
-    fsType = "btrfs";
-    options = [ "compress=zstd:3" "noatime" "nofail"];
-  };
-
-  environment.systemPackages = with pkgs; [
-    btrfs-progs
-    gparted
-    compsize
-  ];
-
+  
   services.icloudBackup.instances = {
     raph = {
       appleID = "poweraphael2@gmail.com";
