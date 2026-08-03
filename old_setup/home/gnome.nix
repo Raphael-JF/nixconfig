@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
-
 {
+xdg.userDirs.documents = "/home/raph";
 dconf.settings = {
 
     # --- Extensions ---

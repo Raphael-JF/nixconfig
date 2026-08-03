@@ -1,4 +1,4 @@
-{ hostname , ... }:
+{ hostname , pkgs, ... }:
 {  
   imports = [
     ./hardware-configuration.nix 
@@ -12,20 +12,33 @@
 
   packages.development.enable = true; 
 
-  fileSystems."/run/media/${hostname}/osShared" = {
-    device = "/dev/mmcblk0p4";
-    fsType = "exfat";
-    options = [
-      "x-gvfs-show"
-      "x-gvfs-name=osShared"
-    ];
+  # fileSystems."/run/media/${hostname}/osShared" = {
+  #   device = "/dev/disk/by-uuid/3fb95fc1-7f65-4f83-950f-0d0ce50576a7";
+  #   fsType = "exfat";
+  #   options = [
+  #     "x-gvfs-show"
+  #     "x-gvfs-name=osShared"
+        # "nofail"
+        # "noatime"
+  #   ];
+  # };
+  #
+
+  fileSystems."/mnt/backupDisk" = {
+    device = "/dev/disk/by-label/backupDisk";
+    fsType = "btrfs";
+    options = [ "compress=zstd:3" "noatime" "nofail"];
   };
 
+  environment.systemPackages = with pkgs; [
+    btrfs-progs
+    gparted
+    compsize
+  ];
 
   services.icloudBackup.instances = {
     raph = {
       appleID = "poweraphael2@gmail.com";
-      directory = "/home/raph/Photos";
     };
   };
 

@@ -15,13 +15,6 @@
             type = lib.types.str;
             description = "Apple ID";
           };
-
-          directory = lib.mkOption {
-            type = lib.types.path;
-            default = "/home/raph/Photos/";
-            description = "Backup directory's symlink";
-          };
-
         };
       });
 

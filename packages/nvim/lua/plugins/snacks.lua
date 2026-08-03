@@ -9,6 +9,7 @@ require("snacks").setup({
   notifier = {
     enabled = true,
     timeout = 3000,
+    top_down = false,
   },
 
   -- Remplace vim.ui.input()

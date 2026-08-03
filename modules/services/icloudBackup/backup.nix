@@ -1,9 +1,35 @@
-# This will create a systemd.services."icloud-backup-${name}" for each instance of a given name, and a given apple id
 { pkgs, lib, config, ... }:
 {
+  # First, map the "Photos", stored on the backup disk (create this folder if non-existent), to the home of each instance.
+  # Then, Create a systemd service for each instance
+  # Finaly, create a systemd timer for each instance to run the service periodicaly.
+
+  
+  systemd.tmpfiles.rules =
+  lib.mapAttrsToList
+    (name: cfg:
+      "z /mnt/backupDisk/icloudBackup/${name} 0770 icloudSystemUser-${name} icloudPhotos -"
+      # z stands for create dir (just change permissions if it exists), 0770 is the permission, icloudSystemUser-${name} is the owner, icloudPhotos is the group, and - means no age limit (don't delete it after X days)
+    )
+    config.services.icloudBackup.instances;
+
+
+  fileSystems = 
+    lib.mapAttrs' 
+      (name : cfg: lib.nameValuePair
+        ("/var/lib/icloudBackup/${name}/Photos") # the folder that will be the mock
+        {
+          device = "/mnt/backupDisk/icloudBackup/${name}"; # the actual folder that will be twice visible
+          fsType = "none";
+          options = [ "bind" ];
+        }
+      )
+      config.services.icloudBackup.instances;
+
+
   systemd.services =
-    lib.mapAttrs' # Map on configured instances and associate each instance with a systemd service 
-      (name: cfg: lib.nameValuePair
+    lib.mapAttrs' 
+    (name: cfg: lib.nameValuePair
         ("icloudBackup-${name}")
         (
           {
@@ -24,8 +50,7 @@
           }
         )
       )
-      (config.services.icloudBackup.instances);
-  # Map on configured instances and associate each instance with a systemd timer
+      config.services.icloudBackup.instances;
 
   systemd.timers = 
     lib.mapAttrs' (name: cfg: lib.nameValuePair
@@ -43,6 +68,6 @@
         }
       )
     )
-    (config.services.icloudBackup.instances);
+    config.services.icloudBackup.instances;
  
 }

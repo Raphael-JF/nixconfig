@@ -23,6 +23,13 @@
     ];
   };
 
+
+  services.icloudBackup.instances = {
+    raph = {
+      appleID = "poweraphael2@gmail.com";
+    };
+  };
+
   
   sshServer.enable = true;
 
