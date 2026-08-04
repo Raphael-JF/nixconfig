@@ -10,6 +10,7 @@
 
     ../../modules/services/backup.nix
     ../../modules/services/icloudBackup
+    ../../modules/services/nextcloud
   ];
 
   packages.development.enable = true; 

@@ -44,6 +44,11 @@ in
         mode = "600";
         owner = "root";
         group = "root";
+      };
+      nextcloudAdminPassword = {
+        mode = "600";
+        owner = "root";
+        group = "root";
+      };
     };
-  };
 }
