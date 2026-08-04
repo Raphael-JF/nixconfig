@@ -8,7 +8,7 @@
   systemd.tmpfiles.rules =
   lib.mapAttrsToList
     (name: cfg:
-      "z ${config.services.backup.devices.data}/icloudBackup/${name} 0770 icloudSystemUser-${name} icloudPhotos -"
+      "z ${config.services.backup.devices.data.path}/icloudBackup/${name} 0770 icloudSystemUser-${name} icloudPhotos -"
       # z stands for create dir (just change permissions if it exists), 0770 is the permission, icloudSystemUser-${name} is the owner, icloudPhotos is the group, and - means no age limit (don't delete it after X days)
     )
     config.services.icloudBackup.instances;
@@ -19,7 +19,7 @@
       (name : cfg: lib.nameValuePair
         ("/var/lib/icloudBackup/${name}/Photos") # the folder that will be the mock
         {
-          device = "${config.services.backup.devices.data}/icloudBackup/${name}"; # the actual folder that will be twice visible
+          device = "${config.services.backup.devices.data.path}/icloudBackup/${name}"; # the actual folder that will be twice visible
           fsType = "none";
           options = [ "bind" ];
         }
@@ -40,8 +40,6 @@
               User = "icloudSystemUser-${name}";
               UMask = "0007";
            };
-            after = [ "icloudBackupInit-${name}.service" ];
-            requires = [ "icloudBackupInit-${name}.service" ];
             script = ''
               ${pkgs.icloudpd}/bin/icloudpd \
                 --directory ~/Photos \

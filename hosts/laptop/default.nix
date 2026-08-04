@@ -25,6 +25,16 @@
   #   ];
   # };
   #
+  services.backup.devices = {
+    backup = {
+      device = "/dev/disk/by-label/BackupUSB";
+      path = "/mnt/backupUSB";
+    };
+    data = {
+      device = "/dev/disk/by-label/backupDisk";
+      path = "/mnt/data"; 
+    };
+  };
 
   
   services.icloudBackup.instances = {
