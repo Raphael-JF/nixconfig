@@ -1,11 +1,15 @@
-{ lib, config, ... }:
+{ lib, config, hostname, ... }:
 {
-  options.sshServer.enable = lib.mkEnableOption "Enable SSH server";
+  options.services.sshServer.enable = lib.mkEnableOption "Enable SSH server";
 
-  config = lib.mkIf config.sshServer.enable {
+  config = lib.mkIf config.services.sshServer.enable {
     services.openssh = {
       enable = true;
       openFirewall = false; # We manage the firewall separately
+      hostKeys = [ {
+        path = config.sops.secrets."ssh/${hostname}/private".path;
+        type = "ed25519";
+      } ];
       settings = {
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;

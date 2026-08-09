@@ -24,6 +24,7 @@
           pyserial
         ])
       )
+      pkgs.texliveSmall
 
     ];
   };
