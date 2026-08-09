@@ -3,6 +3,13 @@
   options.services.sshServer.enable = lib.mkEnableOption "Enable SSH server";
 
   config = lib.mkIf config.services.sshServer.enable {
+    networking.firewall = {
+      enable = true;
+      allowedTCPPorts = [
+        22   # ssh
+      ];
+    };
+
     services.openssh = {
       enable = true;
       openFirewall = false; # We manage the firewall separately

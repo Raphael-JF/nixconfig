@@ -36,14 +36,7 @@
       path = "/mnt/data"; 
     };
   };
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [
-      22   # ssh
-    ];
-  };
-
-  
+    
   services.icloudBackup.instances = {
     raph = {
       appleID = "poweraphael2@gmail.com";

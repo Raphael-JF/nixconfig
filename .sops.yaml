@@ -1,6 +1,6 @@
 keys:
   - &laptop age1nav5ahnklyznc0tfj7pkmtr95k7h7j3u95uj6mukp8lvkunfvywqnwvn3s
-  # - &desktop [[key]]
+  - &desktop age12r08ljuhvznsypvt9auza4k7f5362eng3dchfcsucx0rfzgnse5s92n78u
   # - &server [[key]]
 creation_rules:
   - path_regex: secrets.yaml$
