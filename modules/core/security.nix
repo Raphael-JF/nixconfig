@@ -20,7 +20,7 @@ in
     age
   ];
 
-  sops.defaultSopsFile = ../../secrets/secrets.yaml;
+  sops.defaultSopsFile = ../../secrets/passwords.yaml;
   sops.defaultSopsFormat= "yaml";
   
   # sops.age.keyFile = "/home/raph/.config/sops/age/keys.txt";
