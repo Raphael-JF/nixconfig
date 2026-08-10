@@ -16,7 +16,6 @@
     #../../modules/services/forgejo.nix
   ];
 
-  security.sudo.wheelNeedsPassword = false;
   services.backup.devices = {
     backup = {
       device = "/dev/disk/by-label/backupUSB";
