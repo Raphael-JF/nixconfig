@@ -44,6 +44,7 @@ let
 in
 
 {
+  import = [ ./users.nix ];
   config = {
 
     systemd.services.public-ip = {
