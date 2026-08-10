@@ -45,7 +45,7 @@
 
       lvs = {
         swap = {
-          size = "8G"; # adapte selon ta RAM
+          size = "8G";
 
           content = {
             type = "swap";
@@ -54,7 +54,7 @@
         };
 
         root = {
-          size = "30G"; # ou 30G, selon tes besoins
+          size = "40G";
 
           content = {
             type = "filesystem";
@@ -67,14 +67,19 @@
           size = "100%FREE";
 
           content = {
-            type = "filesystem";
-            format = "btrfs";
-            mountpoint = "/data";
+            type = "btrfs";
 
-            mountOptions = [
-              "compress=zstd:6"
-              "noatime"
-            ];
+            subvolumes = {
+              "/data" = {
+                mountpoint = "/data";
+
+                mountOptions = [
+                  "compress=zstd:3"
+                  "noatime"
+                  "nofail"
+                ];
+              };
+            };
           };
         };
       };

@@ -7,10 +7,12 @@
     ../../modules/core
     ../../modules/windowManager
     
+
+    ../../modules/services/sshServer.nix
   ];
 
   packages.development.enable = true; 
-  gaming.enable = true;
+  packages.gaming.enable = true;
 
   #
   # ===== NVIDIA GRAPHICS =====
@@ -31,7 +33,6 @@
 
   
 
-  services.sshServer.enable = true;
 
 
   system.stateVersion = "26.05";

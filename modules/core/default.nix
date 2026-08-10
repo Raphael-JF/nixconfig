@@ -10,7 +10,6 @@
     ./raphUser.nix
     ./security.nix
     ./development.nix
-    ./sshServer.nix
     ./sshClient.nix
     ./git.nix
     ./nvim.nix

@@ -8,9 +8,7 @@
     ../../modules/windowManager
 
 
-    # ../../modules/services/backup.nix
-    # ../../modules/services/icloudBackup
-    # ../../modules/services/nextcloud
+    ../../modules/services/sshServer.nix
   ];
 
   packages.development.enable = true; 
@@ -44,7 +42,6 @@
   #   };
   # };
   #
-  services.sshServer.enable = true;
 
 
   system.stateVersion = "26.05";

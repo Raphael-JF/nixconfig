@@ -12,15 +12,20 @@
     ../../modules/services/docker.nix
     ../../modules/services/publicIp.nix
     ../../modules/services/icloudBackup.nix
+    ../../modules/services/backup.nix
+    ../../modules/services/sshServer.nix
     #../../modules/services/forgejo.nix
   ];
 
-
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [
-      22   # ssh
-    ];
+   services.backup.devices = {
+      backup = {
+        device = "/dev/disk/by-label/backupUSB";
+        path = "/mnt/backupUSB";
+      };
+      data = {
+        device = "/dev/disk/by-label/backupDisk";
+        path = "/data"; 
+      };
   };
 
 
@@ -29,9 +34,6 @@
       appleID = "poweraphael2@gmail.com";
     };
   };
-
-  
-  sshServer.enable = true;
 
   system.stateVersion = "26.05";
 }
