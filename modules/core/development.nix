@@ -10,7 +10,6 @@
       pkgs.clang-tools
       pkgs.valgrind
       pkgs.gdb
-      pkgs.gcc
       pkgs.bear
       # pkgs.aider-chat
       pkgs.graphviz
