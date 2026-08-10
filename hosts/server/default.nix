@@ -9,7 +9,7 @@
     ../../modules/core
      
     # services
-    ../../modules/services/publicIp.nix
+    ../../modules/services/publicIp
     ../../modules/services/icloudBackup
     ../../modules/services/backup.nix
     ../../modules/services/sshServer.nix

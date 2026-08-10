@@ -5,14 +5,14 @@
     users.groups.publicIpUser = {}; 
     users.users.publicIpUser = {
                    isSystemUser = true;
-              group = "icloudPhotos";
-              home = "/var/lib/icloudBackup/${name}";
+              group = "publicIpUser";
+              home = "/var/lib/publicIpUser";
               createHome = true;
             homeMode = "770";             
             } 
     //
     {
-      raph.extraGroups = [ "icloudPhotos" ];
+      raph.extraGroups = [ "publicIpUser" ];
     };
   };
 }
