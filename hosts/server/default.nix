@@ -9,9 +9,8 @@
     ../../modules/core
      
     # services
-    ../../modules/services/docker.nix
     ../../modules/services/publicIp.nix
-    ../../modules/services/icloudBackup.nix
+    ../../modules/services/icloudBackup
     ../../modules/services/backup.nix
     ../../modules/services/sshServer.nix
     #../../modules/services/forgejo.nix

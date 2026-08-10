@@ -3,7 +3,7 @@
 {
   disko.devices = {
     disk.disk1 = {
-      device = lib.mkDefault "/dev/disk/by-id/mmc-MMC128_0x6cc7968d";
+      device = "/dev/disk/by-id/mmc-MMC128_0x6cc7968d";
       type = "disk";
 
       content = {

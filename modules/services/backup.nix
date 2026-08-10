@@ -37,16 +37,6 @@
       compsize
     ];
 
-    fileSystems."${config.services.backup.devices.backup.path}" = {
-      device = "${config.services.backup.devices.backup.device}";
-      fsType = "btrfs";
-      options = [
-        "compress=zstd:3"
-        "noatime"
-        "nofail"
-      ];
-    };
-
     environment.etc."btrbk/btrbk.conf".text = ''
       snapshot_preserve_min 2d
       snapshot_preserve 14d
