@@ -42,6 +42,7 @@ in
     //
     {
       raphPassword = {
+        neededForUsers = true;
         mode = "600";
         owner = "root";
         group = "root";

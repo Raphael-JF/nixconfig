@@ -12,5 +12,6 @@
     pciutils  
     usbutils  
     lsof
+    exfatprogs
   ];
 }

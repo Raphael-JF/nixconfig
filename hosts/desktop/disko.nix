@@ -3,7 +3,7 @@
 {
   disko.devices = {
     disk.disk1 = {
-      device = lib.mkDefault "/dev/sda";
+      device = lib.mkDefault "/dev/disk/by-id/ata-Samsung_SSD_860_QVO_1TB_S4CZNF0N414257D";
       type = "disk";
 
       content = {

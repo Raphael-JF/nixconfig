@@ -8,9 +8,9 @@
     ../../modules/windowManager
 
 
-    ../../modules/services/backup.nix
-    ../../modules/services/icloudBackup
-    ../../modules/services/nextcloud
+    # ../../modules/services/backup.nix
+    # ../../modules/services/icloudBackup
+    # ../../modules/services/nextcloud
   ];
 
   packages.development.enable = true; 
@@ -26,23 +26,24 @@
   #   ];
   # };
   #
-  services.backup.devices = {
-    backup = {
-      device = "/dev/disk/by-label/BackupUSB";
-      path = "/mnt/backupUSB";
-    };
-    data = {
-      device = "/dev/disk/by-label/backupDisk";
-      path = "/mnt/data"; 
-    };
-  };
-    
-  services.icloudBackup.instances = {
-    raph = {
-      appleID = "poweraphael2@gmail.com";
-    };
-  };
-
+ 
+  # services.backup.devices = {
+  #   backup = {
+  #     device = "/dev/disk/by-label/BackupUSB";
+  #     path = "/mnt/backupUSB";
+  #   };
+  #   data = {
+  #     device = "/dev/disk/by-label/backupDisk";
+  #     path = "/mnt/data"; 
+  #   };
+  # };
+  #
+  # services.icloudBackup.instances = {
+  #   raph = {
+  #     appleID = "poweraphael2@gmail.com";
+  #   };
+  # };
+  #
   services.sshServer.enable = true;
 
 

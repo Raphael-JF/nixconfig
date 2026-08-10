@@ -31,5 +31,6 @@
   {
     nixosConfigurations.server = mkHost "server";
     nixosConfigurations.laptop = mkHost "laptop";
+    nixosConfigurations.desktop = mkHost "desktop";
   };
 }
