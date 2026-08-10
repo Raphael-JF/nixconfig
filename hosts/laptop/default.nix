@@ -13,36 +13,19 @@
 
   packages.development.enable = true; 
 
-  # fileSystems."/run/media/${hostname}/osShared" = {
-  #   device = "/dev/disk/by-uuid/3fb95fc1-7f65-4f83-950f-0d0ce50576a7";
-  #   fsType = "exfat";
-  #   options = [
-  #     "x-gvfs-show"
-  #     "x-gvfs-name=osShared"
-        # "nofail"
-        # "noatime"
-  #   ];
-  # };
-  #
- 
-  # services.backup.devices = {
-  #   backup = {
-  #     device = "/dev/disk/by-label/BackupUSB";
-  #     path = "/mnt/backupUSB";
-  #   };
-  #   data = {
-  #     device = "/dev/disk/by-label/backupDisk";
-  #     path = "/mnt/data"; 
-  #   };
-  # };
-  #
-  # services.icloudBackup.instances = {
-  #   raph = {
-  #     appleID = "poweraphael2@gmail.com";
-  #   };
-  # };
-  #
-
-
+  fileSystems."/run/media/raph/osShared" = {
+    device = "/dev/disk/by-uuid/FBFB-E12E";
+    fsType = "exfat";
+    options = [
+      "x-gvfs-show"
+      "x-gvfs-name=osShared"
+      "nofail"
+      "noatime"
+      "uid=1000"
+      "gid=100"
+      "umask=000"
+    ];
+  }; 
   system.stateVersion = "26.05";
+
 }
