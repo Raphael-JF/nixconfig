@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   time.timeZone = "Europe/Paris";
@@ -10,4 +10,8 @@
     };
 
   console.keyMap = "fr";
+
+  environment.systemPackages = with pkgs; [
+    kitty.terminfo
+  ];
 }
