@@ -16,16 +16,17 @@
     #../../modules/services/forgejo.nix
   ];
 
-   services.backup.devices = {
-      backup = {
-        device = "/dev/disk/by-label/backupUSB";
-        path = "/mnt/backupUSB";
-      };
-      data = {
-        device = "/dev/disk/by-label/backupDisk";
-        path = "/data"; 
-      };
-  };
+  security.sudo.wheelNeedsPassword = false;
+  services.backup.devices = {
+    backup = {
+      device = "/dev/disk/by-label/backupUSB";
+      path = "/mnt/backupUSB";
+    };
+    data = {
+      device = "/dev/disk/by-label/backupDisk";
+      path = "/data"; 
+    };
+};
 
 
   services.icloudBackup.instances = {
