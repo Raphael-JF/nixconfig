@@ -18,7 +18,7 @@
 
   services.backup.devices = {
     backup = {
-      device = "/dev/disk/by-label/backupUSB";
+      device = "/dev/disk/by-id/usb-SMI_USB_DISK_KT202000000000001037-0:0-part1";
       path = "/mnt/backupUSB";
     };
     data = {
