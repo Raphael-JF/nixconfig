@@ -1,4 +1,4 @@
-# Backup the dataDisk partition into another drive
+# Backup the data partition into another drive
 
 { lib, config, pkgs, ... }:
 {
@@ -36,17 +36,6 @@
       parted
       compsize
     ];
-
-    fileSystems."${config.services.backup.devices.data.path}" = {   
-      device = "${config.services.backup.devices.data.device}";
-      fsType = "btrfs";
-      options = [
-        "subvol=data"
-        "compress=zstd:3"
-        "noatime"
-        "nofail"
-      ];
-    };
 
     fileSystems."${config.services.backup.devices.backup.path}" = {
       device = "${config.services.backup.devices.backup.device}";

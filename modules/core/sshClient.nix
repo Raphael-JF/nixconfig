@@ -35,7 +35,7 @@
         IdentitiesOnly yes
 
       Host desktop
-        HostName 192.168.1.37
+        HostName 192.168.1.104
         User raph
         IdentityFile "~/.ssh/${hostname}"
         IdentitiesOnly yes

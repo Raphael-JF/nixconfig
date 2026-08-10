@@ -3,7 +3,7 @@
 {
   disko.devices = {
     disk.disk1 = {
-      device = lib.mkDefault "/dev/mmcblk0";
+      device = lib.mkDefault "/dev/disk/by-id/mmc-MMC128_0x6cc7968d";
       type = "disk";
 
       content = {
@@ -68,13 +68,42 @@
 
           content = {
             type = "btrfs";
+            extraArgs = [ "-L" "backupDisk" ];
 
-            subvolumes = {
-              "/data" = {
-                mountpoint = "/data";
+            mountpoint = "/data";
+
+            mountOptions = [
+              "compress=zstd:3"
+              "noatime"
+            ];
+          };
+        };
+      };
+    };
+
+    disk.backupUSB = {
+      device = "/dev/disk/by-id/usb-SMI_USB_DISK_KT202000000000001037-0:0";
+      type = "disk";
+
+      content = {
+        type = "gpt";
+
+        partitions = {
+          backup = {
+            size = "100%";
+
+            content = {
+              type = "luks";
+              name = "backupUSB";
+
+              content = {
+                type = "btrfs";
+                extraArgs = [ "-L" "backupUSB" ];
+
+                mountpoint = "/mnt/backupUSB";
 
                 mountOptions = [
-                  "compress=zstd:3"
+                  "compress=zstd:9"
                   "noatime"
                   "nofail"
                 ];
