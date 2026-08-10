@@ -30,7 +30,7 @@
           --password-provider console
           echo "Fixing permissions..."
 
-          sudo chown -R icloudSystemUser-${name}:icloudSystemUser-${name} "$COOKIE_DIR"
+          sudo chown -R icloudSystemUser-${name}:icloudPhotos "$COOKIE_DIR"
           sudo chmod -R go-rwx "$COOKIE_DIR"
 
           echo "Done."

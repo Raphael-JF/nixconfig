@@ -25,7 +25,7 @@
       device = "/dev/disk/by-label/backupDisk";
       path = "/data"; 
     };
-};
+  };
 
 
   services.icloudBackup.instances = {

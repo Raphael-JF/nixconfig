@@ -13,5 +13,6 @@
     usbutils  
     lsof
     exfatprogs
+    gcc
   ];
 }
