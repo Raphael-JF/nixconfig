@@ -1,19 +1,25 @@
 { lib, config, ... }:
 {
   config = {
-    users.groups.publicIp = {}; 
-    users.users = {
-      publicIp = {
-        isSystemUser = true;
-        group = "publicIp";
-        home = "/var/lib/publicIp";
-        createHome = true;
-        homeMode = "770";             
-      }; 
-    }
+    users.groups.icloudPhotos = {}; 
+    users.users = 
+      (lib.mapAttrs' # Map on configured instances and associate each instance with a system user
+        (name: cfg: lib.nameValuePair
+          ("icloudSystemUser-${name}")
+          (
+            {
+              isSystemUser = true;
+              group = "icloudPhotos";
+              home = "/var/lib/icloudBackup/${name}";
+              createHome = true;
+              homeMode = "770";             
+            } 
+          )
+        )
+        (config.services.icloudBackup.instances))
     //
     {
-      raph.extraGroups = [ "publicIp" ];
+      raph.extraGroups = [ "icloudPhotos" ];
     };
   };
 }
