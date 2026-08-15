@@ -37,6 +37,16 @@
       compsize
     ];
 
+     fileSystems.${config.services.backup.devices.data.path} = {
+      device = config.services.backup.devices.data.device;
+      fsType = "btrfs";
+    };
+
+    fileSystems.${config.services.backup.devices.backup.path} = {
+      device = config.services.backup.devices.backup.device;
+      fsType = "btrfs";
+    };
+
     environment.etc."btrbk/btrbk.conf".text = ''
       snapshot_preserve_min 2d
       snapshot_preserve 14d
