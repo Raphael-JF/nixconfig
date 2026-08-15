@@ -100,7 +100,8 @@
                 type = "btrfs";
                 extraArgs = [ "-L" "backupUSB" ];
 
-                mountpoint = "/mnt/backupUSB";
+                # mountpoint = "/mnt/backupUSB";
+
 
                 mountOptions = [
                   "compress=zstd:9"

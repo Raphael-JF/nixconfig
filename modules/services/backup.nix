@@ -1,51 +1,85 @@
-# Backup the data partition into another drive
-
 { lib, config, pkgs, ... }:
-{
 
+let
+  backup = config.services.backup.devices.backup;
+  data = config.services.backup.devices.data;
+
+  backupScript = pkgs.writeShellScript "btrbk-backup-data" ''
+    set -euo pipefail
+
+    LUKS_NAME="backupUSB"
+    LUKS_DEVICE="${backup.device}"
+    MOUNTPOINT="${backup.path}"
+    LUKS_MAPPER="/dev/mapper/$LUKS_NAME"
+    LUKS_KEY="${config.sops.secrets."backupUSB-key".path}"
+
+    cleanup() {
+      umount "$MOUNTPOINT" 2>/dev/null || true
+      cryptsetup close "$LUKS_NAME" 2>/dev/null || true
+    }
+
+    trap cleanup EXIT
+
+    echo "Opening LUKS device..."
+    cryptsetup open \
+      --key-file "$LUKS_KEY" \
+      "$LUKS_DEVICE" \
+      "$LUKS_NAME"
+
+    echo "Mounting backup filesystem..."
+    mkdir -p "$MOUNTPOINT"
+    mount "$LUKS_MAPPER" "$MOUNTPOINT"
+
+    echo "Starting btrbk backup..."
+    ${pkgs.btrbk}/bin/btrbk run
+
+    echo "Backup completed successfully."
+  '';
+in
+{
   options.services.backup.devices = {
-    
     backup = {
       device = lib.mkOption {
         type = lib.types.str;
-        description = "The backup device to store the backup";
+        description = "The LUKS device used for backups";
       };
+
       path = lib.mkOption {
         type = lib.types.str;
-        description = "The path to mount the backup device";
+        description = "The path where the backup filesystem is mounted";
       };
     };
 
     data = {
       device = lib.mkOption {
         type = lib.types.str;
-        description = "The device to store the data";
+        description = "The device containing the data";
       };
+
       path = lib.mkOption {
         type = lib.types.str;
-        description = "The path to mount the data device";
+        description = "The path where the data filesystem is mounted";
       };
     };
   };
 
   config = {
+    # LUKS password from sops-nix
+    sops.secrets."backupUSB-key" = {
+      sopsFile = ./../../secrets/backupUSB.key.enc;
+      format = "binary";
+      owner = "root";
+      mode = "0400";
+    };
 
     environment.systemPackages = with pkgs; [
       btrfs-progs
+      btrbk
       gparted
       parted
       compsize
+      cryptsetup
     ];
-
-     fileSystems.${config.services.backup.devices.data.path} = {
-      device = config.services.backup.devices.data.device;
-      fsType = "btrfs";
-    };
-
-    fileSystems.${config.services.backup.devices.backup.path} = {
-      device = config.services.backup.devices.backup.device;
-      fsType = "btrfs";
-    };
 
     environment.etc."btrbk/btrbk.conf".text = ''
       snapshot_preserve_min 2d
@@ -54,33 +88,30 @@
       target_preserve_min 2d
       target_preserve 1m
 
-      volume ${config.services.backup.devices.data.path} 
-        subvolume . 
+      volume ${data.path}
+        subvolume .
           snapshot_dir .snapshots
-          target ${config.services.backup.devices.backup.path}
+          target ${backup.path}
     '';
 
-    systemd.services."btrbk-backup-data" = {
-      description = "Backup Btrfs data to USB key";
-
-      # ensure that the backup device is mounted before running the service
-      unitConfig = {
-        RequiresMountsFor = [ config.services.backup.devices.backup.path ];
-      };
+    systemd.services.btrbk-backup-data = {
+      description = "Backup Btrfs data to encrypted USB";
 
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "${pkgs.btrbk}/bin/btrbk run";
+        ExecStart = backupScript;
         User = "root";
       };
     };
 
-    systemd.timers."btrbk-backup-data" = {
-      description = "Timer pour le backup Btrfs vers la clé USB";
+    systemd.timers.btrbk-backup-data = {
+      description = "Timer for Btrfs backup to encrypted USB";
+
       wantedBy = [ "timers.target" ];
+
       timerConfig = {
         OnCalendar = "*-*-* 05:00:00";
-        Persistent = true;        
+        Persistent = true;
       };
     };
   };
