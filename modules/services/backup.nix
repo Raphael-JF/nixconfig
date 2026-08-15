@@ -15,13 +15,13 @@ let
 
     cleanup() {
       umount "$MOUNTPOINT" 2>/dev/null || true
-      cryptsetup close "$LUKS_NAME" 2>/dev/null || true
+      ${pkgs.cryptsetup}/bin/cryptsetup close "$LUKS_NAME" 2>/dev/null || true
     }
 
     trap cleanup EXIT
 
     echo "Opening LUKS device..."
-    cryptsetup open \
+    ${pkgs.cryptsetup}/bin/cryptsetup open \
       --key-file "$LUKS_KEY" \
       "$LUKS_DEVICE" \
       "$LUKS_NAME"
