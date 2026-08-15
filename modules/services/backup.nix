@@ -14,7 +14,7 @@ let
     LUKS_KEY="${config.sops.secrets."backupUSB-key".path}"
 
     cleanup() {
-      umount "$MOUNTPOINT" 2>/dev/null || true
+      ${pkgs.util-linux}/bin/umount "$MOUNTPOINT" 2>/dev/null || true
       ${pkgs.cryptsetup}/bin/cryptsetup close "$LUKS_NAME" 2>/dev/null || true
     }
 
@@ -28,7 +28,7 @@ let
 
     echo "Mounting backup filesystem..."
     mkdir -p "$MOUNTPOINT"
-    mount "$LUKS_MAPPER" "$MOUNTPOINT"
+    ${pkgs.util-linux}/bin/mount "$LUKS_MAPPER" "$MOUNTPOINT"
 
     echo "Starting btrbk backup..."
     ${pkgs.btrbk}/bin/btrbk run
