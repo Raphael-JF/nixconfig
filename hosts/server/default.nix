@@ -13,8 +13,9 @@
     ../../modules/services/icloudBackup
     ../../modules/services/backup.nix
     ../../modules/services/sshServer.nix
-    ../../modules/services/nginx
-    ../../modules/services/filebrowser.nix
+
+    ../../modules/services/homepage
+    ../../modules/services/nextcloud
     #../../modules/services/forgejo.nix
   ];
 

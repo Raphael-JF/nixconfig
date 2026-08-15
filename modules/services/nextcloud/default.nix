@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   imports = [ 
+    ./nginx.nix
     ./postgresql.nix
     ./fail2ban.nix
   ];
@@ -11,16 +12,14 @@
   {
     services.nextcloud = {
       enable = true;
-
       package = pkgs.nextcloud32;
-
-      hostName = "localhost";
-
+      hostName = "files.82.126.172.121.nip.io";
+      https = true;      
       datadir = "${dataPath}/nextcloud";
       configureRedis = true; 
 
       phpOptions = {
-            "opcache.interned_strings_buffer" = "10";
+        "opcache.interned_strings_buffer" = "10";
       };
 
       config = {
@@ -31,19 +30,12 @@
         adminuser = "raph";
         adminpassFile = config.sops.secrets.nextcloudAdminPassword.path;
       };
-      # settings = {
-        # memcache.local = "\\OC\\Memcache\\APCu";
-        # memcache.locking = "\\OC\\Memcache\\Redis";
-        # redis = {
-        #   host = "/run/redis-nextcloud/redis.sock";
-        # }; 
-      # };
     };
 
     systemd.tmpfiles.rules = [
-      "d ${dataPath}/nextcloud 0750 nextcloud nextcloud -"
-      "d ${dataPath}/nextcloud/data 0750 nextcloud nextcloud -"
-      "d ${dataPath}/nextcloud/db-backups 0750 postgres postgres -"
+        "d ${dataPath}/nextcloud 0750 nextcloud nextcloud -"
+        "d ${dataPath}/nextcloud/data 0750 nextcloud nextcloud -"
+        "d ${dataPath}/nextcloud/db-backups 0750 postgres postgres -"
     ];
   };
 }
