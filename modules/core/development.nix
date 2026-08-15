@@ -8,6 +8,7 @@
       pkgs.cmake
       pkgs.clang
       pkgs.clang-tools
+      pkgs.texliveFull
       pkgs.valgrind
       pkgs.gdb
       pkgs.bear
