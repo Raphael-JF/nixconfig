@@ -16,7 +16,7 @@
     };
 
     virtualHosts."https" = {
-      onlySSL = true;
+      forceSSL = true;
       listen = [{
         addr = "0.0.0.0";
         port = 443;
