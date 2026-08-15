@@ -1,30 +1,16 @@
 { config, pkgs, ... }:
-
 {
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "raphaeljontef@hotmail.com"; # <- remplace par ton vrai email
+  };
+
   services.nginx = {
     enable = true;
-
-    virtualHosts."_" = {
-      listen = [{
-        addr = "0.0.0.0";
-        port = 80;
-      }];
-
-      extraConfig = ''
-        return 301 https://$host$request_uri;
-      '';
-    };
-
-    virtualHosts."https" = {
+    virtualHosts."82.126.172.121.nip.io" = {
+      enableACME = true;
       forceSSL = true;
-      listen = [{
-        addr = "0.0.0.0";
-        port = 443;
-      }];
-
-      sslCertificate = "/var/lib/nginx/certs/server.crt";
-      sslCertificateKey = "/var/lib/nginx/certs/server.key";
-
       root = pkgs.writeTextDir "index.html"
         (builtins.readFile ./index.html);
     };
