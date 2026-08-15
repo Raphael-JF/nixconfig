@@ -16,10 +16,10 @@
     };
 
     virtualHosts."https" = {
+      onlySSL = true;
       listen = [{
         addr = "0.0.0.0";
         port = 443;
-        ssl = true;
       }];
 
       sslCertificate = "/var/lib/nginx/certs/server.crt";
