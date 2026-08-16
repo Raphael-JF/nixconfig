@@ -3,17 +3,25 @@
 
   config = {
 
-
     environment.systemPackages = with pkgs; [
       gnome-tweaks
       gnomeExtensions.copyous
     ];
-    
+   
     services.libinput.enable = true; # Enable libinput for touchpad and mouse support
-  
+
     services.xserver = {
       enable = true;
       xkb.layout = "fr";
+    };
+
+    xdg.terminal-exec = {
+      enable = true;
+      settings = {
+        default = [
+          "kitty.desktop"
+        ];
+      };
     };
 
     services.displayManager.gdm.enable = true;

@@ -1,14 +1,19 @@
 { pkgs, ... }:
 { 
   environment.systemPackages = with pkgs; [
-   wl-clipboard
-   evince
-   baobab
-   nautilus
-   gnome-disk-utility
+    wl-clipboard
+    evince
+    baobab
+    nautilus
+    gnome-disk-utility
+    celluloid # video player
 
-   anki-bin
-   firefox
-   chromium
-];
+    ffmpegthumbnailer
+    poppler
+    gdk-pixbuf
+
+    anki-bin
+    firefox
+    chromium
+  ];
 }
