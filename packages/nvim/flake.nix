@@ -33,7 +33,8 @@
             pkgs.xclip
             pkgs.tmux
             pkgs.nil
-            pkgs.clang-tools
+            # pkgs.clang-tools
+            # pkgs.gcc
             pkgs.lsof
             pkgs.ast-grep
             pkgs.nerd-fonts.fira-code

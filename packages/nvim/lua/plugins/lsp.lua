@@ -9,7 +9,8 @@ vim.lsp.config('clangd', {
         "clangd",
         "--background-index",
         "--compile-commands-dir=.",
-        "--query-driver=/home/raph/.platformio/packages/toolchain-*/bin/*",
+        "--query-driver=/nix/store/**/bin/gcc,home/raph/.platformio/packages/toolchain-*/bin/*",
+
     },
 })
 

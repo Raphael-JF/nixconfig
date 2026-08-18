@@ -35,6 +35,19 @@ let
 
     echo "Backup completed successfully."
   '';
+  mountScript = pkgs.writeShellScript "mount-backupUSB" ''
+    set -euo pipefail
+    echo "Opening LUKS device..."
+    ${pkgs.cryptsetup}/bin/cryptsetup open \
+      --key-file "$LUKS_KEY" \
+      "$LUKS_DEVICE" \
+      "$LUKS_NAME"
+
+    echo "Mounting backup filesystem..."
+    mkdir -p "$MOUNTPOINT"
+    ${pkgs.util-linux}/bin/mount "$LUKS_MAPPER" "$MOUNTPOINT"
+    '';
+  
 in
 {
   options.services.backup.devices = {
