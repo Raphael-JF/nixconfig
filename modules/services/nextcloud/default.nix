@@ -31,6 +31,13 @@
         adminpassFile = config.sops.secrets.nextcloudAdminPassword.path;
       };
     };
+    users.users."nextcloud".extraGroups = [ "icloudPhotos" ];
+    fileSystems."/data/nextcloud/data/raph/files/Photos" = {
+      fsType = "none";
+      device = "/data/icloudBackup/raph";
+      options = [ "bind" ];
+        
+    };
 
     systemd.tmpfiles.rules = [
         "d ${dataPath}/nextcloud 0750 nextcloud nextcloud -"
