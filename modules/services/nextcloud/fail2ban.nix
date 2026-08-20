@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  
   services.fail2ban = {
     enable = true;
     # Ref: https://docs.nextcloud.com/server/latest/admin_manual/installation/harden_server.html#setup-a-filter-and-a-jail-for-nextcloud
