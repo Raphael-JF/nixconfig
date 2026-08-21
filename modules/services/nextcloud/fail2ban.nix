@@ -6,12 +6,11 @@
     # Ref: https://docs.nextcloud.com/server/latest/admin_manual/installation/harden_server.html#setup-a-filter-and-a-jail-for-nextcloud
     jails = {
       nextcloud.settings = {
-        backend = "systemd";
-        journalmatch = "SYSLOG_IDENTIFIER=Nextcloud";
         enabled = true;
         port = "80,443";
         protocol = "tcp";
         filter = "nextcloud";
+        logpath = "/data/nextcloud/data/nextcloud.log";
         maxretry = 3;
         bantime = 86400;
         findtime = 43200;

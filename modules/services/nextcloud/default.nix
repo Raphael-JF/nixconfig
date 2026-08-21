@@ -22,10 +22,11 @@
         "opcache.interned_strings_buffer" = "10";
       };
 
-      maintenance_window_start = 1;
-      default_phone_region = "FR";
-      log_type = "systemd";
-      serverid = 0;
+      settings = {
+        maintenance_window_start = 1;
+        default_phone_region = "FR";
+        log_type = "systemd";
+      };
 
       config = {
         dbtype = "pgsql";
