@@ -6,8 +6,6 @@
 
     ../../modules/core
     ../../modules/windowManager
-
-
     ../../modules/services/sshServer.nix
   ];
   services.sshServer.enable = true;

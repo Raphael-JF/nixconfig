@@ -6,7 +6,7 @@
     baobab
     nautilus
     gnome-disk-utility
-    celluloid # video player
+    totem
 
     ffmpegthumbnailer
     poppler
