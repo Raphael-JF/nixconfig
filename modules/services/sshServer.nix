@@ -1,6 +1,6 @@
 { config, hostname, lib, ... }:
 {
-  options.services.sshServer.enable = {
+  options.services.sshServer.enable = lib.mkOption {
     type = lib.types.bool;
     default = false;
     description = "Enable the SSH server service.";
