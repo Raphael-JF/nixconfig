@@ -57,7 +57,7 @@
 
       serviceConfig = {
         Type = "oneshot";
-        User = "raph";
+        User = "root";
       };
 
       script = ''    
