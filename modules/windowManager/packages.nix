@@ -6,7 +6,9 @@
     baobab
     nautilus
     gnome-disk-utility
-    totem
+    totem # video player
+    loupe # image viewer
+
 
     ffmpegthumbnailer
     poppler
