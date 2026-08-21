@@ -37,18 +37,19 @@
         adminpassFile = config.sops.secrets.nextcloudAdminPassword.path;
       };
     };
+
+    # Icloud photos inside nextcloud
     users.users."nextcloud".extraGroups = [ "icloudPhotos" ];
     fileSystems."/data/nextcloud/data/raph/files/Photos" = {
       fsType = "none";
       device = "/data/icloudBackup/raph";
       options = [ "bind" ];
-        
     };
 
     systemd.tmpfiles.rules = [
-        "d ${dataPath}/nextcloud 0750 nextcloud nextcloud -"
-        "d ${dataPath}/nextcloud/data 0750 nextcloud nextcloud -"
-        "d ${dataPath}/nextcloud/db-backups 0750 postgres postgres -"
+        "d ${dataPath}/nextcloud 0755 nextcloud nextcloud -"
+        "d ${dataPath}/nextcloud/data 0755 nextcloud nextcloud -"
+        "d ${dataPath}/nextcloud/db-backups 0755 postgres postgres -"
     ];
   };
 }

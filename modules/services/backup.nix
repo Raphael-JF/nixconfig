@@ -3,8 +3,7 @@
 let
   backup = config.services.backup.devices.backup;
   data = config.services.backup.devices.data;
-
-  backupScript = pkgs.writeShellScript "btrbk-backup-data" ''
+  mount-backupUSB = pkgs.writeShellScriptBin "mount-backupUSB" ''
     set -euo pipefail
 
     LUKS_NAME="backupUSB"
@@ -13,13 +12,6 @@ let
     LUKS_MAPPER="/dev/mapper/$LUKS_NAME"
     LUKS_KEY="${config.sops.secrets."backupUSB-key".path}"
 
-    cleanup() {
-      ${pkgs.util-linux}/bin/umount "$MOUNTPOINT" 2>/dev/null || true
-      ${pkgs.cryptsetup}/bin/cryptsetup close "$LUKS_NAME" 2>/dev/null || true
-    }
-
-    trap cleanup EXIT
-
     echo "Opening LUKS device..."
     ${pkgs.cryptsetup}/bin/cryptsetup open \
       --key-file "$LUKS_KEY" \
@@ -29,25 +21,37 @@ let
     echo "Mounting backup filesystem..."
     mkdir -p "$MOUNTPOINT"
     ${pkgs.util-linux}/bin/mount "$LUKS_MAPPER" "$MOUNTPOINT"
+
+    echo "Backup filesystem mounted at $MOUNTPOINT"
+  '';
+
+  umount-backupUSB = pkgs.writeShellScriptBin "umount-backupUSB" ''
+    set -euo pipefail
+
+    LUKS_NAME="backupUSB"
+    MOUNTPOINT="${backup.path}"
+
+    echo "Unmounting backup filesystem..."
+    ${pkgs.util-linux}/bin/umount "$MOUNTPOINT"
+
+    echo "Closing LUKS device..."
+    ${pkgs.cryptsetup}/bin/cryptsetup close "$LUKS_NAME"
+
+    echo "Backup USB closed."
+  '';
+
+  backupScript = pkgs.writeShellScript "backup-backupUSB" ''
+    set -euo pipefail
+
+    trap 'umount-backupUSB' EXIT
+
+    mount-backupUSB
 
     echo "Starting btrbk backup..."
     ${pkgs.btrbk}/bin/btrbk run
 
     echo "Backup completed successfully."
   '';
-  mountScript = pkgs.writeShellScript "mount-backupUSB" ''
-    set -euo pipefail
-    echo "Opening LUKS device..."
-    ${pkgs.cryptsetup}/bin/cryptsetup open \
-      --key-file "$LUKS_KEY" \
-      "$LUKS_DEVICE" \
-      "$LUKS_NAME"
-
-    echo "Mounting backup filesystem..."
-    mkdir -p "$MOUNTPOINT"
-    ${pkgs.util-linux}/bin/mount "$LUKS_MAPPER" "$MOUNTPOINT"
-    '';
-  
 in
 {
   options.services.backup.devices = {
@@ -92,6 +96,8 @@ in
       parted
       compsize
       cryptsetup
+      mount-backupUSB
+      umount-backupUSB
     ];
 
     environment.etc."btrbk/btrbk.conf".text = ''
