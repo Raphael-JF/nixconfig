@@ -61,8 +61,7 @@
       };
 
       script = ''    
-        nextcloud-occ files:scan --all
-      '';
+        ${config.services.nextcloud.occ}/bin/nextcloud-occ files:scan --all'';
     };
 
     systemd.tmpfiles.rules = [
