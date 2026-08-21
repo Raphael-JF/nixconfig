@@ -52,6 +52,12 @@ let
   '';
 in
 {
+  options.services.backup.enable = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = "Enable the backup service";
+  };
+
   options.services.backup.devices = {
     backup = {
       device = lib.mkOption {
@@ -78,7 +84,7 @@ in
     };
   };
 
-  config = {
+  config = lib.mkIf config.services.backup.enable {
     # LUKS password from sops-nix
     sops.secrets."backupUSB-key" = {
       sopsFile = ./../../secrets/backupUSB.key.enc;

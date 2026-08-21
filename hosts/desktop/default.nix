@@ -11,6 +11,8 @@
     ../../modules/services/sshServer.nix
   ];
 
+  config.services.sshServer.enable = true;
+
   packages.development.enable = true; 
   packages.gaming.enable = true;
 

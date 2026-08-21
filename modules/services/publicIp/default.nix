@@ -1,4 +1,4 @@
-{ pkgs, config, ...} :
+{ pkgs, lib, config, ...} :
 let
   script = pkgs.writeShellApplication {
     name = "update-public-ip";
@@ -45,7 +45,13 @@ in
 
 {
   imports = [ ./users.nix ];
-  config = {
+  options.services.public-ip.enable = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = "Enable the public IP update service.";
+  };
+
+  config = lib.mkIf config.services.public-ip.enable {
 
     systemd.services.public-ip = {
       description = "Update public IP on GitHub";

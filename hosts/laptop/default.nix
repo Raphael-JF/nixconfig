@@ -10,7 +10,7 @@
 
     ../../modules/services/sshServer.nix
   ];
-
+  services.sshServer.enable = true;
   packages.development.enable = true; 
 
   fileSystems."/run/media/raph/osShared" = {

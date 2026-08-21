@@ -5,11 +5,18 @@
     ./postgresql.nix
     ./fail2ban.nix
   ];
-  config = 
+  options.services.nextcloud = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable the Nextcloud service.";
+    };
+  };
+  config =
   let
     dataPath = config.services.backup.devices.data.path;
   in
-  {
+  lib.mkIf config.services.nextcloud  {
     services.nextcloud = {
       enable = true;
       package = pkgs.nextcloud32;
@@ -25,7 +32,6 @@
       settings = {
         maintenance_window_start = 1;
         default_phone_region = "FR";
-        log_type = "systemd";
       };
 
       config = {
