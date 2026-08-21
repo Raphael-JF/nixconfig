@@ -21,13 +21,13 @@
   services.nextcloud.enable = true;
   services.sshServer.enable = true;
   services.publicIp.enable = true;
-  services.backup.devices = {
+  services.backup = {
     enable = true;
-    backup = {
+    devices.backup = {
       device = "/dev/disk/by-id/usb-SMI_USB_DISK_KT202000000000001037-0:0-part1";
       path = "/mnt/backupUSB";
     };
-    data = {
+    devices.data = {
       device = "/dev/disk/by-label/backupDisk";
       path = "/data"; 
     };
