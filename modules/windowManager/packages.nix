@@ -10,9 +10,10 @@
     loupe # image viewer
 
 
-    ffmpegthumbnailer
-    poppler
-    gdk-pixbuf
+    ffmpegthumbnailer # minitatures for videos
+    poppler # miniatures for pdfs
+    gdk-pixbuf # minituares for images
+    nextcloud-client
 
     anki-bin
     firefox

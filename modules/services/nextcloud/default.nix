@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, options, ... }:
 {
   imports = [ 
     ./nginx.nix
@@ -32,6 +32,7 @@
       settings = {
         maintenance_window_start = 1;
         default_phone_region = "FR";
+        enabledPreviewProviders = options.services.nextcloud.settings.type.emptyValue.value.enabledPreviewProviders ++ [ "OC\\Preview\\HEIC" ];
       };
 
       config = {
