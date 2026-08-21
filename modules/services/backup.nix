@@ -117,7 +117,7 @@ in
           target ${backup.path}
     '';
 
-    systemd.services.btrbk-backup-data = {
+    systemd.services.backupUSB = {
       description = "Backup Btrfs data to encrypted USB";
 
       serviceConfig = {

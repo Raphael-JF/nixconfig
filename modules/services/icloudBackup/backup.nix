@@ -40,16 +40,17 @@
                 Type = "oneshot";
                 User = "icloudSystemUser-${name}";
                 UMask = "0007";
-             };
+              };
               script = ''
                 ${pkgs.icloudpd}/bin/icloudpd \
                   --directory ~/Photos \
                   --folder-structure "{:%Y/%m}" \
                   --username ${cfg.appleID}\
                   --cookie-directory /var/lib/icloudBackup/${name}/cookies \
-                  && \
-                  nextcloud-occ files:scan --all
               '';
+              unitConfig = lib.mkIf config.services.raphNextcloud.enable {
+                OnSuccess = "nextcloudScanIcloudPhotos.service";
+              };
             }
           )
         )

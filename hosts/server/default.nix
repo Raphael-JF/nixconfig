@@ -18,7 +18,7 @@
     #../../modules/services/forgejo.nix
   ];
   services.homepage.enable = true;
-  services.custom-nextcloud.enable = true;
+  services.raphNextcloud.enable = true;
   services.sshServer.enable = true;
   services.public-ip.enable = true;
   services.backup = {

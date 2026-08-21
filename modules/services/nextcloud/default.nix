@@ -5,7 +5,7 @@
     ./postgresql.nix
     ./fail2ban.nix
   ];
-  options.services.custom-nextcloud = {
+  options.services.raphNextcloud = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -16,7 +16,7 @@
   let
     dataPath = config.services.backup.devices.data.path;
   in
-  lib.mkIf config.services.custom-nextcloud.enable  {
+  lib.mkIf config.services.raphNextcloud.enable  {
     services.nextcloud = {
       enable = true;
       package = pkgs.nextcloud32;
@@ -50,6 +50,19 @@
       fsType = "none";
       device = "/data/icloudBackup/raph";
       options = [ "bind" ];
+    };
+    
+    systemd.services.nextcloudScanIcloudPhotos = {
+      description = "Nextcloud scan for new icloud Photos";
+
+      serviceConfig = {
+        Type = "oneshot";
+        User = "raph";
+      };
+
+      script = ''    
+        nextcloud-occ files:scan --all
+      '';
     };
 
     systemd.tmpfiles.rules = [
