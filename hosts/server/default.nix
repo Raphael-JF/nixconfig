@@ -20,7 +20,7 @@
   services.homepage.enable = true;
   services.nextcloud.enable = true;
   services.sshServer.enable = true;
-  services.publicIp.enable = true;
+  services.public-ip.enable = true;
   services.backup = {
     enable = true;
     devices.backup = {
