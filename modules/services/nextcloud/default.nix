@@ -16,7 +16,7 @@
   let
     dataPath = config.services.backup.devices.data.path;
   in
-  lib.mkIf config.services.nextcloud  {
+  lib.mkIf config.services.nextcloud.enable  {
     services.nextcloud = {
       enable = true;
       package = pkgs.nextcloud32;
