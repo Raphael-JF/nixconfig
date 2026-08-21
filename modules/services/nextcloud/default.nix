@@ -5,7 +5,7 @@
     ./postgresql.nix
     ./fail2ban.nix
   ];
-  options.services.nextcloud = {
+  options.services.custom-nextcloud = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -16,7 +16,7 @@
   let
     dataPath = config.services.backup.devices.data.path;
   in
-  lib.mkIf config.services.nextcloud.enable  {
+  lib.mkIf config.services.custom-nextcloud.enable  {
     services.nextcloud = {
       enable = true;
       package = pkgs.nextcloud32;
