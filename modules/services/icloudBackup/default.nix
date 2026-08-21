@@ -8,6 +8,11 @@
   ];
 
   options.services.icloudBackup = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable iCloud backup service";
+    };
     instances = lib.mkOption {
       type = lib.types.attrsOf (lib.types.submodule {
         options = {
