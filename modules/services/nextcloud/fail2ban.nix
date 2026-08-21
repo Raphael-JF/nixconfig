@@ -11,6 +11,7 @@
         protocol = "tcp";
         filter = "nextcloud";
         logpath = "/data/nextcloud/data/nextcloud.log";
+        backend = "auto";
         maxretry = 3;
         bantime = 86400;
         findtime = 43200;
