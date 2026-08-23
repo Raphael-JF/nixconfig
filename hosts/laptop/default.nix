@@ -24,6 +24,10 @@
       "umask=000"
     ];
   }; 
+  boot.kernelParams = [
+    "mem_sleep_default=s2idle"
+  ];
+
   system.stateVersion = "26.05";
 
 }
