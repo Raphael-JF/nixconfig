@@ -114,6 +114,9 @@ dconf.settings = {
     "org/gnome/desktop/session" = {
         idle-delay = lib.gvariant.mkUint32 0;
     };
+    "org/gnome/desktop/notifications" = {
+      show-banners = false;
+    };
 };
 
 }
