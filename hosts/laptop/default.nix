@@ -36,7 +36,10 @@
     settings = {
       general = {
         name = "Y13 Cuisine";
-        output_backend = "pipewire";
+        output_backend = "alsa";
+      };
+      alsa = {
+        name = "hw:0,0";
       };
     };
   };
