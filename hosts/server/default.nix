@@ -40,6 +40,7 @@
   };
 
   environment.systemPackages = [
+    pkgs.wakeonlan
     (pkgs.writeShellScriptBin "bootDesktop" ''
       set -e
 
@@ -74,9 +75,6 @@
       done
 
       echo "Desktop is ready."
-      echo "Connecting..."
-
-      exec ssh "$DESKTOP"
     '')
   ];
   system.stateVersion = "26.05";
