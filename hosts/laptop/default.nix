@@ -24,9 +24,18 @@
       "umask=000"
     ];
   }; 
-  boot.kernelParams = [
-    "mem_sleep_default=s2idle"
-  ];
+
+
+  services.shairport-sync = {
+    enable = true;
+
+    settings = {
+      general = {
+        name = "Y13 Cuisine";
+        output_backend = "pipewire";
+      };
+    };
+  };
 
   system.stateVersion = "26.05";
 
