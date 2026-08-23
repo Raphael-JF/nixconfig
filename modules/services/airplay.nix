@@ -15,7 +15,7 @@ in
 
     alsaDevice = lib.mkOption {
       type = lib.types.str;
-      default = "hw:0,0";
+      default = "plughw:0,0";
       description = "ALSA playback device used by Shairport Sync.";
     };
   };

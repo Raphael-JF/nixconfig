@@ -41,10 +41,11 @@
     };
   };
 
+  networking.firewall.allowedTCPPorts = [ 5000 ];
   services.airplay = {
     enable = true;
     name = "Cuisine";
-    alsaDevice = "hw:0,0";
+    alsaDevice = "plughw:0,0";
   };
 
   environment.systemPackages = [
