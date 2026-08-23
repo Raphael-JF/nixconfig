@@ -25,7 +25,7 @@
         KbdInteractiveAuthentication = false;
         PermitRootLogin = "no";
         AllowAgentForwarding = false;
-        AllowTcpForwarding = false;
+        AllowTcpForwarding = true;
       };
     };
   };
