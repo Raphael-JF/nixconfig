@@ -26,6 +26,10 @@
   }; 
 
 
+  networking.firewall.allowedTCPPorts = [
+    5000
+  ];
+
   services.shairport-sync = {
     enable = true;
 
