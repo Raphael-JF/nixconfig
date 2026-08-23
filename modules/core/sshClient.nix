@@ -29,7 +29,7 @@
         IdentitiesOnly yes
 
       Host laptop
-        HostName 192.170.1.38
+        HostName 192.168.1.38
         User raph
         IdentityFile "~/.ssh/${hostname}"
         IdentitiesOnly yes
