@@ -26,24 +26,6 @@
   }; 
 
 
-  networking.firewall.allowedTCPPorts = [
-    5000
-  ];
-
-  services.shairport-sync = {
-    enable = true;
-
-    settings = {
-      general = {
-        name = "Y13 Cuisine";
-        output_backend = "alsa";
-      };
-      alsa = {
-        name = "hw:0,0";
-      };
-    };
-  };
-
   system.stateVersion = "26.05";
 
 }
