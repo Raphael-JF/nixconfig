@@ -15,7 +15,6 @@
     ../../modules/services/sshServer.nix
     ../../modules/services/homepage
     ../../modules/services/nextcloud
-    ../../modules/services/airplay.nix
 
     #../../modules/services/forgejo.nix
   ];
@@ -41,12 +40,6 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 5000 ];
-  services.airplay = {
-    enable = true;
-    name = "Cuisine";
-    alsaDevice = "plughw:0,0";
-  };
 
   environment.systemPackages = [
     pkgs.wakeonlan
