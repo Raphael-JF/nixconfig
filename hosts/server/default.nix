@@ -15,6 +15,8 @@
     ../../modules/services/sshServer.nix
     ../../modules/services/homepage
     ../../modules/services/nextcloud
+    ../../modules/services/airplay.nix
+
     #../../modules/services/forgejo.nix
   ];
   services.homepage.enable = true;
@@ -37,6 +39,13 @@
     instances.raph = {
       appleID = "poweraphael2@gmail.com";
     };
+  };
+
+  networking.firewall.allowedTCPPorts = [ 5000 ];
+  services.airplay = {
+    enable = true;
+    name = "Cuisine";
+    alsaDevice = "plughw:0,0";
   };
 
   environment.systemPackages = [

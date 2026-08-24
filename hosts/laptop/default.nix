@@ -7,6 +7,7 @@
     ../../modules/core
     ../../modules/windowManager
     ../../modules/services/sshServer.nix
+    ../../modules/services/airplay.nix
   ];
   services.sshServer.enable = true;
   packages.development.enable = true; 
