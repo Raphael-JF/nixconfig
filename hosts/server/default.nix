@@ -23,6 +23,9 @@
   
   systemd.services.display-manager.wantedBy = lib.mkForce []; # prevent GDM (windows manager) from starting on boot
 
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "raph";
+
   services.homepage.enable = true;
   services.raphNextcloud.enable = true;
   services.sshServer.enable = true;
