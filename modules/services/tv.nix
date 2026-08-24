@@ -10,13 +10,12 @@
     services.displayManager.autoLogin.user = "raph";
 
     environment.systemPackages = with pkgs; [
-
       (writeShellScriptBin "tvStart" ''
-        sudo systemctl start display-manager
+        exec sudo ${pkgs.systemd}/bin/systemctl start display-manager
       '')
 
       (writeShellScriptBin "tvStop" ''
-        sudo systemctl stop display-manager
+        exec sudo ${pkgs.systemd}/bin/systemctl stop display-manager
       '')
     ];
 
