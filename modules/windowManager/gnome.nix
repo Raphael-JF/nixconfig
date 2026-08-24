@@ -6,8 +6,16 @@
     environment.systemPackages = with pkgs; [
       gnome-tweaks
       gnomeExtensions.copyous
+      gnomeExtensions.gsconnect
     ];
-   
+    # for GSConnect 
+    networking.firewall.allowedTCPPortRanges = [
+      { from = 1716; to = 1764; }
+    ];
+    networking.firewall.allowedUDPPortRanges = [
+      { from = 1716; to = 1764; }
+    ];
+
     services.libinput.enable = true; # Enable libinput for touchpad and mouse support
 
     services.xserver = {
@@ -41,6 +49,7 @@
           "org/gnome/shell" = {
               enabled-extensions = [
                   "copyous@boerdereinar.dev"
+                  "gsconnect@andyholmes.github.io"
               ];
               disabled-extensions = lib.gvariant.mkEmptyArray lib.gvariant.type.string;
           };

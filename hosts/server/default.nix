@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -7,6 +7,7 @@
     ./disko.nix
 
     ../../modules/core
+    ../../modules/windowManager
      
     # services
     ../../modules/services/publicIp
@@ -18,6 +19,9 @@
 
     #../../modules/services/forgejo.nix
   ];
+  
+  systemd.services.display-manager.wantedBy = lib.mkForce []; # prevent GDM (windows manager) from starting on boot
+
   services.homepage.enable = true;
   services.raphNextcloud.enable = true;
   services.sshServer.enable = true;
