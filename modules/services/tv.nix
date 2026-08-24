@@ -10,15 +10,14 @@
     services.displayManager.autoLogin.user = "raph";
 
     environment.systemPackages = with pkgs; [
-      (writeShellScriptBin "tvStart" ''
-        exec sudo ${pkgs.systemd}/bin/systemctl start display-manager
+      (writeShellScriptBin "tvToggle" ''
+        if systemctl is-active --quiet display-manager; then
+          exec sudo ${pkgs.systemd}/bin/systemctl stop display-manager
+        else
+          exec sudo ${pkgs.systemd}/bin/systemctl start display-manager
+        fi
       '')
-
-      (writeShellScriptBin "tvStop" ''
-        exec sudo ${pkgs.systemd}/bin/systemctl stop display-manager
-      '')
-    ];
-
+    ]; 
     security.sudo.extraRules = [
       {
         users = [ "raph" ];
