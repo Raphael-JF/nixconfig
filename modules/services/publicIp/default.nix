@@ -1,7 +1,7 @@
-{ pkgs, lib, config, ...} :
+{ pkgs, lib, config, hostname, ...} :
 let
   script = pkgs.writeShellApplication {
-    name = "update-public-ip";
+    name = "updatePublicIP";
 
     runtimeInputs = with pkgs; [
       curl
@@ -12,7 +12,7 @@ let
     text = ''
       set -euxo pipefail
 
-      REPO=/var/lib/public-ip
+      REPO=/var/lib/publicIP
       FILE=$REPO/ip.txt
 
       cd "$REPO"
@@ -45,15 +45,15 @@ in
 
 {
   imports = [ ./users.nix ];
-  options.services.public-ip.enable = lib.mkOption {
+  options.services.publicIP.enable = lib.mkOption {
     type = lib.types.bool;
     default = false;
     description = "Enable the public IP update service.";
   };
 
-  config = lib.mkIf config.services.public-ip.enable {
+  config = lib.mkIf config.services.publicIP.enable {
 
-    systemd.services.public-ip = {
+    systemd.services.publicIP = {
       description = "Update public IP on GitHub";
 
       serviceConfig = {
@@ -61,20 +61,20 @@ in
         User = "raph";
         Environment = [
           "HOME=/home/raph"
-          "GIT_SSH_COMMAND=ssh -i /home/raph/.ssh/server -o IdentitiesOnly=yes"
+          "GIT_SSH_COMMAND=ssh -i /home/raph/.ssh/${hostname} -o IdentitiesOnly=yes"
         ];
       };
 
-      script = "${script}/bin/update-public-ip";
+      script = "${script}/bin/updatePublicIP";
     };
 
-    systemd.timers.public-ip = {
+    systemd.timers.publicIP = {
       wantedBy = [ "timers.target" ];
 
       timerConfig = {
         OnBootSec = "2min";
         OnUnitActiveSec = "15min";
-        Unit = "public-ip.service";
+        Unit = "publicIP.service";
       };
     };
   };

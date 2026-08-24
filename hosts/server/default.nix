@@ -5,9 +5,7 @@
 
     ./hardware-configuration.nix
     ./disko.nix
-
     ../../modules/core
-    ../../modules/windowManager
      
     # services
     ../../modules/services/publicIp
@@ -16,19 +14,15 @@
     ../../modules/services/sshServer.nix
     ../../modules/services/homepage
     ../../modules/services/nextcloud
+    ../../modules/services/tv.nix
 
     #../../modules/services/forgejo.nix
   ];
   
-  systemd.services.display-manager.wantedBy = lib.mkForce []; # prevent GDM (windows manager) from starting on boot
-
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "raph";
-
   services.homepage.enable = true;
   services.raphNextcloud.enable = true;
   services.sshServer.enable = true;
-  services.public-ip.enable = true;
+  services.publicIP.enable = true;
   services.backup = {
     enable = true;
     devices.backup = {
