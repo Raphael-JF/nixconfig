@@ -7,6 +7,7 @@
       gnome-tweaks
       gnomeExtensions.copyous
       gnomeExtensions.gsconnect
+      gnomeExtensions.no-overview
     ];
     # for GSConnect 
     networking.firewall.allowedTCPPortRanges = [
@@ -48,8 +49,9 @@
           # --- Extensions ---
           "org/gnome/shell" = {
               enabled-extensions = [
-                  "copyous@boerdereinar.dev"
-                  "gsconnect@andyholmes.github.io"
+                "copyous@boerdereinar.dev"
+                "gsconnect@andyholmes.github.io"
+                "no-overview@fthx"
               ];
               disabled-extensions = lib.gvariant.mkEmptyArray lib.gvariant.type.string;
           };
@@ -155,9 +157,6 @@
 
           "org/gnome/desktop/interface" = {
             enable-hot-corners = false;
-          };
-          "org/gnome/shell" = {
-            startup-overview = false;
           };
           "org/gnome/desktop/session" = {
             idle-delay = lib.gvariant.mkUint32 0;

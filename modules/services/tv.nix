@@ -33,5 +33,12 @@
         ];
       }
     ];
+    environment.etc."xdg/autostart/firefox.desktop".text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=Firefox
+      Exec=${pkgs.firefox}/bin/firefox
+      X-GNOME-Autostart-enabled=true
+    '';
   };
 }
