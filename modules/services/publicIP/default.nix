@@ -5,6 +5,7 @@ let
 
     runtimeInputs = with pkgs; [
       curl
+      sshs
       git
       jq
     ];
@@ -18,12 +19,6 @@ let
 
       if [ ! -d "$REPO/.git" ]; then
           mkdir -p "$REPO"
-
-          if [ -n "$(ls -A "$REPO")" ]; then
-              echo "Erreur : $REPO existe mais n'est pas un dépôt Git vide."
-              exit 1
-          fi
-
           git clone "$REMOTE" "$REPO"
       fi
 
