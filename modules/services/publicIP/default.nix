@@ -59,6 +59,7 @@ in
       serviceConfig = {
         Type = "oneshot";
         User = "raph";
+        StateDirectory = "publicIP";
         Environment = [
           "HOME=/home/raph"
           "GIT_SSH_COMMAND=ssh -i /home/raph/.ssh/${hostname} -o IdentitiesOnly=yes"
