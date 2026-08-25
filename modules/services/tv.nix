@@ -7,7 +7,7 @@
 
     systemd.services.display-manager.wantedBy = lib.mkForce []; # prevent GDM (windows manager) from starting on boot
     services.displayManager.autoLogin.enable = true;
-    services.displayManager.autoLogin.user = "raph";
+    services.displayManager.autoLogin.user = "raph"; 
 
     environment.systemPackages = with pkgs; [
       (writeShellScriptBin "tvToggle" ''

@@ -26,6 +26,10 @@
         PermitRootLogin = "no";
         AllowAgentForwarding = false;
         AllowTcpForwarding = true;
+        Macs = [
+          "hmac-sha2-256"
+          "hmac-sha2-512"
+        ];
       };
     };
   };
