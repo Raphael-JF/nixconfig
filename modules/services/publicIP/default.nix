@@ -14,6 +14,18 @@ let
 
       REPO=/var/lib/publicIP
       FILE=$REPO/ip.txt
+      REMOTE="git@github.com:Raphael-JF/publicIP.git"
+
+      if [ ! -d "$REPO/.git" ]; then
+          mkdir -p "$REPO"
+
+          if [ -n "$(ls -A "$REPO")" ]; then
+              echo "Erreur : $REPO existe mais n'est pas un dépôt Git vide."
+              exit 1
+          fi
+
+          git clone "$REMOTE" "$REPO"
+      fi
 
       cd "$REPO"
 
@@ -36,10 +48,10 @@ let
       git config user.email "ton-email-github@example.com"
       git commit -m "Update IP: $NEW_IP"
 
-
       echo "IP modifiée, push sur GitHub..."
 
-      git push'';
+      git push
+    '';
   };
 in
 
