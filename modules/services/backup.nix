@@ -4,46 +4,42 @@ let
   backup = config.services.backup.devices.backup;
   data = config.services.backup.devices.data;
   mount-backupUSB = pkgs.writeShellScriptBin "mount-backupUSB" ''
-    exec sudo ${pkgs.bash}/bin/bash -c '
-      set -euo pipefail
+    set -euo pipefail
 
-      LUKS_NAME="backupUSB"
-      LUKS_DEVICE="${backup.device}"
-      MOUNTPOINT="${backup.path}"
-      LUKS_MAPPER="/dev/mapper/$LUKS_NAME"
-      LUKS_KEY="${config.sops.secrets."backupUSB-key".path}"
+    LUKS_NAME="backupUSB"
+    LUKS_DEVICE="${backup.device}"
+    MOUNTPOINT="${backup.path}"
+    LUKS_MAPPER="/dev/mapper/$LUKS_NAME"
+    LUKS_KEY="${config.sops.secrets."backupUSB-key".path}"
 
-      echo "Opening LUKS device..."
-      ${pkgs.cryptsetup}/bin/cryptsetup open \
-        --key-file "$LUKS_KEY" \
-        "$LUKS_DEVICE" \
-        "$LUKS_NAME"
+    echo "Opening LUKS device..."
+    ${pkgs.cryptsetup}/bin/cryptsetup open \
+      --key-file "$LUKS_KEY" \
+      "$LUKS_DEVICE" \
+      "$LUKS_NAME"
 
-      echo "Mounting backup filesystem..."
-      mkdir -p "$MOUNTPOINT"
-      ${pkgs.util-linux}/bin/mount "$LUKS_MAPPER" "$MOUNTPOINT"
-    '
+    echo "Mounting backup filesystem..."
+    mkdir -p "$MOUNTPOINT"
+    ${pkgs.util-linux}/bin/mount "$LUKS_MAPPER" "$MOUNTPOINT"
   '';
   umount-backupUSB = pkgs.writeShellScriptBin "umount-backupUSB" ''
-    exec sudo ${pkgs.bash}/bin/bash -c '
-      set -euo pipefail
+    set -euo pipefail
 
-      LUKS_NAME="backupUSB"
-      MOUNTPOINT="${backup.path}"
+    LUKS_NAME="backupUSB"
+    MOUNTPOINT="${backup.path}"
 
-      echo "Unmounting backup filesystem..."
-      ${pkgs.util-linux}/bin/umount "$MOUNTPOINT"
+    echo "Unmounting backup filesystem..."
+    ${pkgs.util-linux}/bin/umount "$MOUNTPOINT"
 
-      echo "Closing LUKS device..."
-      ${pkgs.cryptsetup}/bin/cryptsetup close "$LUKS_NAME"
-    '
+    echo "Closing LUKS device..."
+    ${pkgs.cryptsetup}/bin/cryptsetup close "$LUKS_NAME"
   '';
   backupScript = pkgs.writeShellScript "backup-backupUSB" ''
     set -euo pipefail
 
-    trap 'umount-backupUSB' EXIT
+    trap '${umount-backupUSB}/bin/umount-backupUSB' EXIT
 
-    mount-backupUSB
+    ${mount-backupUSB}/bin/mount-backupUSB
 
     echo "Starting btrbk backup..."
     ${pkgs.btrbk}/bin/btrbk run
@@ -127,7 +123,7 @@ in
       };
     };
 
-    systemd.timers.btrbk-backup-data = {
+    systemd.timers.backupUSB = {
       description = "Timer for Btrfs backup to encrypted USB";
 
       wantedBy = [ "timers.target" ];
