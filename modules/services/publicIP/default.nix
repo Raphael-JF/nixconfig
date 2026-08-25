@@ -5,9 +5,9 @@ let
 
     runtimeInputs = with pkgs; [
       curl
-      sshs
       git
-      jq
+      openssh
+      coreutils
     ];
 
     text = ''
