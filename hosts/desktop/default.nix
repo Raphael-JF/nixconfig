@@ -12,9 +12,17 @@
   ];
   config = {
     services.sshServer.enable = true;
-
     packages.development.enable = true; 
     packages.gaming.enable = true;
+    
+    # run kitty at startup
+    environment.etc."xdg/autostart/kitty.desktop".text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=Kitty
+      Exec=${pkgs.kitty}/bin/kitty
+      X-GNOME-Autostart-enabled=true
+    '';
 
     #
     # ===== NVIDIA GRAPHICS =====

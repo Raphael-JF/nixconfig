@@ -1,22 +1,22 @@
+local servers = {
+    clangd = "clangd",
+    pyright = "pyright",
+    nil_ls = "nil",
+    bashls = "bash-language-server",
+    texlab = "texlab",
+    html = "vscode-html-language-server",
+    cssls = "vscode-css-language-server",
+    ts_ls = "typescript-language-server",
+}
 
-local cmp_nvim_lsp = require('cmp_nvim_lsp')
+for server, executable in pairs(servers) do
+    if vim.fn.executable(executable) == 1 then
+        vim.lsp.enable(server)
+    end
+end
 
-local capabilities = cmp_nvim_lsp.default_capabilities()
 
-vim.lsp.config('clangd', {
-    capabilities = capabilities,
-    cmd = {
-        "clangd",
-        "--background-index",
-        "--compile-commands-dir=.",
-        "--query-driver=/nix/store/**/bin/gcc,home/raph/.platformio/packages/toolchain-*/bin/*",
-
-    },
+vim.diagnostic.config({
+  virtual_lines = true,
+  virtual_text = false,
 })
-
-vim.lsp.config('nil_ls', {
-
-})
-
-vim.lsp.enable({ 'clangd', 'nil_ls' })
-

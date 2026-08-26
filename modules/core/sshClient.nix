@@ -12,12 +12,13 @@
         User rjontef
         ProxyJump enseirb
 
-      Host thor thor.enseirb-matmeca.fr
+      Host thor 
         HostName thor.enseirb-matmeca.fr
         IdentityFile "~/.ssh/${hostname}" 
         IdentitiesOnly yes
 
-      Host github.com
+      Host gh
+        HostName github.com
         User git
         IdentityFile "~/.ssh/${hostname}" 
         IdentitiesOnly yes
@@ -33,6 +34,7 @@
         User raph
         IdentityFile "~/.ssh/${hostname}"
         IdentitiesOnly yes
+        ProxyJump server
 
       Host desktop
         HostName 192.168.1.104
@@ -40,7 +42,6 @@
         IdentityFile "~/.ssh/${hostname}"
         IdentitiesOnly yes
         ProxyJump server
-        
     '';
   };
 }

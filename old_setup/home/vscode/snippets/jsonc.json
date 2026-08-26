@@ -1,7 +1,0 @@
-{
-
-    "créer un nouveau snippet":{
-        "prefix": ["start","lets go","commence","allez"],
-        "body": ["\"$1\":{", "\"prefix\": [$2],","\"body\": [$3],","\"description\": [$4]"]
-    }
-}

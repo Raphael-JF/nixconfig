@@ -2,107 +2,75 @@
   description = "raph's development environments";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
   outputs = { nixpkgs, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
-
-      common = with pkgs; [
-        git
-        curl
-        wget
-        jq
-        ripgrep
-        fd
-        tree
-      ];
-
-      c = with pkgs; [
-        gcc
-        gdb
-        gnumake
-        cmake
-      ];
-      
-      python = with pkgs; [
-        (python3.withPackages (ps: with ps; [
-          numpy
-          scipy
-          matplotlib
-          pandas
-        ]))
-      ];
-
-      latex = with pkgs; [
-        texliveFull
-      ];
-
-      # ─────────────────────────────────────────────
-      # ESP32
-      # ─────────────────────────────────────────────
-
-      esp32 = with pkgs; [
-        esp-idf
-        cmake
-        ninja
-        gcc
-        gnumake
-        python3
-        git
-        pkg-config
-      ];
-
     in {
-      devShells.${system} = {
+    devShells.${system} = {
+      c = pkgs.mkShell {
+        packages = with pkgs; [
+          gcc
+          gdb
+          valgrind
+          clang-tools
+        ];
+      };
 
-        # C
-        c = pkgs.mkShell {
-          packages = common ++ c;
-        };
+      python = pkgs.mkShell {
+        packages = with pkgs; [
+          (python3.withPackages (ps: with ps; [
+            numpy
+            scipy
+            matplotlib
+            pandas
+          ]))
+          pyright
+        ];
+      };
 
-        # Python
-        python = pkgs.mkShell {
-          packages = common ++ python;
-        };
+      java = pkgs.mkShell {
+        packages = with pkgs; [
+          openjdk
+        ];
+      };
 
-        # LaTeX
-        latex = pkgs.mkShell {
-          packages = common ++ latex;
-        };
+      latex = pkgs.mkShell {
+        packages = with pkgs; [
+          texliveFull
+          texlab
+        ];
+      };
 
-        # ESP32 / ESP-IDF
-        esp32 = pkgs.mkShell {
-          packages = common ++ esp32;
+      esp32 = pkgs.mkShell {
+        packages = with pkgs; [
+          platformio
+          clang-tools
+        ];
+      };
 
-          shellHook = ''
-            echo "ESP32 development environment"
-            echo "ESP-IDF: $ESP_IDF_VERSION"
-          '';
-        };
+      bash = pkgs.mkShell {
+        packages = with pkgs; [
+          bash-language-server
+        ];
+      };
 
-        # ─────────────────────────────────────────
-        # Combined environments
-        # ─────────────────────────────────────────
+      "html-css-js" = pkgs.mkShell {
+        packages = with pkgs; [
+          vscode-langservers-extracted
+          typescript-language-server
+        ];
+      };
 
-        c-python = pkgs.mkShell {
-          packages = common ++ c ++ python;
-        };
-
-        full = pkgs.mkShell {
-          packages =
-            common
-            ++ c
-            ++ python
-            ++ latex
-            ++ esp32;
-        };
-
-        default = pkgs.mkShell {
-          packages = common ++ c ++ python;
-        };
+      javascript = pkgs.mkShell {
+        packages = with pkgs; [
+          nodejs
+          typescript-language-server
+        ];
       };
     };
+  };
 }
