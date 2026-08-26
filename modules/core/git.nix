@@ -28,9 +28,26 @@
       .clangd.local
       compile_commands.json
       .direnv
-      .envrc
       *.idx
       .aider*
+
+      # LaTeX / Texlab generated files
+      *.aux
+      *.log
+      *.out
+      *.toc
+      *.lof
+      *.lot
+      *.fls
+      *.fdb_latexmk
+      *.synctex.gz
+      *.bcf
+      *.run.xml
+      *.bbl
+      *.blg
+      *.nav
+      *.snm
+      *.vrb
   '';
 
 }

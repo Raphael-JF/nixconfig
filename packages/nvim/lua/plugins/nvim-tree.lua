@@ -5,6 +5,10 @@ require("nvim-tree").setup({
     side = "left",
     preserve_window_proportions = true,
   },
+  update_focused_file = {
+    enable = true,
+    update_root = false,
+  },
   renderer = {
     icons = {
       show = {
@@ -57,3 +61,8 @@ vim.keymap.set("n", "<C-b>", function()
   require("nvim-tree.api").tree.toggle()
 end, { noremap = true, silent = true })
 
+-- Close current buffer
+vim.keymap.set("n", "<C-q>", "<cmd>bdelete<CR>", {
+  noremap = true,
+  silent = true,
+})
