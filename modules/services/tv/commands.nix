@@ -33,10 +33,10 @@ let
     else
       exec sudo ${pkgs.systemd}/bin/systemctl start display-manager
     fi
-  ''  
+  '';
   tvVolume = pkgs.writeShellScriptBin "tvVolume" ''
     wpctl set_volume @DEFAULT_AUDIO_SINK@ $1
-  ''
+  '';
 
 in
 {
