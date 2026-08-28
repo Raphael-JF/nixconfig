@@ -20,7 +20,25 @@
         "type": "github"
       }
     },
-    "my-nvim": {
+    "latexTemplates": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1787753333,
+        "narHash": "sha256-dMZVkg6N9a3doKJQ/Tkzw8OKIsvS9pjaQGXiPKrNKJY=",
+        "owner": "Raphael-JF",
+        "repo": "Latex-templates",
+        "rev": "311ae46038849e2eece6ce185bab37b52996f7ca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Raphael-JF",
+        "repo": "Latex-templates",
+        "type": "github"
+      }
+    },
+    "myNvim": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -37,6 +55,22 @@
       "parent": []
     },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1787498568,
+        "narHash": "sha256-9i/VTdusq/+NM/tz+J1Re+ojkMB8MBf0QshnYfzHz30=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "56c02bc00adcf003215cc4bd996d6efaf4cff188",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1785454630,
         "narHash": "sha256-LQy14TZp77TwbQf40gg1V3jo8FwJG0jGDkAH+zRHqg8=",
@@ -55,12 +89,13 @@
     "root": {
       "inputs": {
         "disko": "disko",
-        "my-nvim": "my-nvim",
-        "nixpkgs": "nixpkgs",
-        "sops-nix": "sops-nix"
+        "latexTemplates": "latexTemplates",
+        "myNvim": "myNvim",
+        "nixpkgs": "nixpkgs_2",
+        "sopsNix": "sopsNix"
       }
     },
-    "sops-nix": {
+    "sopsNix": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -70,13 +105,13 @@
         "lastModified": 1783174389,
         "narHash": "sha256-aCWC8ngycU7OdJrU2+Je3qf+1a2ykuBvpPhZT/9tXMc=",
         "owner": "Mic92",
-        "repo": "sops-nix",
+        "repo": "sopsNix",
         "rev": "f1406619a3884cd5c47992a70b8b35c9c0fcb4c9",
         "type": "github"
       },
       "original": {
         "owner": "Mic92",
-        "repo": "sops-nix",
+        "repo": "sopsNix",
         "type": "github"
       }
     }

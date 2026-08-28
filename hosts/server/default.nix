@@ -5,6 +5,7 @@
 
     ./hardware-configuration.nix
     ./disko.nix
+    ./jack-fix.nix
     ../../modules/core
      
     # services

@@ -1,5 +1,8 @@
 { pkgs, lib, config, ... }:
 {
+  imports = [
+    # ./latexTemplate.nix
+  ]; 
   options.packages.development.enable = lib.mkEnableOption "Enable development packages";
   
   config = {

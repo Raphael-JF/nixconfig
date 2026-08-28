@@ -7,11 +7,13 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
  
-    my-nvim.url = "path:./packages/nvim";
-    my-nvim.inputs.nixpkgs.follows = "nixpkgs";
+    myNvim.url = "path:./packages/nvim";
+    myNvim.inputs.nixpkgs.follows = "nixpkgs";
 
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    latexTemplates.url = "github:Raphael-JF/Latex-templates"; 
+
+    sopsNix.url = "github:Mic92/sopsNix";
+    sopsNix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, ...}@inputs:
@@ -23,7 +25,7 @@
       specialArgs = { inherit inputs hostname; };
       modules = [
         inputs.disko.nixosModules.disko
-        inputs.sops-nix.nixosModules.sops
+        inputs.sopsNix.nixosModules.sops
         ./hosts/${hostname}
       ];
 

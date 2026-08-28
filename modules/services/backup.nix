@@ -81,7 +81,7 @@ in
   };
 
   config = lib.mkIf config.services.backup.enable {
-    # LUKS password from sops-nix
+    # LUKS password from sopsNix
     sops.secrets."backupUSB-key" = {
       sopsFile = ./../../secrets/backupUSB.key.enc;
       format = "binary";
