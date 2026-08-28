@@ -14,6 +14,7 @@ let
   '';
 in
 {
+  environment
   hardware.firmware = [
     hda-jack-fix
   ];

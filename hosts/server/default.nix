@@ -7,6 +7,7 @@
     ./disko.nix
     ./jack-fix.nix
     ../../modules/core
+    ../../modules/dev
      
     # services
     ../../modules/services/publicIP
