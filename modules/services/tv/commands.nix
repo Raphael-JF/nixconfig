@@ -10,32 +10,24 @@ let
   '';
 
   tvSoundSwitchToggle = pkgs.writeShellScriptBin "tvSoundSwitchToggle" ''
-    set -euo pipefail
-
-    current="$(${pkgs.pulseaudio}/bin/pactl get-sink-port @DEFAULT_SINK@)"
-
-    case "$current" in
-      analog-output-speaker)
-        exec ${tvSoundSwitchHeadphone}/bin/tvSoundSwitchHeadphone
-        ;;
-      analog-output-headphones)
-        exec ${tvSoundSwitchSpeaker}/bin/tvSoundSwitchSpeaker
-        ;;
-      *)
-        echo "Unknown current sink port: $current" >&2
-        exit 1
-        ;;
-    esac
-  '';
+  case "$(${pkgs.pulseaudio}/bin/pactl list sinks | grep 'Active Port')" in
+    *analog-output-speaker*)
+      exec headphone
+      ;;
+    *analog-output-headphones*)
+      exec speaker
+      ;;
+  esac
+''; 
   tvToggle = pkgs.writeShellScriptBin "tvToggle" ''
-    if systemctl is-active --quiet display-manager; then
+    if ${pkgs.systemd}/bin/systemctl is-active --quiet display-manager; then
       exec sudo ${pkgs.systemd}/bin/systemctl stop display-manager
     else
       exec sudo ${pkgs.systemd}/bin/systemctl start display-manager
     fi
   '';
   tvVolume = pkgs.writeShellScriptBin "tvVolume" ''
-    wpctl set_volume @DEFAULT_AUDIO_SINK@ $1
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ $1
   '';
 
 in
