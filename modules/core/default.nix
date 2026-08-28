@@ -9,7 +9,6 @@
     ./packages.nix
     ./raphUser.nix
     ./security.nix
-    ./development.nix
     ./sshClient.nix
     ./git.nix
     ./nvim.nix

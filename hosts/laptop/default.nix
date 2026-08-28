@@ -5,6 +5,8 @@
     ./disko.nix
 
     ../../modules/core
+
+    ../../modules/dev
     ../../modules/windowManager
     ../../modules/services/sshServer.nix
     # ../../modules/services/airplay.nix
