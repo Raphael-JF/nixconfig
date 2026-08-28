@@ -81,38 +81,38 @@
       };
     };
 
-    disk.backupUSB = {
-      device = "/dev/disk/by-id/usb-SMI_USB_DISK_KT202000000000001037-0:0";
-      type = "disk";
-
-      content = {
-        type = "gpt";
-
-        partitions = {
-          backup = {
-            size = "100%";
-
-            content = {
-              type = "luks";
-              name = "backupUSB";
-
-              content = {
-                type = "btrfs";
-                extraArgs = [ "-L" "backupUSB" ];
-
-                # mountpoint = "/mnt/backupUSB";
-
-
-                mountOptions = [
-                  "compress=zstd:9"
-                  "noatime"
-                  "nofail"
-                ];
-              };
-            };
-          };
-        };
-      };
-    };
+    # disk.backupUSB = {
+    #   device = "/dev/disk/by-id/usb-SMI_USB_DISK_KT202000000000001037-0:0";
+    #   type = "disk";
+    #
+    #   content = {
+    #     type = "gpt";
+    #
+    #     partitions = {
+    #       backup = {
+    #         size = "100%";
+    #
+    #         content = {
+    #           type = "luks";
+    #           name = "backupUSB";
+    #
+    #           content = {
+    #             type = "btrfs";
+    #             extraArgs = [ "-L" "backupUSB" ];
+    #
+    #             # mountpoint = "/mnt/backupUSB";
+    #
+    #
+    #             mountOptions = [
+    #               "compress=zstd:9"
+    #               "noatime"
+    #               "nofail"
+    #             ];
+    #           };
+    #         };
+    #       };
+    #     };
+    #   };
+    # };
   };
 }
