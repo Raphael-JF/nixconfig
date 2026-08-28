@@ -13,7 +13,7 @@ let
   '';
 in
 {
-  environment.systemPackages = [ pulseaudio ];
+  environment.systemPackages = [ pkgs.pulseaudio ];
   hardware.firmware = [
     hda-jack-fix
   ];
