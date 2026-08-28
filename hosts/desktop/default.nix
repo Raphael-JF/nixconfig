@@ -5,6 +5,7 @@
     ./disko.nix
 
     ../../modules/core
+    ../../modules/dev
     ../../modules/windowManager
     
 
