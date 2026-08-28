@@ -17,7 +17,7 @@
         IdentityFile "~/.ssh/${hostname}" 
         IdentitiesOnly yes
 
-      Host gh
+      Host gh github.com
         HostName github.com
         User git
         IdentityFile "~/.ssh/${hostname}" 
