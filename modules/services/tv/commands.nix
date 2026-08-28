@@ -12,10 +12,10 @@ let
   tvSoundSwitchToggle = pkgs.writeShellScriptBin "tvSoundSwitchToggle" ''
   case "$(${pkgs.pulseaudio}/bin/pactl list sinks | grep 'Active Port')" in
     *analog-output-speaker*)
-      exec headphone
+      exec tvSoundSwitchHeadphone
       ;;
     *analog-output-headphones*)
-      exec speaker
+      exec tvSoundSwitchSpeaker
       ;;
   esac
 ''; 
