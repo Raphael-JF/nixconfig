@@ -5,7 +5,6 @@
 
     ./hardware-configuration.nix
     ./disko.nix
-    ./jack-fix.nix
     ../../modules/core
     ../../modules/dev
      
@@ -16,7 +15,7 @@
     ../../modules/services/sshServer.nix
     ../../modules/services/homepage
     ../../modules/services/nextcloud
-    ../../modules/services/tv.nix
+    ../../modules/services/tv
 
     #../../modules/services/forgejo.nix
   ];

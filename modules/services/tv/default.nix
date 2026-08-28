@@ -5,6 +5,8 @@
     ../../windowManager
     
 
+    ./jackFix.nix
+    ./switchOutput.nix
   ];
   config = {
 
