@@ -1,4 +1,3 @@
-# prevent jack from disabling speakers.
 { pkgs, ... }:
 
 let
@@ -14,7 +13,7 @@ let
   '';
 in
 {
-  environment
+  environment.systemPackages = [ pulseaudio ];
   hardware.firmware = [
     hda-jack-fix
   ];
