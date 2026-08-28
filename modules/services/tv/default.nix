@@ -1,7 +1,10 @@
+
 { lib, pkgs, ... }:
 {
   imports = [
-    ../windowManager
+    ../../windowManager
+    
+
   ];
   config = {
 

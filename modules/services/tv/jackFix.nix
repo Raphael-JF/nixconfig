@@ -22,3 +22,4 @@ in
     options snd-hda-intel patch=hda-jack-fix.fw
   '';
 }
+
