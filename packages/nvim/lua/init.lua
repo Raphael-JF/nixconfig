@@ -54,7 +54,7 @@ vim.keymap.set('n', '<C-a>d', ':%d<CR>', { desc = 'Delete all' })
 vim.keymap.set('n', '<C-a>a', 'ggVG', { desc = 'Select all' })
 
 -- auto save on insert leave and text changed
-vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
+vim.api.nvim_create_autocmd({ "InsertLeave"}, {
   pattern = "*",
   command = "silent! write",
 })
