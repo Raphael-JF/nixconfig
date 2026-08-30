@@ -6,7 +6,9 @@
     baobab
     nautilus
     gnome-disk-utility
-    totem # video player
+    (pkgs.writeShellScriptBin "totem" ''
+      exec env GDK_BACKEND=x11 ${pkgs.totem}/bin/totem "$@"
+    '')
     loupe # image viewer
 
 
