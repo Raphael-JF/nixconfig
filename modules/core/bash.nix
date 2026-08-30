@@ -16,6 +16,14 @@
       ll = "eza --icons -lah";
       la = "eza --icons -a";
       lt = "eza --icons --tree --level=2";
+
+      gs = "git status";
+      ga = "git add";
+      gaa = "git add --all";
+      gc = "git commit";
+      gcm = ''git commit -m'';
+      gp = "git push";
+      gpl = "git pull";
     };
 
     promptInit = ''
