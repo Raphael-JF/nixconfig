@@ -54,11 +54,14 @@ vim.keymap.set('n', '<C-a>d', ':%d<CR>', { desc = 'Delete all' })
 vim.keymap.set('n', '<C-a>a', 'ggVG', { desc = 'Select all' })
 
 -- auto save on insert leave and text changed
-vim.api.nvim_create_autocmd({ "InsertLeave"}, {
+vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
   pattern = "*",
-  command = "silent! write",
+  callback = function()
+    if vim.bo.modified then
+      vim.cmd("silent! write")
+    end
+  end,
 })
-
 
 
 -- LSP diagnostics configuration
