@@ -27,11 +27,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788017961,
-        "narHash": "sha256-E78KPvKrwtI062oGO8canjhFTFi9v57w/8ujkf2M0O8=",
+        "lastModified": 1788132444,
+        "narHash": "sha256-IbDzBREqnVXIJpmv8iwujasCvRw7eQGnN94ZHaA1TJE=",
         "owner": "Raphael-JF",
         "repo": "Latex-templates",
-        "rev": "2984150ba807a538a70da3d9cc1b5f3e5097a852",
+        "rev": "39350af2b80ee2a0dc6d6b5fab5ffb7da584a08e",
         "type": "github"
       },
       "original": {
