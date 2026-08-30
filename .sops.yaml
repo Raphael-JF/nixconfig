@@ -4,6 +4,7 @@ keys:
   - &old_server age1ud5k6fs2vaw7k9nhl5jv3973zfcy69vrsyxs8lwwkktlsv95xg4qp2rf2q
   - &desktop age15luh64um2extfmeqy8rmq9cqhm8c8xzh9fqcqvz58mnup3lmgvrqqq35sc
   - &server age19ss777jhrnwsnpy9ah452km0p0e4cfhmj3kyr9u7m3rh3fept4pqepavrd 
+  - &laptop age1a89sf8c84fm2wjt0ns4k9unn62kg84kermnursdkzl9r7amtsf5sne3ttq 
 creation_rules: 
   - path_regex: secrets/.*
     key_groups:
@@ -13,3 +14,4 @@ creation_rules:
       - *old_server
       - *desktop
       - *server
+      - *laptop
