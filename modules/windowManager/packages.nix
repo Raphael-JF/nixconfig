@@ -6,9 +6,13 @@
     baobab
     nautilus
     gnome-disk-utility
-    (pkgs.writeShellScriptBin "totem" ''
-      exec env GDK_BACKEND=x11 ${pkgs.totem}/bin/totem "$@"
-    '')
+    (pkgs.totem.overrideAttrs (old: {
+    postInstall = (old.postInstall or "") + ''
+      substituteInPlace $out/share/applications/org.gnome.Totem.desktop \
+        --replace-fail 'Exec=totem %U' 'Exec=env GDK_BACKEND=x11 totem %U' \
+        --replace-fail 'DBusActivatable=true' 'DBusActivatable=false'
+    '';
+    }))
     loupe # image viewer
 
 
