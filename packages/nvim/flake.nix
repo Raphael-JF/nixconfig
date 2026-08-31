@@ -65,7 +65,7 @@
             snacks-nvim
             vim-visual-multi
             grug-far-nvim
-
+            mini-surround
             
 
 

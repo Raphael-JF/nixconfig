@@ -29,7 +29,14 @@ vim.keymap.set('v', '<C-S-">', "gc", { desc = 'Comment selection', remap = true 
 vim.keymap.set('n', '<C-">', "gcc", { desc = 'Comment line', remap = true })
 vim.keymap.set('n', '<C-S-">', "gcc", { desc = 'Comment line', remap = true })
 
+-- Keymaps for moving by visual lines instead of logical lines
+vim.keymap.set("n", "j", "gj")
+vim.keymap.set("n", "k", "gk")
+vim.keymap.set("n", "gj", "j")
+vim.keymap.set("n", "gk", "k")
 
+vim.opt.wrap = true
+vim.opt.linebreak = true
 
 
 vim.keymap.set('n', '<leader>wk', function()
@@ -104,3 +111,4 @@ require("plugins.bufferline")
 require("plugins.snacks")
 require("plugins.visual-multi")
 require("plugins.flash")
+require("plugins.mini-surround")
