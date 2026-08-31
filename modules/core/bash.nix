@@ -12,10 +12,10 @@
       battery = "cat /sys/class/power_supply/BAT0/capacity";
       rebuild = "sudo nixos-rebuild switch --flake ~/nixconfig#${hostname}";
 
-      ls = "eza --icons";
-      ll = "eza --icons -lah";
-      la = "eza --icons -a";
-      lt = "eza --icons --tree --level=2";
+      ls = "eza --icons=auto";
+      ll = "eza --icons=auto -lah";
+      la = "eza --icons=auto -a";
+      lt = "eza --icons=auto --tree --level=2";
 
       gs = "git status";
       ga = "git add";

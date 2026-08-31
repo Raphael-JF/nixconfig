@@ -5,6 +5,7 @@
     ./disko.nix
 
     ../../modules/core
+    ../../modules/osShared.nix
     ../../modules/dev
     ../../modules/windowManager
     
@@ -15,6 +16,8 @@
     services.sshServer.enable = true;
     packages.development.enable = true; 
     packages.gaming.enable = true;
+
+    windowManager.osShared.device = "/dev/disk/by-uuid/81D8-6A18";
     
     # run kitty at startup
     environment.etc."xdg/autostart/kitty.desktop".text = ''
