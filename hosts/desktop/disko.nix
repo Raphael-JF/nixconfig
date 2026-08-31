@@ -33,6 +33,8 @@
               mountpoint = "/run/media/raph/osShared";
 
               mountOptions = [
+                "x-gvfs-show"
+                "x-gvfs-name=osShared"
                 "nofail"
                 "noatime"
               ];
