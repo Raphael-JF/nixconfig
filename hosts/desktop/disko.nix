@@ -22,25 +22,25 @@
             };
           };
 
-          osShared = {
-            name = "osShared";
-            size = "200G"; # à adapter
-            type = "0700";
-
-            content = {
-              type = "filesystem";
-              format = "exfat";
-              mountpoint = "/run/media/raph/osShared";
-
-              mountOptions = [
-                "x-gvfs-show"
-                "x-gvfs-name=osShared"
-                "nofail"
-                "noatime"
-              ];
-            };
-          };
-
+          # osShared = {
+          #   name = "osShared";
+          #   size = "200G"; # à adapter
+          #   type = "0700";
+          #
+          #   content = {
+          #     type = "filesystem";
+          #     format = "exfat";
+          #     mountpoint = "/run/media/raph/osShared";
+          #
+          #     mountOptions = [
+          #       "x-gvfs-show"
+          #       "x-gvfs-name=osShared"
+          #       "nofail"
+          #       "noatime"
+          #     ];
+          #   };
+          # };
+          #
           luks = {
             name = "cryptroot";
             size = "100%";
