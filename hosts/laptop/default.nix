@@ -15,7 +15,7 @@
   packages.development.enable = true; 
 
   fileSystems."/run/media/raph/osShared" = {
-    device = "/dev/disk/by-uuid/FBFB-E12E";
+    device = "/dev/disk/by-uuid/726D-7F83";
     fsType = "exfat";
     options = [
       "x-gvfs-show"
