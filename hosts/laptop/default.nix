@@ -15,7 +15,7 @@
   services.sshServer.enable = true;
   packages.development.enable = true; 
 
-  osShared.device = "/dev/disk/by-uuid/726D-7F83";
+  windowManager.osShared.device = "/dev/disk/by-uuid/726D-7F83";
 
   # run kitty at startup
     environment.etc."xdg/autostart/kitty.desktop".text = ''
