@@ -101,8 +101,8 @@ in
     ];
 
     environment.etc."btrbk/btrbk.conf".text = ''
-      snapshot_preserve_min 2d
-      snapshot_preserve 14d
+      snapshot_preserve_min 0d
+      snapshot_preserve 0d
 
       target_preserve_min 2d
       target_preserve 1m
