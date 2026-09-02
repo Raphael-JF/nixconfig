@@ -1,7 +1,7 @@
 { config, pkgs, lib, options, ... }:
 {
   imports = [ 
-    # ./nginx.nix
+    ./nginx.nix
     ./postgresql.nix
     ./fail2ban.nix
   ];
