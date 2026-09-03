@@ -53,8 +53,8 @@
       options = [ "bind" ];
     };
     
-    systemd.services.nextcloudScanIcloudPhotos = {
-      description = "Nextcloud scan for new icloud Photos";
+    systemd.services.nextcloudUpdateCache = {
+      description = "Update Nextcloud's understanding of its content";
 
       serviceConfig = {
         Type = "oneshot";

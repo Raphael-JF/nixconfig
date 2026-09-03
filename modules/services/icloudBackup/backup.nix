@@ -49,7 +49,7 @@
                   --cookie-directory /var/lib/icloudBackup/${name}/cookies \
               '';
               unitConfig = lib.mkIf config.services.raphNextcloud.enable {
-                OnSuccess = "nextcloudScanIcloudPhotos.service";
+                OnSuccess = "nextcloudUpdateCache.service";
               };
             }
           )
