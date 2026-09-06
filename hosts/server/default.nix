@@ -12,9 +12,11 @@
     ../../modules/services/publicIP
     ../../modules/services/icloudBackup
     ../../modules/services/backup.nix
+    ../../modules/services/backupPostgresql.nix
     ../../modules/services/sshServer.nix
     ../../modules/services/homepage
     ../../modules/services/nextcloud
+    ../../modules/services/recipiz.nix
     ../../modules/services/tv
 
     #../../modules/services/forgejo.nix
