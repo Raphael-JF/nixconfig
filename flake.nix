@@ -12,6 +12,9 @@
 
     latexTemplates.url = "github:Raphael-JF/Latex-templates"; 
     latexTemplates.inputs.nixpkgs.follows = "nixpkgs";
+   
+    recipiz.url = "github:Raphael-JF/Recipiz";
+    recipiz.inputs.nixpkgs.follows = "nixpkgs";
 
     sopsNix.url = "github:Mic92/sops-nix";
     sopsNix.inputs.nixpkgs.follows = "nixpkgs";

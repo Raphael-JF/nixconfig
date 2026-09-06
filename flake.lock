@@ -86,12 +86,33 @@
         "type": "github"
       }
     },
+    "recipiz": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788621408,
+        "narHash": "sha256-sr99P0ADLo8WmzYxE28HB21KcLa2FpvWRAfukCikHwo=",
+        "owner": "Raphael-JF",
+        "repo": "Recipiz",
+        "rev": "68744c3681833d4114e8d88b015758e5763c5ff5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Raphael-JF",
+        "repo": "Recipiz",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "disko": "disko",
         "latexTemplates": "latexTemplates",
         "myNvim": "myNvim",
         "nixpkgs": "nixpkgs_2",
+        "recipiz": "recipiz",
         "sopsNix": "sopsNix"
       }
     },
