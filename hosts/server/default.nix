@@ -83,5 +83,11 @@
       echo "Desktop is ready."
     '')
   ];
+  
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_18;
+  };
+
   system.stateVersion = "26.05";
 }
