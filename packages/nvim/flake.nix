@@ -35,6 +35,7 @@
             pkgs.lsof
             pkgs.ast-grep
             pkgs.nerd-fonts.fira-code
+            pkgs.gcc
          ])
         ];
 
