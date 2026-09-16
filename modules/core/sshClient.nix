@@ -8,7 +8,7 @@
         IdentityFile "~/.ssh/${hostname}" 
         IdentitiesOnly yes
 
-      Host almapedago travail64 deepeirb
+      Host almapedago travail64 deepeirb spaghetti trompette 
         User rjontef
         ProxyJump enseirb
 
