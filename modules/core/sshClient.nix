@@ -11,6 +11,7 @@
       Host almapedago travail64 deepeirb 24p107-05
         User rjontef
         ProxyJump enseirb
+        SetEnv TERM=xterm-256color
 
       Host thor 
         HostName thor.enseirb-matmeca.fr
