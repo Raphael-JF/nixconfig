@@ -69,12 +69,8 @@
           enable = true;
           port = 2222;
 
-          hostKeys = [
-            /etc/secrets/initrd/ssh_host_ed25519_key
-          ];
-
           authorizedKeys = [
-            ''command="systemctl default" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGI0Hs4iMAyT0UZkdwTzGQr1+FKTAbig3/gGke8wZIER raph@raph-server''
+            ''command="systemctl default" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID4c+FHbJR0kKQHX3XV6oRUgRQhwKcmwQVMNLY0TWn1p raph@raph-server''
           ];
         };
       };
