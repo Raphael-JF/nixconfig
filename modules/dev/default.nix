@@ -2,6 +2,7 @@
 {
   imports = [
     ./latexTemplate.nix
+    ./llm.nix
   ]; 
   options.packages.development.enable = lib.mkEnableOption "Enable development packages";
   
