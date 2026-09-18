@@ -41,10 +41,11 @@ log "Démarrage de l'IA sur $ip..."
 if ! TERM=xterm-256color ssh -t \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
+    -o LogLevel=ERROR \
     -J enseirb \
     -L 1234:localhost:1234 \
     "rjontef@$ip" \
-    '$REMOTE_SCRIPTS_DIR/startIA.sh'
+    "$REMOTE_SCRIPTS_DIR/startIA.sh"
 then
     error "Le démarrage de l'IA a échoué"
 fi
@@ -54,9 +55,10 @@ log "Connexion terminée, arrêt de l'IA sur $ip..."
 if ! ssh -t \
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile=/dev/null \
+    -o LogLevel=ERROR \
     -J enseirb \
     "rjontef@$ip" \
-    '$REMOTE_SCRIPTS_DIR/stopIA.sh'
+    "$REMOTE_SCRIPTS_DIR/stopIA.sh"
 then
     error "L'arrêt de l'IA a échoué"
     exit 1
