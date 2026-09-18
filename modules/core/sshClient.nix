@@ -2,11 +2,13 @@
 {
   programs.ssh  = {
     extraConfig = ''
+      Host *
+        IdentityFile "~/.ssh/${hostname}"
+        IdentitiesOnly yes
+
       Host enseirb
         HostName ssh.enseirb-matmeca.fr
         User rjontef
-        IdentityFile "~/.ssh/${hostname}" 
-        IdentitiesOnly yes
 
       Host almapedago travail64 deepeirb 24p107-05
         User rjontef
@@ -15,33 +17,23 @@
 
       Host thor 
         HostName thor.enseirb-matmeca.fr
-        IdentityFile "~/.ssh/${hostname}" 
-        IdentitiesOnly yes
 
       Host gh github.com
         HostName github.com
         User git
-        IdentityFile "~/.ssh/${hostname}" 
-        IdentitiesOnly yes
 
       Host server 
         HostName 82.126.172.121
         User raph
-        IdentityFile "~/.ssh/${hostname}" 
-        IdentitiesOnly yes
 
       Host laptop
         HostName 192.168.1.38
         User raph
-        IdentityFile "~/.ssh/${hostname}"
-        IdentitiesOnly yes
         ProxyJump server
 
       Host desktop
         HostName 192.168.1.104
         User raph
-        IdentityFile "~/.ssh/${hostname}"
-        IdentitiesOnly yes
         ProxyJump server
     '';
   };
