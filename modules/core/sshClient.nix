@@ -5,11 +5,13 @@
       Host enseirb
         HostName ssh.enseirb-matmeca.fr
         User rjontef
-        IdentityFile "~/.ssh/${hostname}" 
+        IdentityFile ~/.ssh/laptop
         IdentitiesOnly yes
 
       Host almapedago travail64 deepeirb 24p107-05
         User rjontef
+        IdentityFile ~/.ssh/laptop
+        IdentitiesOnly yes
         ProxyJump enseirb
         SetEnv TERM=xterm-256color
 
