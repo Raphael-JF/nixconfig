@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-opencode.url = "github:NixOS/nixpkgs/9fbb54b33e91ee4ca368e35a78e0613c720600b3";
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
@@ -26,7 +27,7 @@
     pkgs = nixpkgs.legacyPackages.x86_64-linux;
     mkHost = hostname: nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = { inherit inputs hostname; };
+      specialArgs = { inherit inputs hostname; pkgs-opencode = inputs.nixpkgs-opencode.legacyPackages.x86_64-linux; };
       modules = [
         inputs.disko.nixosModules.disko
         inputs.sopsNix.nixosModules.sops

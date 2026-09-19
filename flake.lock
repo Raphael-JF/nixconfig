@@ -72,6 +72,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-opencode": {
+      "locked": {
+        "lastModified": 1787736819,
+        "narHash": "sha256-cV5xEJJK3BvhU8rEd4mC9UsmDi5qscv/kzGPhBRC5WA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9fbb54b33e91ee4ca368e35a78e0613c720600b3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9fbb54b33e91ee4ca368e35a78e0613c720600b3",
+        "type": "github"
+      }
+    },
     "recipiz": {
       "inputs": {
         "nixpkgs": [
@@ -79,11 +95,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789783986,
-        "narHash": "sha256-+pnqcawW7nK0PEq1xqF7aAJvO74XoL/jQI+5iZs9R/0=",
+        "lastModified": 1789632721,
+        "narHash": "sha256-D+yvHc9ODudQ/rn8Aze5tvmxOSwTcbfEj6m+MnQ4Aq0=",
         "owner": "Raphael-JF",
         "repo": "Recipiz",
-        "rev": "8e87f1c8a9d06974350e1f71786e0bd54ee61dcc",
+        "rev": "0fd392de02df73e5d7cd727f339dcc5bfa79ecc6",
         "type": "github"
       },
       "original": {
@@ -98,6 +114,7 @@
         "latexTemplates": "latexTemplates",
         "myNvim": "myNvim",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-opencode": "nixpkgs-opencode",
         "recipiz": "recipiz",
         "sopsNix": "sopsNix"
       }

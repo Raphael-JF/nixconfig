@@ -1,7 +1,7 @@
-{ pkgs, ...}: {
+{ pkgs, pkgs-opencode, ...}: {
   config = {
     environment.systemPackages = with pkgs; [
-      opencode
+      pkgs-opencode.opencode
       (writeShellScriptBin "llm" (lib.readFile ./llm.sh))
     ];
     environment.etc."opencode.json".text = ''
