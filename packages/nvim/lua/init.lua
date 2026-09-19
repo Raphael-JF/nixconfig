@@ -29,11 +29,14 @@ vim.keymap.set('v', '<C-S-">', "gc", { desc = 'Comment selection', remap = true 
 vim.keymap.set('n', '<C-">', "gcc", { desc = 'Comment line', remap = true })
 vim.keymap.set('n', '<C-S-">', "gcc", { desc = 'Comment line', remap = true })
 
--- Keymaps for moving by visual lines instead of logical lines
-vim.keymap.set("n", "j", "gj")
-vim.keymap.set("n", "k", "gk")
-vim.keymap.set("n", "gj", "j")
-vim.keymap.set("n", "gk", "k")
+-- Keymaps for moving by visual lines instead of logical lines (global)
+-- Override j/k globally to use displayed line movement
+vim.keymap.set("", "j", "gj", { noremap = true, silent = true })
+vim.keymap.set("", "k", "gk", { noremap = true, silent = true })
+
+-- Reciprocal mappings for gj/gk to use logical line movement
+vim.keymap.set("", "gj", "j", { noremap = true, silent = true })
+vim.keymap.set("", "gk", "k", { noremap = true, silent = true })
 
 vim.opt.wrap = true
 vim.opt.linebreak = true
