@@ -8,7 +8,7 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
  
     myNvim.url = "path:./packages/nvim";
-    # myNvim.inputs.nixpkgs.follows = "nixpkgs";
+    myNvim.inputs.nixpkgs.follows = "nixpkgs";
 
     latexTemplates.url = "github:Raphael-JF/Latex-templates"; 
     latexTemplates.inputs.nixpkgs.follows = "nixpkgs";
