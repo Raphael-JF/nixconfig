@@ -17,7 +17,7 @@
       la = "eza --icons=auto -a";
       lt = "eza --icons=auto --tree --level=2";
 
-      gs = "git status";
+      gst = "git status";
       ga = "git add";
       gaa = "git add --all";
       gc = "git commit";
