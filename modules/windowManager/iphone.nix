@@ -1,16 +1,41 @@
 { pkgs, ... }:
 {
   services.usbmuxd = {
-      enable = true;
-      package = pkgs.usbmuxd2;
+    enable = true;
   };
-  # Support du montage automatique via GVfs (Nautilus/Files verra l'iPhone comme un périphérique)
+
   services.gvfs.enable = true;
 
   environment.systemPackages = with pkgs; [
-    libimobiledevice   # bibliothèque de base : pairing, infos device, communication
-    ifuse              # monter le stockage de l'iPhone (photos, DCIM) via FUSE
-    idevicerestore     # restauration/flash firmware (avancé, à utiliser avec prudence)
-    ideviceinstaller   # installer/lister/désinstaller des apps .ipa
+    libimobiledevice
+    ifuse
+    idevicerestore
+    ideviceinstaller
   ];
+  
+  # To avoid waiting 90s for poweroff
+  systemd.services.usbmuxd.serviceConfig.TimeoutStopSec = "1s";
+
+
+  # work in progress
+  # restart usbmuxd when an iPhone is connected to the system to avoid issues with iPhone enumeration
+  systemd.services.usbmuxd-restart-on-iphone = {
+    description = "Restart usbmuxd after iPhone USB enumeration";
+    after = [ "usbmuxd.service" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+    };
+
+    script = ''
+      ${pkgs.coreutils}/bin/sleep 2
+      ${pkgs.systemd}/bin/systemctl restart usbmuxd.service
+    '';
+  };
+
+
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="05ac", ATTR{idProduct}=="12a8", \
+      TAG+="systemd", ENV{SYSTEMD_WANTS}="usbmuxd-restart-on-iphone.service"
+  '';
 }
