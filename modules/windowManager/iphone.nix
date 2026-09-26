@@ -28,7 +28,7 @@
     };
 
     script = ''
-      ${pkgs.coreutils}/bin/sleep 2
+      ${pkgs.coreutils}/bin/sleep 1
       ${pkgs.systemd}/bin/systemctl restart usbmuxd.service
     '';
   };
