@@ -33,9 +33,7 @@
     '';
   };
 
-
   services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="05ac", ATTR{idProduct}=="12a8", \
-      TAG+="systemd", ENV{SYSTEMD_WANTS}="usbmuxd-restart-on-iphone.service"
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="05ac", TAG+="systemd", ENV{SYSTEMD_WANTS}="usbmuxd-restart-on-iphone.service"
   '';
 }
