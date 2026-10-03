@@ -87,6 +87,9 @@
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_18;
+    authentication = pkgs.lib.mkOverride 10 ''
+        local   recipiz   recipiz   peer
+      '';
   };
 
   system.stateVersion = "26.05";
