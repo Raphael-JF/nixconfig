@@ -88,7 +88,7 @@
     enable = true;
     package = pkgs.postgresql_18;
     authentication = pkgs.lib.mkOverride 10 ''
-        local   recipiz   recipiz   peer
+        local   all   all   peer
       '';
   };
 
