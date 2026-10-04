@@ -40,8 +40,7 @@
 
     (pkgs.writeShellScriptBin "desktop-reboot-windows" ''
       set -e
-      sudo efibootmgr -n 0000
-      sudo reboot
+      ssh desktop 'sudo efibootmgr -n 0000 && sudo reboot'
     '')
   ];
 
