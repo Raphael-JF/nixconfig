@@ -44,6 +44,12 @@
   networking.firewall = {
     allowedUDPPorts = [ 51820 ];
   };
+  
+  # moonlight to stream games from my desktop to my laptop
+  environment.systemPackages = with pkgs; [
+    moonlight-qt
+  ];
+
 
 
   system.stateVersion = "26.05";
