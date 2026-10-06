@@ -20,6 +20,7 @@
     ../../modules/services/tv
     ../../modules/remote-desktop.nix
     ../../modules/services/postgresql.nix
+    ../../modules/services/wireguard.nix
 
     #../../modules/services/forgejo.nix
   ];
