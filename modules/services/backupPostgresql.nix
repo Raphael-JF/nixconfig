@@ -1,5 +1,8 @@
 { pkgs, ... }:
-{
+{ 
+  systemd.tmpfiles.rules = [
+    "d /data/backupPostgresql 0700 postgres postgres -"
+  ];
   systemd.services.backupPostgresql = {
     description = "Backup all PostgreSQL databases";
 
