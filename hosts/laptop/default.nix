@@ -41,6 +41,9 @@
     }];
   };
 
+  netorking.firewall = {
+    allowedUDPPorts = [ 51820 ];
+  };
 
 
   system.stateVersion = "26.05";
