@@ -34,9 +34,9 @@
     privateKeyFile = "/etc/wireguard/private";
 
     peers = [{
-      publicKey = "<CLE_PUBLIQUE_DU_SERVEUR>";
+      publicKey = "oMR66tSfBlUDo2bphrXzMziWea2qidMLq98f3VrmaR8=";
       allowedIPs = [ "10.100.0.1/32" ];
-      endpoint = "<IP_PUBLIQUE_DU_SERVEUR>:51820";
+      endpoint = "82.126.172.121:51820";
       persistentKeepalive = 25;
     }];
   };
