@@ -97,7 +97,14 @@
       };
     };
       
-   networking.interfaces.enp7s0.wakeOnLan.enable = true;
+  networking.interfaces.enp7s0.wakeOnLan.enable = true;
+
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true; # only needed for Wayland -- omit this when using with Xorg
+    openFirewall = true;
+  };
 
 
 
