@@ -11,7 +11,7 @@ error() {
 log "=== Recherche d'une machine disponible ==="
 
 log "Génération de la liste des candidates..."
-if ! ssh almapedago "$REMOTE_SCRIPTS_DIR/whoAwake.sh > $REMOTE_SCRIPTS_DIR/candidates.txt"; then
+if ! ssh travail64 "$REMOTE_SCRIPTS_DIR/whoAwake.sh > $REMOTE_SCRIPTS_DIR/candidates.txt"; then
     error "Impossible de générer candidates.txt"
     exit 1
 fi
