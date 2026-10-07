@@ -106,6 +106,10 @@
     openFirewall = true;
   };
 
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "raph";
+  };
 
 
     system.stateVersion = "26.05";
