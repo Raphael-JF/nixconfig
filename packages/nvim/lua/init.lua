@@ -1,6 +1,12 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- User commands
+vim.api.nvim_create_user_command("TestKeybind", function()
+  print(vim.fn.keytrans(vim.fn.getcharstr()))
+end, {})
+
+
 -- Set colorscheme that supports treesitter
 vim.cmd("colorscheme kanagawa")
 
@@ -33,10 +39,15 @@ vim.keymap.set('n', '<C-S-">', "gcc", { desc = 'Comment line', remap = true })
 -- Override j/k globally to use displayed line movement
 vim.keymap.set("", "j", "gj", { noremap = true, silent = true })
 vim.keymap.set("", "k", "gk", { noremap = true, silent = true })
-
 -- Reciprocal mappings for gj/gk to use logical line movement
 vim.keymap.set("", "gj", "j", { noremap = true, silent = true })
 vim.keymap.set("", "gk", "k", { noremap = true, silent = true })
+-- Début et fin des lignes visuelles
+vim.keymap.set("", "0", "g0", { noremap = true, silent = true })
+vim.keymap.set("", "$", "g$", { noremap = true, silent = true })
+-- Début et fin des lignes logiques
+vim.keymap.set("", "g0", "0", { noremap = true, silent = true })
+vim.keymap.set("", "g$", "$", { noremap = true, silent = true })
 
 vim.opt.wrap = true
 vim.opt.linebreak = true

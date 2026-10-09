@@ -56,9 +56,26 @@ require("nvim-tree").setup({
   end,
 })
 
--- Toggle nvim-tree with Ctrl+B
+-- Toggle nvim-tree with Ctrl+Shift+B
+local api = require("nvim-tree.api")
+
+-- Ctrl+Alt+B : toggle classique
+vim.keymap.set("n", "<M-C-b>", function()
+  api.tree.toggle()
+end, { noremap = true, silent = true })
+
 vim.keymap.set("n", "<C-b>", function()
-  require("nvim-tree.api").tree.toggle()
+  if api.tree.is_visible() then
+    local current = vim.api.nvim_get_current_buf()
+
+    if vim.bo[current].filetype == "NvimTree" then
+      vim.cmd("wincmd p")
+    else
+      api.tree.focus()
+    end
+  else
+    api.tree.open()
+  end
 end, { noremap = true, silent = true })
 
 -- Close current buffer
