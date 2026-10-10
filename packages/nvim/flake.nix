@@ -2,7 +2,6 @@
   description = "Raphael's Neovim";
 
   inputs.nixpkgs.follows = "nixpkgs";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs = { self, nixpkgs }:
   let
