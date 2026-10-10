@@ -11,7 +11,6 @@
     sync_to_monitor no
     input_delay 0
     repaint_delay 1
-    custom_shaders inside-the-matrix
     map ctrl+shift+n no_op
   '';
 
