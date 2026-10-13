@@ -16,26 +16,21 @@ if ! ssh almapedago "$REMOTE_SCRIPTS_DIR/whoAwake.sh > $REMOTE_SCRIPTS_DIR/candi
     exit 1
 fi
 
-log "candidates.txt créé sur enseirb"
-
 log "Analyse des candidates..."
-if ! ssh enseirb "$REMOTE_SCRIPTS_DIR/whoUseful.sh < $REMOTE_SCRIPTS_DIR/candidates.txt" \
-    > /tmp/useful_candidates.txt; then
-    error "whoUseful.sh a échoué"
+if ! ssh enseirb 'bash ~/IA/scripts/analyseCandidates.sh' \
+    > /tmp/useful_candidate.txt; then
+    error "Échec de l'analyse des candidates"
     exit 1
 fi
-
-log "Machines disponibles :"
-cat /tmp/useful_candidates.txt
-
-ip=$(awk 'NR == 1 || $5 < min { min=$5; ip=$1 } END { print ip }' /tmp/useful_candidates.txt)
+ip=$(awk '{ print $1 }' /tmp/useful_candidate.txt)
 
 if [ -z "$ip" ]; then
     error "Aucune machine disponible"
     exit 1
 fi
 
-log "Machine sélectionnée : $ip"
+log "Machine sélectionnée :"
+cat /tmp/useful_candidate.txt
 
 log "Démarrage de l'IA sur $ip..."
 if ! TERM=xterm-256color ssh -t \
