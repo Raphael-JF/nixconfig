@@ -31,7 +31,7 @@ let
     ${pkgs.cryptsetup}/bin/cryptsetup close "$LUKS_NAME"
   '';
 
-  backupScript = pkgs.writeShellScript "backup-usb" ''
+  backupScript = pkgs.writeShellScriptBin "backup-usb" ''
     set -euo pipefail
 
     trap '${umount}/bin/umount-backup-usb' EXIT
@@ -56,7 +56,7 @@ in
     description = "Backup Btrfs data to encrypted USB";
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = backupScript;
+      ExecStart = "${backupScript}/bin/backup-usb";
       User = "root";
     };
   };
