@@ -31,7 +31,7 @@ let
     ${pkgs.cryptsetup}/bin/cryptsetup close "$LUKS_NAME"
   '';
 
-  backupScript = pkgs.writeShellScript "backup-backup-usb" ''
+  backupScript = pkgs.writeShellScript "backup-usb" ''
     set -euo pipefail
 
     trap '${umount}/bin/umount-backup-usb' EXIT
