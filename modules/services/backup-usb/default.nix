@@ -62,9 +62,7 @@
       volume ${config.services.backup.devices.data.path}
         subvolume .
           snapshot_dir .snapshots
-          target ${config.servies.bakcup.devices.backup.path}
+          target ${config.services.backup.devices.backup.path}
     '';
-
-    
   };
 }
