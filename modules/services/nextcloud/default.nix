@@ -14,7 +14,7 @@
   };
   config =
   let
-    dataPath = config.services.backup.devices.data.path;
+    dataPath = config.services."backup-usb".devices.data.path;
   in
   lib.mkIf config.services.raphNextcloud.enable  {
     services.nextcloud = {
