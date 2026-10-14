@@ -3,7 +3,7 @@
   imports = [
     ./script.nix
   ];
-  options.services.backup.enable = lib.mkOption {
+  options.services."backup-usb".enable = lib.mkOption {
     type = lib.types.bool;
     default = false;
     description = "Enable the backup service";
