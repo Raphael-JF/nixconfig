@@ -29,7 +29,7 @@
   services.raphNextcloud.enable = true;
   services.sshServer.enable = true;
   services.publicIP.enable = true;
-  services.backup = {
+  services.backupUsb = {
     enable = true;
     devices.backup = {
       device = "/dev/disk/by-id/usb-SMI_USB_DISK_KT202000000000001037-0:0-part1";

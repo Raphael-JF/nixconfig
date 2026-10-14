@@ -81,7 +81,7 @@
       };
     };
 
-    # disk.backupUSB = {
+    # disk.backup-usb = {
     #   device = "/dev/disk/by-id/usb-SMI_USB_DISK_KT202000000000001037-0:0";
     #   type = "disk";
     #
@@ -94,13 +94,13 @@
     #
     #         content = {
     #           type = "luks";
-    #           name = "backupUSB";
+    #           name = "backup-usb";
     #
     #           content = {
     #             type = "btrfs";
-    #             extraArgs = [ "-L" "backupUSB" ];
+    #             extraArgs = [ "-L" "backup-usb" ];
     #
-    #             # mountpoint = "/mnt/backupUSB";
+    #             # mountpoint = "/mnt/backup-usb";
     #
     #
     #             mountOptions = [
