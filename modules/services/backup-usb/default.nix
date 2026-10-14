@@ -35,7 +35,7 @@
     };
   };
 
-  config = lib.mkIf config.services.backup.enable {
+  config = lib.mkIf config.services."backup-usb".enable {
     # LUKS password from sopsNix
     sops.secrets."backup-usb-key" = {
       sopsFile = ./../../secrets/backup-usb.key.enc;
