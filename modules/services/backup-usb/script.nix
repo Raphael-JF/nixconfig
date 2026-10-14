@@ -1,6 +1,6 @@
 { pkgs, config, ...}:
 let 
-  backup = config.services.backup.devices.backup;
+  backup = config.services."backup-usb".devices.backup;
   mount = pkgs.writeShellScriptBin "mount-backup-usb" ''
     set -euo pipefail
 

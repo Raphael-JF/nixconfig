@@ -9,7 +9,7 @@
     description = "Enable the backup service";
   };
 
-  options.services.backup.devices = {
+  options.services."backup-usb".devices = {
     backup = {
       device = lib.mkOption {
         type = lib.types.str;
@@ -59,10 +59,10 @@
       target_preserve_min 2d
       target_preserve 1m
 
-      volume ${config.services.backup.devices.data.path}
+      volume ${config.services."backup-usb".devices.data.path}
         subvolume .
           snapshot_dir .snapshots
-          target ${config.services.backup.devices.backup.path}
+          target ${config.services."backup-usb".devices.backup.path}
     '';
   };
 }
