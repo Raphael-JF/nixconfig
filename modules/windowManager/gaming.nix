@@ -13,7 +13,7 @@
         echo "-> Hold [Numpad 8] to spam left click   "
         echo "-> Hold [Numpad 9] to spam right click  "
         echo "Starting autoclicker..."
-        exec theclicker run -d"/dev/input/event0" -c25 -C0 -l72 -r73 -H 
+        exec ${pkgs.theclicker}/bin/theclicker run -d"/dev/input/event0" -c25 -C0 -l72 -r73 -H 
       '')
     ];
     programs.steam.enable = true;
