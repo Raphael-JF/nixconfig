@@ -12,7 +12,6 @@
     ../../modules/services/publicIP
     ../../modules/services/icloudBackup
     ../../modules/services/backup-usb
-    ../../modules/services/backupPostgresql.nix
     ../../modules/services/sshServer.nix
     ../../modules/services/homepage
     ../../modules/services/nextcloud
