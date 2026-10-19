@@ -95,11 +95,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792349703,
-        "narHash": "sha256-RvznxNKCX6oGfQ7XUDUIAKT/SBUSwVoR0jiFv+cfg6o=",
+        "lastModified": 1792425216,
+        "narHash": "sha256-qzzGc+d6s/XfG9R0iRIQDUqDMbi87zFe6FDWJZfaVas=",
         "owner": "Raphael-JF",
         "repo": "Recipiz",
-        "rev": "a077a8c7e17cae579db72a703ab35e9e60c486ad",
+        "rev": "cfb8a414a4ed3b2c2653f7219f2bd46a85084fc9",
         "type": "github"
       },
       "original": {
