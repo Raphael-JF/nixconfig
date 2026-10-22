@@ -19,7 +19,7 @@
   lib.mkIf config.services.raphNextcloud.enable  {
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud34;
+      package = pkgs.nextcloud35;
       hostName = "files.82.126.172.121.nip.io";
       https = true;      
       datadir = "${dataPath}/nextcloud";
