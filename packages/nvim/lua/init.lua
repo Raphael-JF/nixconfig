@@ -8,6 +8,16 @@ end, {})
 
 
 -- Set colorscheme that supports treesitter
+require("kanagawa").setup({
+    theme = "wave",
+    colors = {
+        palette = {
+            sumiInk3 = "#0D0D12",
+            sumiInk4 = "#0D0D12",
+        },
+    },
+})
+
 vim.cmd("colorscheme kanagawa")
 
 -- Exit terminal modewith Escape

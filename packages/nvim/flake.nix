@@ -1,7 +1,6 @@
 {
   description = "Raphael's Neovim";
 
-  inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = { self, nixpkgs }:
   let
