@@ -141,7 +141,7 @@
 
           # --- Workspaces ---
           "org/gnome/desktop/wm/preferences" = {
-          num-workspaces = lib.gvariant.mkInt32 2;
+          num-workspaces = lib.gvariant.mkInt32 3;
           };
 
           "org/gnome/mutter" = {
