@@ -40,8 +40,6 @@
         dbname = "nextcloud";
         dbuser = "nextcloud";
         dbhost = "/run/postgresql";
-        adminuser = "raph";
-        adminpassFile = config.sops.secrets.nextcloudAdminPassword.path;
       };
     };
 
@@ -54,7 +52,7 @@
     };
     
     systemd.services.nextcloudUpdateCache = {
-      description = "Update Nextcloud's understanding of its content";
+      description = "Update Nextcloud's understanding of the files it exposes";
 
       serviceConfig = {
         Type = "oneshot";
