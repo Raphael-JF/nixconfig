@@ -24,6 +24,10 @@
       gcm = ''git commit -m'';
       gp = "git push";
       gpl = "git pull";
+
+
+      "scan-disks" = "lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL,MODEL";
+
     };
 
     promptInit = ''
