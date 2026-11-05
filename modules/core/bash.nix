@@ -10,7 +10,7 @@
 
     shellAliases = {
       battery = "cat /sys/class/power_supply/BAT0/capacity";
-      rebuild = "sudo nixos-rebuild switch --flake ~/nixconfig#${hostname}";
+      rebuild = "nh os switch ~/nixconfig -H ${hostname}";
 
       ls = "eza --icons=auto";
       ll = "eza --icons=auto -lah";
