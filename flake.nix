@@ -24,7 +24,6 @@
   outputs = { self, nixpkgs, ...}@inputs:
   let
 
-    pkgs = nixpkgs.legacyPackages.x86_64-linux;
     mkHost = hostname: nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs hostname; pkgs-opencode = inputs.nixpkgs-opencode.legacyPackages.x86_64-linux; };
@@ -37,13 +36,6 @@
     };
   in
   {
-    devShells.x86_64-linux = { 
-      default = pkgs.mkShell {
-        buildInputs = [
-          pkgs.nil
-        ];
-      };
-    };
     nixosConfigurations.server = mkHost "server";
     nixosConfigurations.laptop = mkHost "laptop";
     nixosConfigurations.desktop = mkHost "desktop";
