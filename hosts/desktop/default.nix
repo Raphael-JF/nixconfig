@@ -78,21 +78,17 @@
         };
       };
 
-      systemd = {
+      systemd.network = {
         enable = true;
 
-        network = {
-          enable = true;
+        networks."10-ethernet" = {
+          matchConfig.Name = "enp7s0";
 
-          networks."10-ethernet" = {
-            matchConfig.Name = "enp7s0";
-
-            networkConfig = {
-              DHCP = "ipv4";
-            };
-
-            linkConfig.RequiredForOnline = "routable";
+          networkConfig = {
+            DHCP = "ipv4";
           };
+
+          linkConfig.RequiredForOnline = "routable";
         };
       };
     };

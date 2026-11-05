@@ -12,12 +12,11 @@
   };
 
   nix.gc = {
+    automatic = false;
+  };
 
-    automatic = lib.mkDefault false;
-
-    dates = "weekly";
-
-    options = "--delete-older-than 30d";
+  programs.nh = {
+    enable = true;
   };
 
   nixpkgs.config.allowUnfree = true;
