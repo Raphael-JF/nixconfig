@@ -42,7 +42,7 @@
   services.icloudBackup = {
     enable = true;
     instances.raph = {
-      savePath = "/data/nextloud/data/raph/files/Photos";
+      savePath = "/data/nextcloud/data/raph/files/Photos";
       appleID = "poweraphael2@gmail.com";
     };
   };
