@@ -44,15 +44,10 @@
     };
 
     # Icloud photos inside nextcloud
-    users.users."nextcloud".extraGroups = [ "icloudPhotos" ];
-    fileSystems."/data/nextcloud/data/raph/files/Photos" = {
-      fsType = "none";
-      device = "/data/icloudBackup/raph";
-      options = [ "bind" ];
-    };
+    users.users."nextcloud".extraGroups = lib.mkIf config.services.icloudBackup.enable  [ "icloudPhotos" ];
     
-    systemd.services.nextcloudUpdateCache = {
-      description = "Update Nextcloud's understanding of the files it exposes";
+    systemd.services."nextcloud-update-cache" = {
+      description = "Update Nextcloud's file cache";
 
       serviceConfig = {
         Type = "oneshot";
@@ -66,7 +61,6 @@
     systemd.tmpfiles.rules = [
         "d ${dataPath}/nextcloud 0755 nextcloud nextcloud -"
         "d ${dataPath}/nextcloud/data 0755 nextcloud nextcloud -"
-        "d ${dataPath}/nextcloud/db-backups 0755 postgres postgres -"
     ];
   };
 }

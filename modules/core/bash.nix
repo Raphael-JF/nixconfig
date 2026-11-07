@@ -13,7 +13,7 @@
       rebuild = "nh os switch ~/nixconfig -H ${hostname}";
 
       ls = "eza --icons=auto";
-      ll = "eza --icons=auto -lah";
+      ll = "eza --icons=auto -lah --group";
       la = "eza --icons=auto -a";
       lt = "eza --icons=auto --tree --level=2";
 
