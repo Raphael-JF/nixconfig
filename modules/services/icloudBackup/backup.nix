@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 
 {
-  config = lib.mkIf config.services.icloudBackup.enable (
+  config = (
     lib.mapAttrsToList
       (name: cfg:
         {
