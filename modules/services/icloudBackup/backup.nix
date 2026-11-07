@@ -1,4 +1,3 @@
-
 { pkgs, lib, config, ... }:
 
 {
@@ -27,7 +26,7 @@
                   --cookie-directory ~/cookies \
               '';
 
-              unitConfig = lib.mkIf config.services.raphNextcloud.enable {
+              unitConfig = {
                 OnSuccess = "nextcloud-update-cache.service";
               };
             };
