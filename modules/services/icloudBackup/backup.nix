@@ -2,48 +2,46 @@
 
 {
   config = lib.mkIf config.services.icloudBackup.enable (
-    lib.mkMerge (
-      lib.mapAttrsToList
-        (name: cfg:
-          {
-            systemd.tmpfiles.rules = [
-              "d /data/nextcloud/data/raph/files/Photos 2770 icloudSystemUser-${name} icloudPhotos -"
-            ];
-            systemd.services."icloudBackup-${name}" = {
-              description = "iCloud backup for ${name}";
+    lib.mapAttrsToList
+      (name: cfg:
+        {
+          systemd.tmpfiles.rules = [
+            "d /data/nextcloud/data/raph/files/Photos 2770 icloudSystemUser-${name} icloudPhotos -"
+          ];
+          systemd.services."icloudBackup-${name}" = {
+            description = "iCloud backup for ${name}";
 
-              serviceConfig = {
-                Type = "oneshot";
-                User = "icloudSystemUser-${name}";
-                UMask = "0007";
-              };
-
-              script = ''
-                ${pkgs.icloudpd}/bin/icloudpd \
-                  --directory ${cfg.savePath} \
-                  --folder-structure "{:%Y/%m}" \
-                  --username ${cfg.appleID} \
-                  --cookie-directory ~/cookies \
-              '';
-
-              unitConfig = {
-                OnSuccess = "nextcloud-update-cache.service";
-              };
+            serviceConfig = {
+              Type = "oneshot";
+              User = "icloudSystemUser-${name}";
+              UMask = "0007";
             };
 
-            systemd.timers."icloudBackup-${name}" = {
-              description = "Timer for iCloud backup for ${name}";
+            script = ''
+              ${pkgs.icloudpd}/bin/icloudpd \
+                --directory ${cfg.savePath} \
+                --folder-structure "{:%Y/%m}" \
+                --username ${cfg.appleID} \
+                --cookie-directory ~/cookies \
+            '';
 
-              timerConfig = {
-                OnCalendar = "*-*-* 03:00:00";
-                Persistent = true;
-              };
-
-              wantedBy = [ "timers.target" ];
+            unitConfig = {
+              OnSuccess = "nextcloud-update-cache.service";
             };
-          }
-        )
-        config.services.icloudBackup.instances
-    )
+          };
+
+          systemd.timers."icloudBackup-${name}" = {
+            description = "Timer for iCloud backup for ${name}";
+
+            timerConfig = {
+              OnCalendar = "*-*-* 03:00:00";
+              Persistent = true;
+            };
+
+            wantedBy = [ "timers.target" ];
+          };
+        }
+      )
+      config.services.icloudBackup.instances
   );
 }
