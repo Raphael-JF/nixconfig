@@ -2,7 +2,7 @@
 {
   options = {
     windowManager.osShared.device = lib.mkOption {
-      type = lib.types.str;
+      type = lib.types.path;
       description = "Path to the shared OS partition.";
     };
   };

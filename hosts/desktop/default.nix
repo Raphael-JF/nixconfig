@@ -2,7 +2,8 @@
 {  
   imports = [
     ./hardware-configuration.nix 
-    ./disko.nix
+    ./backup-raid.nix
+    # ./disko.nix
 
     ../../modules/core
     ../../modules/osShared.nix
@@ -13,11 +14,36 @@
     ../../modules/services/sshServer.nix
   ];
   config = {
+    fileSystems."/" = {
+      device = "/dev/disk/by-uuid/209dd75b-2e77-4b3b-9171-0290e7636c3c";
+      fsType = "ext4";
+    };
+
+    fileSystems."/boot" = {
+      device = "/dev/disk/by-uuid/A415-A72A";
+      fsType = "vfat";
+    };
+
+    boot.initrd.luks.devices.cryptroot2.device =
+      "/dev/disk/by-uuid/44744f5c-5d80-4334-adfb-320cd4ecbda6";
+
+
+    swapDevices = [ ];
+
+
+
     services.sshServer.enable = true;
     packages.development.enable = true; 
     packages.gaming.enable = true;
 
     windowManager.osShared.device = "/dev/disk/by-uuid/81D8-6A18";
+
+    zramSwap = {
+     enable = true;
+      memoryPercent = 25;
+      algorithm = "zstd";
+    };
+
     
     # run kitty at startup
     environment.etc."xdg/autostart/kitty.desktop".text = ''

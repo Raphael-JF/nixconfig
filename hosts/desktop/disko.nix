@@ -1,84 +1,63 @@
 { lib, ... }:
 
 {
-  disko.devices = {
-    disk.disk1 = {
-      device = lib.mkDefault "/dev/disk/by-id/ata-Samsung_SSD_860_QVO_1TB_S4CZNF0N414257D";
+  disko.devices.disk = {
+    hdd500 = {
       type = "disk";
+      device = "/dev/disk/by-id/ata-WDC_WD5000LPVX-60V0TT0_WD-WXQ1E34HUPC5";
 
       content = {
         type = "gpt";
 
         partitions = {
-          esp = {
-            name = "ESP";
-            size = "512M";
-            type = "EF00";
-
+          osShared = {
+            name = "osShared";
+            size = "50G";
             content = {
               type = "filesystem";
-              format = "vfat";
-              mountpoint = "/boot";
+              format = "exfat";
+              mountpoint = "/run/media/raph/osShared";
+              mountOptions = [
+                "nofail"
+                "noatime"
+                "x-gvfs-show"
+              ];
             };
           };
 
-          # osShared = {
-          #   name = "osShared";
-          #   size = "200G"; # à adapter
-          #   type = "0700";
-          #
-          #   content = {
-          #     type = "filesystem";
-          #     format = "exfat";
-          #     mountpoint = "/run/media/raph/osShared";
-          #
-          #     mountOptions = [
-          #       "x-gvfs-show"
-          #       "x-gvfs-name=osShared"
-          #       "nofail"
-          #       "noatime"
-          #     ];
-          #   };
-          # };
-          #
-          luks = {
-            name = "cryptroot";
-            size = "100%";
-
+          backup = {
+            name = "backup";
+            size = "319G";
             content = {
               type = "luks";
-              name = "cryptroot";
-
-              content = {
-                type = "lvm_pv";
-                vg = "pool";
-              };
+              name = "backup500";
             };
+          };
+
+          windows = {
+            name = "Windows";
+            size = "100%";
+            type = "0700";
           };
         };
       };
-    };
+      };
 
-    lvm_vg.pool = {
-      type = "lvm_vg";
+      hdd320 = {
+      type = "disk";
+      device = "/dev/disk/by-id/ata-Hitachi_HDT725032VLA360_VFK201R811U83X";
 
-      lvs = {
-        swap = {
-          size = "16G";
+      content = {
+        type = "gpt";
 
-          content = {
-            type = "swap";
-            randomEncryption = true;
-          };
-        };
-
-        root = {
-          size = "100%FREE";
-
-          content = {
-            type = "filesystem";
-            format = "ext4";
-            mountpoint = "/";
+        partitions = {
+          backup = {
+            name = "backup";
+            size = "100%";
+            content = {
+              type = "luks";
+              name = "backup320";
+            };
           };
         };
       };
