@@ -17,7 +17,7 @@
     ../../modules/services/nextcloud
     ../../modules/services/recipiz.nix
     ../../modules/services/tv
-    ../../modules/remote-desktop.nix
+    ./remote-desktop.nix
     ../../modules/services/postgresql.nix
     ../../modules/services/wireguard.nix
 
@@ -46,6 +46,13 @@
       appleID = "poweraphael2@gmail.com";
     };
   };
+
+  environment.systemPackages = [
+    (pkgs.writeShellScriptBin "desktop-reboot-windows" ''
+      set -e
+      ssh -t desktop 'sudo efibootmgr -n 0000 && sudo reboot' 
+    '')
+  ];
 
 
   system.stateVersion = "26.05";

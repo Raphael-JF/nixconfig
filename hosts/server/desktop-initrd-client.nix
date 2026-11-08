@@ -1,6 +1,7 @@
 {pkgs, ...}:
 {
- environment.systemPackages = [
+
+  environment.systemPackages = [
     pkgs.wakeonlan
     (pkgs.writeShellScriptBin "desktop-boot" ''
       set -e
@@ -36,11 +37,6 @@
       done
 
       echo "Desktop is ready."
-    '')
-
-    (pkgs.writeShellScriptBin "desktop-reboot-windows" ''
-      set -e
-      ssh -t desktop 'sudo efibootmgr -n 0000 && sudo reboot' 
     '')
   ];
 
