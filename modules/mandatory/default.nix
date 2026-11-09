@@ -2,9 +2,9 @@
 {
   imports = [
     ./bash.nix
+    ./boot.nix  
     ./locale.nix
     ./nix.nix
-    ./boot.nix 
     ./networking.nix
     ./packages.nix
     ./raphUser.nix
@@ -13,7 +13,6 @@
     ./ssh-server.nix
     ./git.nix
     ./nvim.nix
-    ./dev
     ./windowManager
     ./remote-boot
     ./wireguard

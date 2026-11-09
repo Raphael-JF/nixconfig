@@ -1,7 +1,7 @@
 {...}:
 {
   imports = [
-    ./modules/mandatory
-    ./modules/toggleable
+    ./mandatory
+    ./toggleable
   ];
 }

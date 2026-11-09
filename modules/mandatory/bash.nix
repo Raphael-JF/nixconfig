@@ -41,7 +41,7 @@
       };
       in
       ''
-      HOST_COLOR=${promptColors.hostname}
+      HOST_COLOR=${promptColors.${hostname}}
       RESET='\[\e[0m\]'
 
       parse_git_branch() {
