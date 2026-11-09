@@ -10,6 +10,5 @@
 
     ./modules/postgresql.nix
     ./modules/recipiz.nix
-    ./modules/wireguard.nix
   ];
 }

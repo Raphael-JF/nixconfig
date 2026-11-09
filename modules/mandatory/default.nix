@@ -14,5 +14,8 @@
     ./git.nix
     ./nvim.nix
     ./dev
+    ./windowManager
+    ./remote-boot
+    ./wireguard
   ];
 }
