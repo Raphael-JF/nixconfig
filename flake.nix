@@ -35,14 +35,6 @@ outputs = { self, nixpkgs, ... }@inputs:
 
         pkgs-opencode =
           inputs.nixpkgs-opencode.legacyPackages.x86_64-linux;
-
-        perHost = configs:
-          let
-            invalidHosts = lib.subtractLists hosts (builtins.attrNames configs);
-          in
-            assert lib.assertMsg (invalidHosts == [])
-              "perHost: unknown hosts: ${lib.concatStringsSep ", " invalidHosts}";
-            configs.${hostname} or [];
       };
 
       modules = [
