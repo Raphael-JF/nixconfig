@@ -1,11 +1,6 @@
-{ config, hostname, lib, ... }:
+{ config, hostname, ... }:
 {
-  options.services.sshServer.enable = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-    description = "Enable the SSH server service.";
-  };
-  config = lib.mkIf config.services.sshServer.enable {
+  config = {
     networking.firewall = {
       enable = true;
       allowedTCPPorts = [

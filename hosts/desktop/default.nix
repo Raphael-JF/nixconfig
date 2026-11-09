@@ -31,12 +31,13 @@
     swapDevices = [ ];
 
 
+    raph = {
+      ssh-server.enable = true;
+      development.enable = true; 
+    };
 
-    services.sshServer.enable = true;
-    packages.development.enable = true; 
     packages.gaming.enable = true;
 
-    windowManager.osShared.device = "/dev/disk/by-uuid/81D8-6A18";
 
     zramSwap = {
      enable = true;

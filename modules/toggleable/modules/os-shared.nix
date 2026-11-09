@@ -1,14 +1,14 @@
 { config, lib, ...}:
 {
   options = {
-    windowManager.osShared.device = lib.mkOption {
+    raph.os-shared.device = lib.mkOption {
       type = lib.types.path;
       description = "Path to the shared OS partition.";
     };
   };
   config = {
     fileSystems."/run/media/raph/osShared" = {
-      device = config.windowManager.osShared.device;
+      device = config.raph.os-shared.device;
       fsType = "exfat";
       options = [
         "x-gvfs-show"

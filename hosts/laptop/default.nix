@@ -4,7 +4,7 @@
     ./hardware-configuration.nix 
     ./disko.nix
 
-    ../../modules/core
+    ../../modules/common
     ../../modules/osShared.nix
 
     ../../modules/dev
@@ -12,10 +12,11 @@
     ../../modules/services/sshServer.nix
     # ../../modules/services/airplay.nix
   ];
-  services.sshServer.enable = true;
-  packages.development.enable = true; 
+  raph = {
+    ssh-server.enable = true;
+    development.enable = true;
+  };
 
-  windowManager.osShared.device = "/dev/disk/by-uuid/726D-7F83";
 
   # run kitty at startup
   environment.etc."xdg/autostart/kitty.desktop".text = ''

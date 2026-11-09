@@ -24,9 +24,15 @@
     #../../modules/services/forgejo.nix
   ];
   
+
+  raph = {
+    ssh-server.enable = true;
+
+  };
+  
+  ssh-server.enable = true;
   services.homepage.enable = true;
   services.raphNextcloud.enable = true;
-  services.sshServer.enable = true;
   services.publicIP.enable = true;
   services."backup-usb" = {
     enable = true;

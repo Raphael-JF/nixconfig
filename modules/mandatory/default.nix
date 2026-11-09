@@ -9,8 +9,10 @@
     ./packages.nix
     ./raphUser.nix
     ./security.nix
-    ./sshClient.nix
+    ./ssh-client.nix
+    ./ssh-server.nix
     ./git.nix
     ./nvim.nix
+    ./dev
   ];
 }

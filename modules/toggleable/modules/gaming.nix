@@ -1,9 +1,10 @@
 { pkgs, config, lib, ... }:
 {
-  options.packages.gaming.enable = lib.mkEnableOption "Enable gaming packages";
-  
-  config = lib.mkIf config.packages.gaming.enable {
-    
+  imports = [
+    ./windowManager # dependency
+  ];
+
+  config = { 
     services.zerotierone.enable = true; # for modding and multiplayer
     environment.systemPackages = [
       pkgs.heroic

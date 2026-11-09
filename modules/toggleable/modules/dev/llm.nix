@@ -1,4 +1,4 @@
-{ pkgs, pkgs-opencode, ...}: {
+{ pkgs, pkgs-opencode, lib, ...}: {
   config = {
     environment.systemPackages = with pkgs; [
       pkgs-opencode.opencode
