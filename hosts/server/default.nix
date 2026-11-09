@@ -17,7 +17,7 @@
     ../../modules/services/nextcloud
     ../../modules/services/recipiz.nix
     ../../modules/services/tv
-    ./remote-desktop.nix
+    ./remote-boot.nix
     ../../modules/services/postgresql.nix
     ../../modules/services/wireguard.nix
 
