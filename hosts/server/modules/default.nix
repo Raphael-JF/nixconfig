@@ -2,9 +2,10 @@
 {
   imports = [
     ./backup-usb
-    ./icloudBackup
+    ./homepage
+    ./icloud-backup
     ./nextcloud
-    ./tv
     ./public-ip
+    ./tv
   ];
 }
