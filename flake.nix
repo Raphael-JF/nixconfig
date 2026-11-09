@@ -21,24 +21,40 @@
     sopsNix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, ...}@inputs:
+outputs = { self, nixpkgs, ... }@inputs:
   let
+    lib = nixpkgs.lib;
 
-    mkHost = hostname: nixpkgs.lib.nixosSystem {
+    hosts = [ "server" "laptop" "desktop" ];
+
+    mkHost = hostname: lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = { inherit inputs hostname; pkgs-opencode = inputs.nixpkgs-opencode.legacyPackages.x86_64-linux; };
+
+      specialArgs = {
+        inherit inputs hostname;
+
+        pkgs-opencode =
+          inputs.nixpkgs-opencode.legacyPackages.x86_64-linux;
+
+        perHost = configs:
+          let
+            invalidHosts = lib.subtractLists hosts (builtins.attrNames configs);
+          in
+            assert lib.assertMsg (invalidHosts == [])
+              "perHost: unknown hosts: ${lib.concatStringsSep ", " invalidHosts}";
+            configs.${hostname} or [];
+      };
+
       modules = [
         inputs.disko.nixosModules.disko
         inputs.sopsNix.nixosModules.sops
         ./hosts/${hostname}
       ];
-
     };
   in
   {
-    nixosConfigurations.server = mkHost "server";
-    nixosConfigurations.laptop = mkHost "laptop";
-    nixosConfigurations.desktop = mkHost "desktop";
+    nixosConfigurations =
+      lib.genAttrs hosts mkHost;
   };
 }
 

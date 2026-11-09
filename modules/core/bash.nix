@@ -30,22 +30,15 @@
 
     };
 
-    promptInit = ''
-      case "$HOSTNAME" in
-        raph-desktop)
-          HOST_COLOR='\[\e[1;95m\]'
-          ;;
-        raph-laptop)
-          HOST_COLOR='\[\e[1;93m\]'
-          ;;
-        raph-server)
-          HOST_COLOR='\[\e[1;96m\]'
-          ;;
-        *)
-          HOST_COLOR='\[\e[1;92m\]'
-          ;;
-      esac
-
+    promptInit = let
+      promptColors = {
+        desktop = "\[\e[1;95m\]";
+        laptop = "\[\e[1;93m\]";
+        server = "\[\e[1;96m\]";
+      };
+      in
+      ''
+      HOST_COLOR=${promptColors.hostname}
       RESET='\[\e[0m\]'
 
       parse_git_branch() {
