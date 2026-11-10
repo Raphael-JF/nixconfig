@@ -5,6 +5,7 @@
     ./modules/dev
     ./modules/gaming.nix
     ./modules/nvidia.nix
+    ./modules/backup-raid.nix
   ];
   raph.os-shared.device = "/dev/disk/by-uuid/81D8-6A18";
 }
