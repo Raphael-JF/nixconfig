@@ -41,10 +41,6 @@
     '';
   };
 
-  systemd.targets.multi-user.wants = [
-    "data.mount"
-    "torrents.mount"
-  ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/4085019f-ebea-4e8b-9128-c74ddf0b090e";
@@ -62,6 +58,8 @@
     options = [
       "noatime"
       "noauto"
+      "nofail"
+      "x-systemd.wanted-by=multi-user.target"
       "x-systemd.requires=unlock-cryptssd.service"
       "x-systemd.after=unlock-cryptssd.service"
     ];
@@ -73,9 +71,11 @@
     options = [
       "noatime"
       "noauto"
+      "nofail"
+      "x-systemd.wanted-by=multi-user.target"
       "x-systemd.requires=unlock-cryptssd.service"
       "x-systemd.after=unlock-cryptssd.service"
-    ];
+    ]; 
   };
 
   swapDevices = [
