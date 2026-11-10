@@ -35,14 +35,13 @@
 
     promptInit = let
       promptColors = {
-        desktop = "\[\e[1;95m\]";
-        laptop = "\[\e[1;93m\]";
-        server = "\[\e[1;96m\]";
+        desktop = ''\e[1;95m'';
+        laptop  = ''\e[1;93m'';
+        server  = ''\e[1;96m'';
       };
-      in
-      ''
-      HOST_COLOR=${promptColors.${hostname}}
-      RESET='\[\e[0m\]'
+    in ''
+      HOST_COLOR=$'${promptColors.${hostname}}'
+      RESET=$'\e[0m'
 
       parse_git_branch() {
         local branch
@@ -57,12 +56,12 @@
 
       if [[ $EUID -eq 0 ]]; then
         PROMPT_CHAR='#'
-        HOST_COLOR='\[\e[1;91m\]'
+        HOST_COLOR=$'\e[1;91m'
       else
         PROMPT_CHAR='$'
       fi
 
-      PS1="$HOST_COLOR\n[\u@\h:\w\$(parse_git_branch)]$PROMPT_COLOR$PROMPT_CHAR$RESET "
+      PS1="\[$HOST_COLOR\]\n[\u@\h:\w\$(parse_git_branch)]$PROMPT_CHAR\[$RESET\] "
     '';
   };
 }
