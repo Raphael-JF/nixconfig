@@ -19,7 +19,7 @@ in
     sops
     age
   ];
-
+  sops.useSystemdActivation = true;
   sops.defaultSopsFile = ../../secrets/passwords.yaml;
   sops.defaultSopsFormat= "yaml";
   
