@@ -73,7 +73,7 @@ in
 {
 
   sops.secrets.backup-raid = {
-    sopsFile = ../../secrets/backup-raid.key.enc;
+    sopsFile = ../../../secrets/backup-raid.key.enc;
     format = "binary";
     mode = "0400";
   };

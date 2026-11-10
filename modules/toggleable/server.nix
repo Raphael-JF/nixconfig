@@ -1,7 +1,7 @@
 {...}:
 {
   imports = [
-    ./modules/backup-usb
+    # ./modules/backup-usb
     ./modules/homepage
     ./modules/icloud-backup
     ./modules/nextcloud

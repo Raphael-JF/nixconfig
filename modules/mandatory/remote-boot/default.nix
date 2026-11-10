@@ -3,6 +3,6 @@
   imports = [
     ./client
     ./server
-    ./wol
+    ./wol-desktop
   ];
 }

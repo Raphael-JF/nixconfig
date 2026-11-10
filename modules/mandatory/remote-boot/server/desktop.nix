@@ -1,4 +1,4 @@
-{...}:
+{ pkgs, ...}:
 {
   boot.initrd = {
     # À remplacer par le module de ta carte Ethernet

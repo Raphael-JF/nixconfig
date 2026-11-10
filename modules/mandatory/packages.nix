@@ -13,7 +13,5 @@
     usbutils  
     lsof
     exfatprogs
-    efibootmgr
-
   ];
 }
