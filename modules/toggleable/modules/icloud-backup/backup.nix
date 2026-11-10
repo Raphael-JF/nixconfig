@@ -29,7 +29,7 @@
                   --username ${cfg.appleID}\
                   --cookie-directory ~/cookies \
               '';
-              unitConfig = lib.mkIf config.services.raphNextcloud.enable {
+              unitConfig = {
                 OnSuccess = "nextcloudUpdateCache.service";
               };
             }

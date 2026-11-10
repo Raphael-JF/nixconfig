@@ -52,13 +52,7 @@ in
 
 {
   imports = [ ./users.nix ];
-  options.services.publicIP.enable = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-    description = "Enable the public IP update service.";
-  };
-
-  config = lib.mkIf config.services.publicIP.enable {
+  config = {
 
     systemd.services.publicIP = {
       description = "Update public IP on GitHub";

@@ -13,5 +13,9 @@
     usbutils  
     lsof
     exfatprogs
+    btrfs-progs
+    parted
+    compsize
+    cryptsetup
   ];
 }

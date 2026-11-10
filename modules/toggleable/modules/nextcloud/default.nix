@@ -5,24 +5,14 @@
     ./postgresql.nix
     ./fail2ban.nix
   ];
-  options.services.raphNextcloud = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable the Nextcloud service.";
-    };
-  };
   config =
-  let
-    dataPath = config.services."backup-usb".devices.data.path;
-  in
-  lib.mkIf config.services.raphNextcloud.enable  {
+  {
     services.nextcloud = {
       enable = true;
       package = pkgs.nextcloud35;
       hostName = "files.82.126.172.121.nip.io";
       https = true;      
-      datadir = "${dataPath}/nextcloud";
+      datadir = "/data/nextcloud";
       configureRedis = true; 
 
       phpOptions = {
@@ -44,7 +34,7 @@
     };
 
     # Icloud photos inside nextcloud
-    users.users."nextcloud".extraGroups = lib.mkIf config.services.icloudBackup.enable  [ "icloudPhotos" ];
+    users.users."nextcloud".extraGroups = [ "icloudPhotos" ];
     
     systemd.services."nextcloud-update-cache" = {
       description = "Update Nextcloud's file cache";
@@ -59,8 +49,8 @@
     };
 
     systemd.tmpfiles.rules = [
-        "d ${dataPath}/nextcloud 0755 nextcloud nextcloud -"
-        "d ${dataPath}/nextcloud/data 0755 nextcloud nextcloud -"
+        "d /data/nextcloud/nextcloud 0755 nextcloud nextcloud -"
+        "d /data/nextcloud/nextcloud/data 0755 nextcloud nextcloud -"
     ];
   };
 }
