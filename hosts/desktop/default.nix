@@ -1,17 +1,10 @@
-{ lib, pkgs, config,  hostname, ... }:
+{ pkgs, ... }:
 {  
   imports = [
     ./hardware-configuration.nix 
-    ./backup-raid.nix
     # ./disko.nix
 
-    ../../modules/core
-    ../../modules/osShared.nix
-    ../../modules/dev
-    ../../modules/windowManager
-    
-    ./desktop-initrd-server.nix
-    ../../modules/services/sshServer.nix
+    ../../modules
   ];
   config = {
     fileSystems."/" = {
@@ -30,15 +23,6 @@
 
     swapDevices = [ ];
 
-
-    raph = {
-      ssh-server.enable = true;
-      development.enable = true; 
-    };
-
-    packages.gaming.enable = true;
-
-
     zramSwap = {
      enable = true;
       memoryPercent = 25;
@@ -46,6 +30,8 @@
     };
 
     
+
+
     # run kitty at startup
     environment.etc."xdg/autostart/kitty.desktop".text = ''
       [Desktop Entry]
@@ -56,34 +42,11 @@
     '';
 
     #
-    # ===== NVIDIA GRAPHICS =====
-    hardware.graphics.enable = true;
-    services.xserver.videoDrivers = [ "nvidia" ];
-    hardware.nvidia.open = false;  # see the note above
-    hardware.nvidia.modesetting.enable = true; 
-      hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      version = "580.159.03";
-      sha256_64bit = "sha256-MshdmbD2QMlQH2GzndrSCP0CiNAVxPvF/QQ1wHeD+nc=";
-      sha256_aarch64 = "sha256-MshdmbD2QMlQH2GzndrSCP0CiNAVxPvF/QQ1wHeD+nc=";
-      openSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
-      settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
-      persistencedSha256 = lib.fakeSha256;
+
+    services.displayManager.autoLogin = {
+      enable = true;
+      user = "raph";
     };
-    hardware.nvidia.powerManagement.enable = true;
-
-
-
-  services.sunshine = {
-    enable = true;
-    autoStart = true;
-    capSysAdmin = true; # only needed for Wayland -- omit this when using with Xorg
-    openFirewall = true;
-  };
-
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "raph";
-  };
 
 
     system.stateVersion = "26.05";

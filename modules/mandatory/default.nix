@@ -7,13 +7,13 @@
     ./nix.nix
     ./networking.nix
     ./packages.nix
-    ./raphUser.nix
+    ./raph-user.nix
     ./security.nix
     ./ssh-client.nix
     ./ssh-server.nix
     ./git.nix
     ./nvim.nix
-    ./windowManager
+    ./windows-manager
     ./remote-boot
     ./wireguard
   ];

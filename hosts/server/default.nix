@@ -4,24 +4,9 @@
   imports = [
 
     ./hardware-configuration.nix
-    ./disko.nix
-    ../../modules/core
-    ../../modules/dev
-     
-    # services
-    ../../modules/services/publicIP
-    ../../modules/services/icloudBackup
-    ../../modules/services/backup-usb
-    ../../modules/services/sshServer.nix
-    ../../modules/services/homepage
-    ../../modules/services/nextcloud
-    ../../modules/services/recipiz.nix
-    ../../modules/services/tv
-    ./remote-boot.nix
-    ../../modules/services/postgresql.nix
-    ../../modules/services/wireguard.nix
+    # ./disko.nix
 
-    #../../modules/services/forgejo.nix
+    ../../modules
   ];
   
 

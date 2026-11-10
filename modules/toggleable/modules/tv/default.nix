@@ -2,10 +2,7 @@
 { lib, pkgs, ... }:
 {
   imports = [
-    ../../windowManager
-    
-
-    ./jackFix.nix
+    ./jack-fix.nix
     ./commands.nix
   ];
   config = {
