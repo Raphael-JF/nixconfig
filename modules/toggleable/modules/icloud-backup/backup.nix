@@ -30,7 +30,7 @@
                   --cookie-directory ~/cookies \
               '';
               unitConfig = {
-                OnSuccess = "nextcloudUpdateCache.service";
+                OnSuccess = "nextcloud-update-cache.service";
               };
             }
           )
