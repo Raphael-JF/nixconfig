@@ -15,6 +15,7 @@
       pkgs.clang-tools
       pkgs.gcc
       pkgs.cmake
+      pkgs.valgrind
 
       # latex
       pkgs.texliveFull
