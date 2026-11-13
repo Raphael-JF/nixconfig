@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   nix.settings = {
@@ -25,4 +25,7 @@
   ];
 
   nixpkgs.config.allowUnfree = true;
+  nix.registry.nixpkgs.flake = inputs.nixpkgs;
+  nix.channel.enable = false;
 }
+

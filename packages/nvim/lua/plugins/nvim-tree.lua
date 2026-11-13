@@ -56,7 +56,6 @@ require("nvim-tree").setup({
   end,
 })
 
--- Toggle nvim-tree with Ctrl+Shift+B
 local api = require("nvim-tree.api")
 
 -- Ctrl+Alt+B : toggle classique
@@ -78,8 +77,26 @@ vim.keymap.set("n", "<C-b>", function()
   end
 end, { noremap = true, silent = true })
 
--- Close current buffer
-vim.keymap.set("n", "<C-q>", "<cmd>bdelete<CR>", {
+-- Close current buffer and switch to another
+vim.keymap.set("n", "<C-q>", function()
+  local current = vim.api.nvim_get_current_buf()
+
+  -- Find another listed buffer
+  local buffers = vim.tbl_filter(function(buf)
+    return buf ~= current
+      and vim.bo[buf].buflisted
+      and vim.api.nvim_buf_is_valid(buf)
+  end, vim.api.nvim_list_bufs())
+
+  if #buffers > 0 then
+    vim.cmd("buffer " .. buffers[#buffers])
+  else
+    vim.cmd("enew")
+  end
+
+  -- Delete previous buffer
+  vim.api.nvim_buf_delete(current, { force = false })
+end, {
   noremap = true,
   silent = true,
 })
