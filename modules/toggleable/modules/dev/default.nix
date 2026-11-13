@@ -8,6 +8,10 @@
   config = {
     environment.systemPackages = [
       pkgs.gnumake
+
+      # C
+      pkgs.clang-tools
+      pkgs.gcc
       pkgs.cmake
 
       # latex
@@ -20,6 +24,9 @@
       
       # java 
       pkgs.openjdk
+      pkgs.plantuml
+      pkgs.graphviz
+      pkgs.inkscape
     ];
   };
 }
