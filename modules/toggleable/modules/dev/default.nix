@@ -8,6 +8,8 @@
   config = {
     environment.systemPackages = [
       pkgs.gnumake
+      pkgs.man-pages
+      pkgs.man-pages-posix
 
       # C
       pkgs.clang-tools
