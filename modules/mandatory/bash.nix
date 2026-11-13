@@ -24,6 +24,7 @@
       gcm = ''git commit -m'';
       gp = "git push";
       gpl = "git pull";
+      gl = "git log --oneline --graph --decorate --all";
 
 
       "scan-disks" = "lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL,MODEL";
