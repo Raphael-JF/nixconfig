@@ -1,16 +1,34 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 let
   cryptsetup = "${pkgs.cryptsetup}/bin/cryptsetup";
   mount = "${pkgs.util-linux}/bin/mount";
   umount = "${pkgs.util-linux}/bin/umount";
   mountpoint = "${pkgs.util-linux}/bin/mountpoint";
+  hdparm = "${pkgs.hdparm}/bin/hdparm";
 
   keyfile = config.sops.secrets.backup-raid.path;
-  devices = {
+
+
+  devices = { # partitions
     backup500 = "/dev/disk/by-uuid/e7292176-5db8-41b9-a3a6-893dfa418d1f";
     backup320 = "/dev/disk/by-uuid/a63b5b83-505d-4599-86f9-448fc8f2928b";
   };
+
+
+  disks = [ # disks
+    "/dev/disk/by-id/wwn-0x5000cca317ceeab4" 
+    "/dev/disk/by-id/wwn-0x50014ee659f75410"
+  ];
+
+  standby = pkgs.writeShellScript "backup-raid-standby" ''
+    set -eu
+
+    for disk in ${lib.escapeShellArgs disks}; do
+      ${hdparm} -y "$disk"
+    done
+  '';
+
 
   start = pkgs.writeShellScript "backup-raid-start" ''
     set -eu
@@ -68,6 +86,8 @@ let
 
     ${cryptsetup} close backup320
     ${cryptsetup} close backup500
+
+    ${standby}
   '';
 in
 {
@@ -87,7 +107,6 @@ in
 
     # Pas de wantedBy : aucun démarrage automatique.
     unitConfig = {
-      RequiresMountsFor = [ "/etc/backup-raid" ];
       ConditionPathExists = keyfile;
     };
 
