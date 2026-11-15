@@ -2,6 +2,7 @@
 {
   sops.secrets.ssh-client-key = {
       sopsFile = ../../secrets/ssh-keys-client.yaml;
+      key = hostname;
       mode = "0600";
       owner = "raph";
       group = "users";
