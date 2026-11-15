@@ -2,9 +2,16 @@
 { config, ... }:
 
 {
+  sops.secrets.raph-password = {
+    neededForUsers = true;
+    mode = "0600";
+    owner = "root";
+    group = "root";
+  };
+
   users.users.raph = {
     isNormalUser = true;
-    hashedPasswordFile = config.sops.secrets.raphPassword.path;
+    hashedPasswordFile = config.sops.secrets.raph-password.path;
 
     extraGroups = [
       "wheel"

@@ -33,5 +33,10 @@
       Exec=${pkgs.firefox}/bin/firefox
       X-GNOME-Autostart-enabled=true
     '';
+
+    users.users.raph.openssh.authorizedKeys.keyFiles = [
+      ../../../../public-ssh-keys/iphone-shortcuts.pub
+    ];
   };
+
 }

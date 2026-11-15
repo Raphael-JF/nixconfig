@@ -1,5 +1,12 @@
 { hostname, ... }:
 {
+  sops.secrets.ssh-client-key = {
+      sopsFile = ../../secrets/ssh-keys-client.yaml;
+      mode = "0600";
+      owner = "raph";
+      group = "users";
+      path = "/home/raph/.ssh/${hostname}";
+  };
   programs.ssh  = {
     extraConfig = ''
       Host *
