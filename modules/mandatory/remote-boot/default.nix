@@ -3,6 +3,6 @@
   imports = [
     ./client
     ./server
-    ./wol-desktop
+    ./reboot-windows
   ];
 }

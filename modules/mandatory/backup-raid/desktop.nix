@@ -21,11 +21,11 @@ let
     "/dev/disk/by-id/wwn-0x50014ee659f75410"
   ];
 
-  standby = pkgs.writeShellScript "backup-raid-standby" ''
+standby = doNow: pkgs.writeShellScript "backup-raid-standby" ''
     set -eu
 
     for disk in ${lib.escapeShellArgs disks}; do
-      ${hdparm} -y "$disk"
+      ${hdparm} ${if doNow then "-y" else "-S 36"} "$disk"
     done
   '';
 
@@ -87,7 +87,7 @@ let
     ${cryptsetup} close backup320
     ${cryptsetup} close backup500
 
-    ${standby}
+    ${standby true}
   '';
 in
 {
@@ -119,4 +119,18 @@ in
       TimeoutStopSec = 120;
     };
   };
+
+  systemd.services.backup-raid-standby = {
+    description = "Put backup HDDs in standby after boot";
+
+    wantedBy = [ "multi-user.target" ];
+    after = [ "local-fs.target" ];
+    before = [ "backup-raid.service" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = standby false;
+    };
+  };
+
 }

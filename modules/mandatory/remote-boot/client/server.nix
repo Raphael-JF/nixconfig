@@ -1,7 +1,7 @@
 { pkgs, ...}:
 {
   environment.systemPackages = [
-    (pkgs.writeShellScriptBin "desktop-boot" ''
+    (pkgs.writeShellScriptBin "desktop-unlock" ''
       set -e
 
       DESKTOP="192.168.1.104"

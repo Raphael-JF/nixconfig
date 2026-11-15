@@ -5,9 +5,7 @@
     (pkgs.writeShellScriptBin "desktop-boot" ''
       set -e
 
-      DESKTOP_MAC="18:c0:4d:a3:ec:41"
-
-      wakeonlan "$DESKTOP_MAC"
+      wakeonlan "18:c0:4d:a3:ec:41"
 
       echo "Booting desktop."
     '')

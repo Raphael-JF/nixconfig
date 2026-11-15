@@ -16,6 +16,7 @@
     ./windows-manager
     ./remote-boot
     ./wireguard
+    ./wol-desktop
     ./backup-raid
   ];
 }
