@@ -16,6 +16,7 @@
     X-GNOME-Autostart-enabled=true
   '';
 
+  raph.os-shared.device = "/dev/disk/by-uuid/726D-7F83";
   
   # moonlight to stream games from my desktop to my laptop
   environment.systemPackages = with pkgs; [
