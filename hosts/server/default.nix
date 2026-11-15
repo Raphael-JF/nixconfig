@@ -32,11 +32,12 @@
     };
 
     script = ''
-      cryptsetup open \
-        /dev/disk/by-uuid/1a09185b-c2e3-4e1b-89b6-fd67b04cee7e \
-        cryptssd \
-        --key-file ${config.sops.secrets.cryptssd-key.path}
-
+      if ! cryptsetup status cryptssd >/dev/null 2>&1; then
+        cryptsetup open \
+          /dev/disk/by-uuid/1a09185b-c2e3-4e1b-89b6-fd67b04cee7e \
+          cryptssd \
+          --key-file ${config.sops.secrets.cryptssd-key.path}
+      fi
       vgchange -ay ssd
     '';
   };
