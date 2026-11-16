@@ -1,6 +1,6 @@
-{ ... }:
+{ globals, ... }:
 {
-  services.nginx.virtualHosts."files.82.126.172.121.nip.io" = {
+  services.nginx.virtualHosts."files.${globals.server-url}" = {
     forceSSL = true;
     enableACME = true;
   };

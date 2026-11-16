@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, globals, ... }:
 {
   security.acme = {
     acceptTerms = true;
@@ -7,7 +7,7 @@
 
   services.nginx = {
     enable = true;
-    virtualHosts."82.126.172.121.nip.io" = {
+    virtualHosts."${globals.server-url}" = {
       enableACME = true;
       forceSSL = true;
       root = pkgs.writeTextDir "index.html"

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, options, ... }:
+{ config, pkgs, globals, options, ... }:
 {
   imports = [ 
     ./nginx.nix
@@ -10,7 +10,7 @@
     services.nextcloud = {
       enable = true;
       package = pkgs.nextcloud35;
-      hostName = "files.82.126.172.121.nip.io";
+      hostName = "files.${globals.server-url}";
       https = true;      
       datadir = "/data/nextcloud";
       configureRedis = true; 

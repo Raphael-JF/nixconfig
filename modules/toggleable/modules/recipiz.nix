@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, globals, ... }:
 {
   imports = [
     inputs.recipiz.nixosModules.default
@@ -10,7 +10,7 @@
 
       packageDirectory = "/var/lib/recipiz";
       backendPort = 3000;
-      frontendUrl = "https://recipiz.82.126.172.121.nip.io";
+      frontendUrl = "https://recipiz.${globals.server-url}";
     };
   };
 }

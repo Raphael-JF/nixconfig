@@ -1,4 +1,4 @@
-{ hostname, ... }:
+{ hostname, globals, ... }:
 {
   sops.secrets.ssh-client-key = {
       sopsFile = ../../secrets/ssh-keys-client.yaml;
@@ -31,7 +31,7 @@
         User git
 
       Host server 
-        HostName 82.126.172.121
+        HostName ${globals.server-url} 
         User raph
 
       Host laptop

@@ -17,9 +17,6 @@
     recipiz.url = "github:Raphael-JF/Recipiz";
     recipiz.inputs.nixpkgs.follows = "nixpkgs";
 
-    public-ip-repo.url = "github:Raphael-JF/publicIP";
-    public-ip-repo.flake = false;
-
     sopsNix.url = "github:Mic92/sops-nix";
     sopsNix.inputs.nixpkgs.follows = "nixpkgs";
   };

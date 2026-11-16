@@ -1,10 +1,10 @@
-{ pkgs, ...}:
+{ pkgs, globals,...}:
 {
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "desktop-unlock" ''
       set -e
 
-      DESKTOP="192.168.1.104"
+      DESKTOP="${globals.desktop.ip}"
       INITRD_PORT="2222"
       SSH_PORT="22"
       SSH_KEY="$HOME/.ssh/desktop-initrd"
