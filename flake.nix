@@ -17,6 +17,9 @@
     recipiz.url = "github:Raphael-JF/Recipiz";
     recipiz.inputs.nixpkgs.follows = "nixpkgs";
 
+    public-ip-repo.url = "github:Raphael-JF/publicIP";
+    public-ip-repo.flake = false;
+
     sopsNix.url = "github:Mic92/sops-nix";
     sopsNix.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -24,14 +27,17 @@
 outputs = { self, nixpkgs, ... }@inputs:
   let
     lib = nixpkgs.lib;
-
+    globals = import ./globals.nix {
+      inherit inputs;
+      lib = nixpkgs.lib;
+    };
     hosts = [ "server" "laptop" "desktop" ];
 
     mkHost = hostname: lib.nixosSystem {
       system = "x86_64-linux";
 
       specialArgs = {
-        inherit inputs hostname;
+        inherit inputs hostname globals;
 
         pkgs-opencode =
           inputs.nixpkgs-opencode.legacyPackages.x86_64-linux;

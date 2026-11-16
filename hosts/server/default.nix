@@ -14,8 +14,9 @@
 
 
   sops.secrets.cryptssd-key = {
-    sopsFile = ../../secrets/cryptssd.key.enc;
+    sopsFile = ../../secrets/keys/cryptssd.key.enc;
     format = "binary";
+    mode = "0400";
   };
 
   systemd.services.unlock-cryptssd = {

@@ -1,11 +1,11 @@
-{pkgs, ...}:
+{pkgs, globals, ...}:
 {
   environment.systemPackages = [
     pkgs.wakeonlan
     (pkgs.writeShellScriptBin "desktop-boot" ''
       set -e
 
-      wakeonlan "18:c0:4d:a3:ec:41"
+      wakeonlan "${globals.desktop.mac}"
 
       echo "Booting desktop."
     '')

@@ -9,19 +9,17 @@ let
 
   keyfile = config.sops.secrets.backup-raid.path;
 
-
   devices = { # partitions
     backup500 = "/dev/disk/by-uuid/e7292176-5db8-41b9-a3a6-893dfa418d1f";
     backup320 = "/dev/disk/by-uuid/a63b5b83-505d-4599-86f9-448fc8f2928b";
   };
-
 
   disks = [ # disks
     "/dev/disk/by-id/wwn-0x5000cca317ceeab4" 
     "/dev/disk/by-id/wwn-0x50014ee659f75410"
   ];
 
-standby = doNow: pkgs.writeShellScript "backup-raid-standby" ''
+  standby = doNow: pkgs.writeShellScript "backup-raid-standby" ''
     set -eu
 
     for disk in ${lib.escapeShellArgs disks}; do
@@ -93,7 +91,7 @@ in
 {
 
   sops.secrets.backup-raid = {
-    sopsFile = ../../../secrets/backup-raid.key.enc;
+    sopsFile = ../../../secrets/keys/backup-raid.key.enc;
     format = "binary";
     mode = "0400";
   };
@@ -101,6 +99,19 @@ in
   systemd.tmpfiles.rules = [
     "d /backup 0700 root root -"
   ];
+
+  systemd.services.backup-raid-standby = {
+    description = "Put backup HDDs in standby after boot";
+
+    wantedBy = [ "multi-user.target" ];
+    after = [ "local-fs.target" ];
+    before = [ "backup-raid.service" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = standby false;
+    };
+  };
 
   systemd.services.backup-raid = {
     description = "Encrypted Btrfs RAID1 backup";
@@ -117,19 +128,6 @@ in
       ExecStop = stop;
       TimeoutStartSec = 120;
       TimeoutStopSec = 120;
-    };
-  };
-
-  systemd.services.backup-raid-standby = {
-    description = "Put backup HDDs in standby after boot";
-
-    wantedBy = [ "multi-user.target" ];
-    after = [ "local-fs.target" ];
-    before = [ "backup-raid.service" ];
-
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = standby false;
     };
   };
 
