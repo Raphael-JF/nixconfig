@@ -10,7 +10,7 @@
 
       packageDirectory = "/var/lib/recipiz";
       backendPort = 3000;
-      frontendUrl = "https://recipiz.${globals.server-url}";
+      frontendUrl = "recipiz.${globals.server-url}";
     };
   };
 }
