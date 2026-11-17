@@ -21,7 +21,7 @@ let
 in 
 {
   sops.secrets.backup-raid = {
-    sopsFile = ../../../secrets/keys/backup-raid.key.enc;
+    sopsFile = ../../../../secrets/keys/backup-raid.key.enc;
     format = "binary";
     mode = "0400";
   };

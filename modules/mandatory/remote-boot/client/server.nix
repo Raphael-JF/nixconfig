@@ -69,12 +69,15 @@ in
 
         echo "Waiting for desktop SSH..."
 
-        for i in $(seq 1 90); do
+        attempt=0
+        while (( attempt < 90 )); do
           if nc -z "$DESKTOP" "$SSH_PORT" 2>/dev/null; then
             echo "Desktop SSH is reachable."
             exit 0
           fi
+
           sleep 2
+          (( attempt += 1 ))
         done
 
         echo "Timeout: desktop SSH not reachable." >&2
