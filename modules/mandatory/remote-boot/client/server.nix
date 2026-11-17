@@ -47,6 +47,7 @@ in
         # SSH peut être interrompu par le passage
         # de l'initrd au système réel.
         ssh -T \
+          -v \
           -p "$INITRD_PORT" \
           -o BatchMode=yes \
           -o StrictHostKeyChecking=yes \
