@@ -1,36 +1,41 @@
-{ pkgs, globals,...}:
+{ pkgs, config, globals, ... }:
+
+let
+  keyfile = config.sops.secrets.desktop-root.path;
+in
 {
   environment.systemPackages = [
-    (pkgs.writeShellScriptBin "desktop-unlock" ''
-      set -e
-
+  (pkgs.writeShellScriptBin "desktop-unlock" ''
+      set -eu
+      if [ "$(id -u)" -ne 0 ]; then
+        echo "Error: you must be root user." >&2
+        exit 1
+      fi
       DESKTOP="${globals.desktop.ip}"
-      INITRD_PORT="2222"
-      SSH_PORT="22"
-      SSH_KEY="$HOME/.ssh/desktop-initrd"
+      INITRD_PORT=2222
 
-      echo "Attempting SSH connection to desktop-initrd..."
+      echo "Waiting for desktop initrd SSH..."
 
-      until nc -z "$DESKTOP" "$INITRD_PORT" 2>/dev/null; do
+      until ${pkgs.netcat-openbsd}/bin/nc -z "$DESKTOP" "$INITRD_PORT" 2>/dev/null; do
         sleep 2
       done
 
-      echo "Initrd SSH is ready."
+      echo "Sending LUKS key..."
 
-      ssh \
-        -i "$SSH_KEY" \
+      ${pkgs.openssh}/bin/ssh \
         -p "$INITRD_PORT" \
-        root@"$DESKTOP"
+        -o BatchMode=yes \
+        -o StrictHostKeyChecking=yes \
+        root@"$DESKTOP" \
+        'cryptsetup-askpass' < "${keyfile}"
 
-      echo
-      echo "Successfully unlocked desktop."
       echo "Waiting for desktop SSH..."
 
-      until nc -z "$DESKTOP" "$SSH_PORT" 2>/dev/null; do
+      until ${pkgs.netcat-openbsd}/bin/nc -z "$DESKTOP" 22 2>/dev/null; do
         sleep 2
       done
 
-      echo "Desktop is ready."
+      echo "Desktop boot completed."
     '')
-  ]; 
+  ];
 }
