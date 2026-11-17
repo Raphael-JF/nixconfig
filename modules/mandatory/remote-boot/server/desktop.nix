@@ -3,7 +3,7 @@
 {
   boot.initrd = {
     systemd = {
-      enable = true;
+      # enable = true;
 
       extraBin.cryptsetup = "${pkgs.cryptsetup}/bin/cryptsetup";
 

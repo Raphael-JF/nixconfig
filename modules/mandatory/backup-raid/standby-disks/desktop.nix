@@ -31,7 +31,7 @@ in
   ];
 
   environment.systemPackages = [
-    pkgs.writeShellScriptBin "backup-raid-start" ''
+    (pkgs.writeShellScriptBin "backup-raid-start" ''
       set -eu
 
       opened500=0
@@ -87,8 +87,9 @@ in
         /dev/mapper/backup500 /backup
 
       trap - EXIT
-    ''
-    pkgs.writeShellScriptBin "backup-raid-stop" ''
+    '')
+
+    (pkgs.writeShellScriptBin "backup-raid-stop" ''
       set -eu
 
       if ${mountpoint} -q /backup; then
@@ -105,7 +106,7 @@ in
       
       ${hdparm} -y "${backup320.disk}"
       ${hdparm} -y "${backup500.disk}"
-    ''
+    '')
   ];
 
   systemd.services.backup-raid-standby = {
