@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, globals,... }:
 {  
   imports = [
     ./hardware-configuration.nix 
@@ -17,8 +17,7 @@
       fsType = "vfat";
     };
 
-    boot.initrd.luks.devices.cryptroot2.device =
-      "/dev/disk/by-uuid/44744f5c-5d80-4334-adfb-320cd4ecbda6";
+    boot.initrd.luks.devices.cryptroot2.device = globals.desktop.luks-root-part;
 
 
     swapDevices = [ ];
