@@ -34,7 +34,7 @@
     };
 
     script = ''
-      sftp -b - rjontef@rjontef.zzz.bordeaux-inp.fr <<EOF
+      sftp -b - rjontef@rjontef.zzz.bordeaux-inp.fr -J enseirb<<EOF
       cd data/www
       put -R *
       EOF
