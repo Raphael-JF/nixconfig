@@ -1,6 +1,9 @@
 { pkgs, ... }:
 
 {
+
+  networking.interfaces.enp7s0.wakeOnLan.enable = true;
+
   boot.initrd = {
     systemd = {
       # enable = true;
@@ -28,8 +31,7 @@
       ];
 
       authorizedKeys = [
-        # Clé publique SSH du serveur
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE/Iq7r0Wu4GXmPHwMmGAiMW5UpkoqfdadisQ75058Hh raph@raph-server"
+        (builtins.readFile ../../../../public-ssh-keys/server.pub)
       ];
     };
 

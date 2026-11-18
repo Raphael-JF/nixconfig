@@ -12,18 +12,19 @@ in
     mode = "0400";
   };
   programs.ssh.knownHosts."desktop-initrd" = {
-    hostNames = [ "[192.168.1.104]:2222" ];
-    publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPskxztwa2wU6A0/0JOREun9fkDNFO2sGyI1q2d1xCAy root@raph-desktop";
+    hostNames = [ "[${globals.desktop.ip}]:2222" ];
+    publicKey = (builtins.readFile ../../../../public-ssh-keys/desktop-initrd.pub);
   };
 
   environment.systemPackages = [
     (pkgs.writeShellApplication {
-      name = "desktop-unlock";
+      name = "desktop-boot";
 
       runtimeInputs = with pkgs; [
         openssh
         netcat-openbsd
         coreutils
+        wakeonlan
       ];
 
       text = ''
@@ -36,6 +37,10 @@ in
         INITRD_PORT=2222
         SSH_PORT=22
 
+
+        wakeonlan "${globals.desktop.mac}"
+
+        echo "Booting desktop."
         echo "Waiting for desktop initrd SSH..."
 
         until nc -z "$DESKTOP" "$INITRD_PORT" 2>/dev/null; do
