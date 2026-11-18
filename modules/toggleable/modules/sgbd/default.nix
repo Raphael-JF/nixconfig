@@ -27,7 +27,7 @@
     serviceConfig = {
       Type = "oneshot";
       User = "root";
-      WorkingDirectory = "/srv/projet-sgbd/web";
+      WorkingDirectory = "/data/projet-sgbd/web";
     };
     unitConfig = {
       RequiresMountsFor = ["/data"];
