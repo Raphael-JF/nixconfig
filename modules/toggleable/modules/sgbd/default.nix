@@ -38,6 +38,7 @@
         -i /home/raph/.ssh/server \
         -o UserKnownHostsFile=/home/raph/.ssh/known_hosts \
         -o BatchMode=yes \
+        -o ProxyJump=rjontef@ssh.enseirb-matmeca.fr \
         -b - \
         rjontef@rjontef.zzz.bordeaux-inp.fr <<EOF
       cd data/www
