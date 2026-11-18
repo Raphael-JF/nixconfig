@@ -6,7 +6,7 @@
     isNormalUser = true;
     group = "projet-sgbd";
     home = "/data/projet-sgbd";
-    createHome = true;
+    createHome = false;
 
   openssh.authorizedKeys.keys = [
     (lib.strings.trim (builtins.readFile ../../../../public-ssh-keys/laptop.pub))
