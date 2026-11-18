@@ -35,7 +35,7 @@
 
     script = ''
       sftp \
-        -i /home/raph/.ssh/id_ed25519 \
+        -i /home/raph/.ssh/server \
         -o UserKnownHostsFile=/home/raph/.ssh/known_hosts \
         -o BatchMode=yes \
         -b - \
