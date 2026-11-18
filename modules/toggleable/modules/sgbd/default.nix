@@ -15,6 +15,7 @@
   };
 
   systemd.tmpfiles.rules = [
+    "z /data/projet-sgbd 0755 projet-sgbd projet-sgbd -"
     "d /data/projet-sgbd/web 0755 projet-sgbd projet-sgbd -"
     "f /data/projet-sgbd/.deploy 0644 projet-sgbd projet-sgbd -"
   ];
@@ -24,23 +25,16 @@
 
     path = [ pkgs.openssh ];
 
+    unitConfig.RequiresMountsFor = [ "/data" ];
+
     serviceConfig = {
       Type = "oneshot";
-      User = "root";
+      User = "raph";
       WorkingDirectory = "/data/projet-sgbd/web";
-    };
-    unitConfig = {
-      RequiresMountsFor = ["/data"];
     };
 
     script = ''
-      sftp \
-        -i /home/raph/.ssh/server \
-        -o UserKnownHostsFile=/home/raph/.ssh/known_hosts \
-        -o BatchMode=yes \
-        -o ProxyJump=rjontef@ssh.enseirb-matmeca.fr \
-        -b - \
-        rjontef@rjontef.zzz.bordeaux-inp.fr <<EOF
+      sftp -b - rjontef@rjontef.zzz.bordeaux-inp.fr <<EOF
       cd data/www
       put -R *
       EOF
