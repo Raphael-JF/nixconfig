@@ -9,6 +9,8 @@
     ./modules/duckdns
     ./modules/tv
 
+    ./modules/sgbd
+
     ./modules/postgresql.nix
     ./modules/recipiz.nix
   ];

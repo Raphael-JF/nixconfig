@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{pkgs, lib, ...}:
 {
   users.groups.projet-sgbd = {};
 
@@ -8,12 +8,10 @@
     home = "/data/projet-sgbd";
     createHome = true;
 
-    openssh.authorizedKeys.keys = [
-      (builtins.readfile ../../../../public-ssh-keys/laptop.pub)
-      (builtins.readfile ../../../../public-ssh-keys/desktop.pub)
-      "ssh-ed25519 AAAA... pote2"
-      "ssh-ed25519 AAAA... pote3"
-    ];
+  openssh.authorizedKeys.keys = [
+    (lib.strings.trim (builtins.readFile ../../../../public-ssh-keys/laptop.pub))
+    (lib.strings.trim (builtins.readFile ../../../../public-ssh-keys/desktop.pub))
+  ];
   };
 
   systemd.tmpfiles.rules = [
