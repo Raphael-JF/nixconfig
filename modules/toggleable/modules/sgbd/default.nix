@@ -11,6 +11,9 @@
   openssh.authorizedKeys.keys = [
     (lib.strings.trim (builtins.readFile ../../../../public-ssh-keys/laptop.pub))
     (lib.strings.trim (builtins.readFile ../../../../public-ssh-keys/desktop.pub))
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGIuWRGA9Rma+lM2gZBctPU3OkI6ds2fO/qEXuRGeMyb youssef@Youssefs-MacBook-Air.local"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJuqmMbLdDzezRUIfuOTQTI3KPsbCZyYERM0RrpDO/mS mhssassa@piano"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHqrpk1mazrvlYE3A36YqTD/5dxhu29HjyK7iDRr2LzP etiennedevergnette@MacBook-Air-de-Etienne.local"
   ];
   };
 
@@ -34,7 +37,7 @@
     };
 
     script = ''
-      sftp -b - rjontef@rjontef.zzz.bordeaux-inp.fr -J enseirb<<EOF
+      sftp -b - -J enseirb rjontef@rjontef.zzz.bordeaux-inp.fr <<EOF
       cd data/www
       put -R *
       EOF
