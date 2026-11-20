@@ -5,7 +5,6 @@
     ./modules/homepage
     ./modules/icloud-backup
     ./modules/nextcloud
-    ./modules/public-ip
     ./modules/duckdns
     ./modules/tv
 
