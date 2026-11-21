@@ -5,8 +5,6 @@ let
   authPort = 8083;
   authBackend = "http://127.0.0.1:${toString authPort}";
   python = pkgs.python3.withPackages (ps: with ps; [ argon2-cffi flask waitress ]);
-  credentials = ../../../../secrets/homepage-password.enc;
-  hasCredentials = builtins.pathExists credentials;
 in
 {
   security.acme = {
@@ -14,14 +12,12 @@ in
     defaults.email = "raphaeljontef@hotmail.com";
   };
 
-  sops.secrets.homepage-password = lib.mkIf hasCredentials {
-    sopsFile = credentials;
-    format = "binary";
+  sops.secrets.homepage-password = {
     restartUnits = [ "homepage-auth.service" ];
   };
 
   services.homepage-dashboard = {
-    enable = hasCredentials;
+    enable = true;
     listenPort = port;
     openFirewall = false;
     allowedHosts = host;
@@ -62,11 +58,11 @@ in
     ];
   };
 
-  systemd.services.homepage-dashboard = lib.mkIf hasCredentials {
+  systemd.services.homepage-dashboard = {
     environment.HOSTNAME = "127.0.0.1";
   };
 
-  systemd.services.homepage-auth = lib.mkIf hasCredentials {
+  systemd.services.homepage-auth = {
     description = "Homepage login and sessions";
     wantedBy = [ "multi-user.target" ];
     after = [ "sops-install-secrets.service" ];
@@ -87,14 +83,14 @@ in
 
   services.nginx = {
     enable = true;
-    appendHttpConfig = lib.optionalString hasCredentials ''
+    appendHttpConfig = ''
       limit_req_zone $binary_remote_addr zone=homepage_login:1m rate=5r/m;
     '';
     virtualHosts."${host}" = {
       enableACME = true;
       forceSSL = true;
 
-      locations = if hasCredentials then {
+      locations = {
         "/" = {
           proxyPass = "http://127.0.0.1:${toString port}";
           recommendedProxySettings = true;
@@ -135,8 +131,6 @@ in
         };
 
         "@homepage_login".return = "302 /login";
-      } else {
-        "/".return = "503";
       };
     };
   };
