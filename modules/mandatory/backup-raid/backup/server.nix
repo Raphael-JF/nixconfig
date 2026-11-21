@@ -69,8 +69,8 @@ let
 in
 {
   sops.secrets.btrbk-ssh-key = {
-    sopsFile = ../../secrets/ssh-keys-client.yaml;
-    key = "ssh-client-key";
+    sopsFile = ../../../../secrets/ssh-keys-client.yaml;
+    key = "server";
     owner = "btrbk";
     group = "btrbk";
     mode = "0400";

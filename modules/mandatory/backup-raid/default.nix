@@ -2,5 +2,6 @@
 {
   imports = [
     ./standby-disks
+    ./backup
   ];
 }
