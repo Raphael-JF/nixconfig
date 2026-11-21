@@ -112,9 +112,8 @@ in
   systemd.services.backup-raid-standby = {
     description = "Put backup HDDs in standby after boot";
 
-    wantedBy = [ "multi-usargeter.target" ];
-    after = [ "local-fs.t" ];
-    before = [ "backup-raid.service" ];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "local-fs.target" ];
 
     serviceConfig = {
       Type = "oneshot";

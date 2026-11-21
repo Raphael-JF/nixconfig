@@ -17,4 +17,17 @@
       ];
     }
   ];
+
+  security.sudo.extraRules = [
+    {
+      users = [ "raph" ];
+
+      commands = [
+        {
+          command = "/run/current-system/sw/bin/poweroff";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
 }
