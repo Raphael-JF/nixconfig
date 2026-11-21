@@ -1,86 +1,125 @@
-{ pkgs, globals, ... }:
+{ config, pkgs, globals, ... }:
 
 let
   desktopIP = globals.desktop.ip;
-in
-{
-  environment.systemPackages = [
-    (pkgs.writeShellApplication {
-      name = "desktop-backup";
 
-      runtimeInputs = with pkgs; [
-        openssh
-        rsync
-        coreutils
-      ];
+  backupJob = pkgs.writeShellApplication {
+    name = "server-btrbk-job";
 
-      text = ''
-        if [[ $EUID -ne 0 ]]; then
-          echo "Run as root." >&2
-          exit 1
-        fi
+    runtimeInputs = with pkgs; [
+      openssh
+      coreutils
+      systemd
+    ];
 
-        DESKTOP="${desktopIP}"
-        SSH_KEY="/home/raph/.ssh/server"
+    text = ''
+      if [[ $EUID -ne 0 ]]; then
+        echo "Run as root." >&2
+        exit 1
+      fi
 
-        raid_open=0
+      DESKTOP="${desktopIP}"
+      SSH_KEY="/home/raph/.ssh/server"
 
-        remote() {
-          ssh \
-            -i "$SSH_KEY" \
-            -o BatchMode=yes \
-            -o StrictHostKeyChecking=yes \
-            -o ConnectTimeout=10 \
-            raph@"$DESKTOP" "$@"
-        }
+      raid_started=0
 
-        cleanup() {
-          status=$?
-          trap - EXIT
+      remote() {
+        ssh \
+          -i "$SSH_KEY" \
+          -o BatchMode=yes \
+          -o StrictHostKeyChecking=yes \
+          -o ConnectTimeout=10 \
+          raph@"$DESKTOP" "$@"
+      }
 
-          if (( raid_open )); then
-            echo "Closing backup RAID..."
+      cleanup() {
+        status=$?
+        trap - EXIT
 
-            if ! remote 'sudo -n /run/current-system/sw/bin/backup-raid-stop'; then
-              echo "ERROR: Could not close RAID. Desktop stays on." >&2
-              exit 1
-            fi
-          fi
+        if (( raid_started )); then
+          echo "Closing backup RAID..."
 
-          echo "Shutting down desktop..."
-
-          if ! remote 'sudo -n /run/current-system/sw/bin/poweroff'; then
-            echo "WARNING: Could not shut down desktop." >&2
+          if ! remote 'sudo -n /run/current-system/sw/bin/backup-raid-stop'; then
+            echo "ERROR: Could not close RAID. Desktop stays on." >&2
             exit 1
           fi
+        fi
 
-          exit "$status"
-        }
+        echo "Shutting down desktop..."
+        remote 'sudo -n /run/current-system/sw/bin/poweroff' || true
 
-        echo "Booting and unlocking desktop..."
-        desktop-boot
+        exit "$status"
+      }
 
-        trap cleanup EXIT
+      echo "Booting desktop..."
+      /run/current-system/sw/bin/desktop-boot
 
-        echo "Opening backup RAID..."
-        remote 'sudo -n /run/current-system/sw/bin/backup-raid-start'
+      trap cleanup EXIT
 
-        raid_open=1
+      echo "Opening backup RAID..."
+      raid_started=1
+      remote 'sudo -n /run/current-system/sw/bin/backup-raid-start'
 
-        echo "Backing up /data..."
+      echo "Running btrbk..."
+      systemctl start btrbk-desktop.service
 
-        rsync \
-          -aHAX \
-          --numeric-ids \
-          --info=progress2 \
-          --partial \
-          --rsync-path="sudo -n rsync" \
-          -e "ssh -i $SSH_KEY -o BatchMode=yes -o StrictHostKeyChecking=yes" \
-          /data/ \
-          "raph@$DESKTOP:/backup/data/"
+      echo "Backup completed."
+    '';
+  };
+in
+{
+  sops.secrets.btrbk-ssh-key = {
+    sopsFile = ../../secrets/ssh-keys-client.yaml;
+    key = "ssh-client-key";
+    owner = "btrbk";
+    group = "btrbk";
+    mode = "0400";
+  };
+  services.btrbk.instances.desktop = {
+    onCalendar = null;
 
-        echo "Backup completed successfully."
-      '';
-    })
-  ];
+    settings = {
+      ssh_user = "btrbk";
+      ssh_identity = config.sops.secrets.btrbk-ssh-key.path;
+      backend_remote = "btrfs-progs-sudo";
+
+      snapshot_preserve_min = "2d";
+      snapshot_preserve = "7d";
+
+      target_preserve_min = "latest";
+      target_preserve = "7d";
+
+      volume."/data" = {
+        snapshot_dir = ".snapshots";
+
+        subvolume."." = {
+          snapshot_name = "data";
+          target = "ssh://${desktopIP}/backup/server-data";
+        };
+      };
+    };
+  };
+
+  systemd.services.server-btrbk = {
+    description = "Backup /data to desktop RAID1";
+
+    requires = [ "data.mount" ];
+    after = [ "data.mount" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${backupJob}/bin/server-btrbk-job";
+      TimeoutStartSec = "infinity";
+    };
+  };
+
+  systemd.timers.server-btrbk = {
+    wantedBy = [ "timers.target" ];
+
+    timerConfig = {
+      OnCalendar = "*-*-* 05:00:00";
+      Persistent = true;
+      Unit = "server-btrbk.service";
+    };
+  };
 }
