@@ -14,6 +14,7 @@ in
 
   sops.secrets.homepage-password = {
     restartUnits = [ "homepage-auth.service" ];
+    key = "homepage-password";
   };
 
   services.homepage-dashboard = {
