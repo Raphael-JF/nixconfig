@@ -1,8 +1,11 @@
-{ config, globals, lib, ... }:
+{ config, globals, lib, pkgs, ... }:
 let
   host = globals.server-url;
   port = 8082;
-  credentials = ../../../../secrets/homepage-htpasswd.enc;
+  authPort = 8083;
+  authBackend = "http://127.0.0.1:${toString authPort}";
+  python = pkgs.python3.withPackages (ps: with ps; [ argon2-cffi flask waitress ]);
+  credentials = ../../../../secrets/homepage-password.enc;
   hasCredentials = builtins.pathExists credentials;
 in
 {
@@ -11,11 +14,10 @@ in
     defaults.email = "raphaeljontef@hotmail.com";
   };
 
-  sops.secrets.homepage-htpasswd = lib.mkIf hasCredentials {
+  sops.secrets.homepage-password = lib.mkIf hasCredentials {
     sopsFile = credentials;
     format = "binary";
-    owner = config.services.nginx.user;
-    restartUnits = [ "nginx.service" ];
+    restartUnits = [ "homepage-auth.service" ];
   };
 
   services.homepage-dashboard = {
@@ -29,6 +31,16 @@ in
       language = "fr";
       theme = "dark";
     };
+
+    bookmarks = [
+      {
+        Compte = [
+          {
+            "Se déconnecter" = [ { href = "https://${host}/logout"; } ];
+          }
+        ];
+      }
+    ];
 
     services = [
       {
@@ -54,22 +66,77 @@ in
     environment.HOSTNAME = "127.0.0.1";
   };
 
+  systemd.services.homepage-auth = lib.mkIf hasCredentials {
+    description = "Homepage login and sessions";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "sops-install-secrets.service" ];
+    environment.HOMEPAGE_PUBLIC_HOST = host;
+    serviceConfig = {
+      ExecStart = "${python}/bin/python ${./homepage_auth.py}";
+      LoadCredential = "password-hash:${config.sops.secrets.homepage-password.path}";
+      StateDirectory = "homepage-auth";
+      StateDirectoryMode = "0700";
+      DynamicUser = true;
+      NoNewPrivileges = true;
+      ProtectSystem = "strict";
+      ProtectHome = true;
+      PrivateTmp = true;
+      Restart = "on-failure";
+    };
+  };
+
   services.nginx = {
     enable = true;
+    appendHttpConfig = lib.optionalString hasCredentials ''
+      limit_req_zone $binary_remote_addr zone=homepage_login:1m rate=5r/m;
+    '';
     virtualHosts."${host}" = {
       enableACME = true;
       forceSSL = true;
 
-      basicAuthFile = if hasCredentials then config.sops.secrets.homepage-htpasswd.path else null;
+      locations = if hasCredentials then {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${toString port}";
+          recommendedProxySettings = true;
+          extraConfig = ''
+            auth_request /_homepage_session;
+            error_page 401 = @homepage_login;
+            proxy_set_header Authorization "";
+            proxy_set_header Cookie "";
+            add_header Cache-Control "private, no-store" always;
+          '';
+        };
 
-      locations."/" = if hasCredentials then {
-        proxyPass = "http://127.0.0.1:${toString port}";
-        recommendedProxySettings = true;
-        extraConfig = ''
-          proxy_set_header Authorization "";
-        '';
+        "= /_homepage_session" = {
+          proxyPass = "${authBackend}/verify";
+          recommendedProxySettings = true;
+          extraConfig = ''
+            internal;
+            proxy_method GET;
+            proxy_pass_request_body off;
+            proxy_set_header Content-Length "";
+          '';
+        };
+
+        "= /login" = {
+          proxyPass = "${authBackend}/login";
+          recommendedProxySettings = true;
+          extraConfig = ''
+            client_max_body_size 4k;
+            limit_req zone=homepage_login burst=5 nodelay;
+            limit_req_status 429;
+          '';
+        };
+
+        "= /logout" = {
+          proxyPass = "${authBackend}/logout";
+          recommendedProxySettings = true;
+          extraConfig = "client_max_body_size 4k;";
+        };
+
+        "@homepage_login".return = "302 /login";
       } else {
-        return = "503";
+        "/".return = "503";
       };
     };
   };
