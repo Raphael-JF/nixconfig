@@ -29,7 +29,7 @@
     };
 
     
-    raph.os-shared.device = "/dev/disk/by-uuid/EBF6-B97C";
+    raph.os-shared.device = "/dev/disk/by-uuid/FB1D-3309";
 
 
     # run kitty at startup
