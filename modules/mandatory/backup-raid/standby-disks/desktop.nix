@@ -112,8 +112,8 @@ in
   systemd.services.backup-raid-standby = {
     description = "Put backup HDDs in standby after boot";
 
-    wantedBy = [ "multi-user.target" ];
-    after = [ "local-fs.target" ];
+    wantedBy = [ "multi-usargeter.target" ];
+    after = [ "local-fs.t" ];
     before = [ "backup-raid.service" ];
 
     serviceConfig = {
@@ -124,4 +124,20 @@ in
       '';
     };
   };
+  security.sudo.extraRules = [
+    {
+      users = [ "raph" ];
+
+      commands = [
+        {
+          command = "/run/current-system/sw/bin/backup-raid-start";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/run/current-system/sw/bin/backup-raid-stop";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
 }
