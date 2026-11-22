@@ -7,6 +7,8 @@
   ];
   config =
   {
+    sops.secrets.nextcloud-password = {};
+
     services.nextcloud = {
       enable = true;
       package = pkgs.nextcloud35;

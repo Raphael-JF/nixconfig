@@ -1,4 +1,4 @@
-{ config, globals, pkgs, ... }:
+{ config, globals, lib, pkgs, ... }:
 
 let
   port = globals.server.ports.homepage;
@@ -128,4 +128,24 @@ in
     globals.server.ports.http 
     globals.server.ports.https
   ];
+
+  sops.templates."homepage.env" = {
+    path = "/etc/homepage-dashboard/homepage.env";
+    owner = "root";
+    group = "root";
+    mode = "0400";
+    content = ''
+      HEALTHCHECKS_API_KEY=${config.sops.placeholder."healthchecks-api-key"}
+      ${lib.concatStringsSep "\n" (lib.mapAttrsToList
+        (name: _: "HEALTHCHECKS_${name}=${config.sops.placeholder."healthchecks-uuid-${name}"}")
+        config.services.icloudBackup.instances
+      )}
+      NEXTCLOUD_PASSWORD=${config.sops.placeholder."nextcloud-password"}
+    '';
+    restartUnits = [ "homepage-dashboard.service" ];
+  };
+
+  systemd.services.homepage-dashboard.serviceConfig.EnvironmentFile = (
+    [ "-/etc/healthchecks/homepage.env" ]
+  );
 }
