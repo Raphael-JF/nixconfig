@@ -47,6 +47,14 @@
   systemd.paths.sgbd-deploy = {
     wantedBy = [ "multi-user.target" ];
 
+    unitConfig = {
+      DefaultDependencies = false;
+      RequiresMountsFor = "/data/projet-sgbd/.deploy";
+    };
+
+    conflicts = [ "shutdown.target" ];
+    before = [ "shutdown.target" ];
+
     pathConfig = {
       PathChanged = "/data/projet-sgbd/.deploy";
       Unit = "sgbd-deploy.service";
