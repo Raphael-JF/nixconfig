@@ -160,8 +160,13 @@ def logout():
     response.delete_cookie(cookie_name, secure=True, httponly=True, samesite="Lax")
     return response
 
-
 if __name__ == "__main__":
     from waitress import serve
 
-    serve(app, host="127.0.0.1", port=8083, threads=2, max_request_body_size=4096)
+    serve(
+        app,
+        host="127.0.0.1",
+        port=int(os.environ["HOMEPAGE_AUTH_PORT"]),
+        threads=2,
+        max_request_body_size=4096,
+    )

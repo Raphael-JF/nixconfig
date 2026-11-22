@@ -1,8 +1,8 @@
-{ ... }:
+{ globals, ... }:
 {
   networking.wireguard.interfaces.wg0 = {
     ips = [ "10.100.0.1/24" ];
-    listenPort = 51820;
+    listenPort = globals.server.ports.wireguard;
 
     privateKeyFile = "/etc/wireguard/private";
     peers = [{
@@ -18,7 +18,7 @@
       iifname "wg0" oifname "enp0s20f0u2" ip daddr 192.168.1.104 accept
       iifname "enp0s20f0u2" oifname "wg0" ip saddr 192.168.1.104 ct state established,related accept
     '';
-    allowedUDPPorts = [ 51820 ];
+    allowedUDPPorts = [ globals.server.ports.wireguard ];
   };
 
   networking.nat = {

@@ -1,16 +1,16 @@
-{ config, globals, lib, pkgs, ... }:
+{ config, globals, pkgs, ... }:
 
 let
-  port = 8082;
-  authPort = 8083;
+  port = globals.server.ports.homepage;
+  authPort = globals.server.ports.homepage-auth;
   authBackend = "http://127.0.0.1:${toString authPort}";
   python = pkgs.python3.withPackages (ps: with ps; [ argon2-cffi flask waitress ]);
 in
 {
   imports  = [
     ./config-services
+    ./healthchecks.nix
   ];
-
 
   security.acme = {
     acceptTerms = true;
@@ -55,6 +55,7 @@ in
     wantedBy = [ "multi-user.target" ];
     after = [ "sops-install-secrets.service" ];
     environment.HOMEPAGE_PUBLIC_HOST = globals.server-url;
+    environment.HOMEPAGE_AUTH_PORT = toString authPort;
     serviceConfig = {
       ExecStart = "${python}/bin/python ${./homepage_auth.py}";
       LoadCredential = "password-hash:${config.sops.secrets.homepage-password.path}";
@@ -124,7 +125,7 @@ in
   };
 
   networking.firewall.allowedTCPPorts = [
-    80
-    443
+    port
+    authPort
   ];
 }
