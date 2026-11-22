@@ -135,15 +135,15 @@ in
     group = "root";
     mode = "0400";
     content = ''
-      HEALTHCHECKS_API_KEY=${config.sops.placeholder."healthchecks-api-key"}
-      HEALTHCHECKS_raph=${config.sops.placeholder."healthchecks-uuid-raph"}
-      HEALTHCHECKS_valerie=${config.sops.placeholder."healthchecks-uuid-valerie"}
+      HOMEPAGE_VAR_HEALTHCHECKS_API_KEY=${config.sops.placeholder."healthchecks-api-key"}
+      HOMEPAGE_VAR_HEALTHCHECKS_raph=${config.sops.placeholder."healthchecks-uuid-raph"}
+      HOMEPAGE_VAR_HEALTHCHECKS_valerie=${config.sops.placeholder."healthchecks-uuid-valerie"}
       NEXTCLOUD_PASSWORD=${config.sops.placeholder."nextcloud-password"}
     '';
     restartUnits = [ "homepage-dashboard.service" ];
   };
 
   systemd.services.homepage-dashboard.serviceConfig.EnvironmentFile = (
-    [ "-/etc/healthchecks/homepage.env" ]
+    [ "/etc/homepage-dashboard/homepage.env" ]
   );
 }

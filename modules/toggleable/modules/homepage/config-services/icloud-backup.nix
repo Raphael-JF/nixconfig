@@ -12,8 +12,8 @@ in
           widget = {
             type = "healthchecks";
             url = "http://127.0.0.1:${toString globals.server.ports.healthchecks}";
-            key = "{{HEALTHCHECKS_API_KEY}}";
-            uuid = "{{HEALTHCHECKS_${name}}}";
+            key = "{{HOMEPAGE_VAR_HEALTHCHECKS_API_KEY}}";
+            uuid = "{{HOMEPAGE_VAR_HEALTHCHECKS_${name}}}";
           };
         };
       }) icloud.instances;
