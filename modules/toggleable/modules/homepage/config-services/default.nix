@@ -15,7 +15,7 @@
               type = "nextcloud";
               url = "https://files.${globals.server-url}";
               user = "raph";
-              password = "{{NEXTCLOUD_PASSWORD}}";
+              password = "{{HOMEPAGE_VAR_NEXTCLOUD_PASSWORD}}";
               fields = [ "freespace" "numfiles" "numshares" ];
            };
           };

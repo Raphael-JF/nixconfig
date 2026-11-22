@@ -138,7 +138,7 @@ in
       HOMEPAGE_VAR_HEALTHCHECKS_API_KEY=${config.sops.placeholder."healthchecks-api-key"}
       HOMEPAGE_VAR_HEALTHCHECKS_raph=${config.sops.placeholder."healthchecks-uuid-raph"}
       HOMEPAGE_VAR_HEALTHCHECKS_valerie=${config.sops.placeholder."healthchecks-uuid-valerie"}
-      NEXTCLOUD_PASSWORD=${config.sops.placeholder."nextcloud-password"}
+      HOMEPAGE_VAR_NEXTCLOUD_PASSWORD=${config.sops.placeholder."nextcloud-password"}
     '';
     restartUnits = [ "homepage-dashboard.service" ];
   };
