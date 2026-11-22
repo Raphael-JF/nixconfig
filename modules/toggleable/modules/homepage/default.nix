@@ -125,7 +125,7 @@ in
   };
 
   networking.firewall.allowedTCPPorts = [
-    port
-    authPort
+    globals.server.ports.http 
+    globals.server.ports.https
   ];
 }
