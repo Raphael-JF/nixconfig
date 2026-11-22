@@ -1,14 +1,23 @@
 { globals, ...}:
 {
-  imports = [ ./icloudBackup.nix ];
+  imports = [ ./icloud-backup.nix ];
 
   services.homepage-dashboard.services = [
     { 
-      Services = [
+      "Médias" = [
         {
-          Fichiers = {
+          Nextcloud = {
             icon = "nextcloud.png";
             href = "https://files.${globals.server-url}/apps/files/files";
+            container = "nextcloud";
+            description = "Stockage de fichiers cloud privé";
+            widget = {
+              type = "nextcloud";
+              url = "https://files.${globals.server-url}";
+              user = "raph";
+              password = "{{HOMEPAGE_VAR_NEXTCLOUD_PASSWORD}}";
+              fields = [ "freespace" "numfiles" "numshares" ];
+           };
           };
         }
         {
