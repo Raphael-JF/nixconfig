@@ -1,12 +1,17 @@
 { config, globals, lib, pkgs, ... }:
+
 let
-  host = globals.server-url;
   port = 8082;
   authPort = 8083;
   authBackend = "http://127.0.0.1:${toString authPort}";
   python = pkgs.python3.withPackages (ps: with ps; [ argon2-cffi flask waitress ]);
 in
 {
+  imports  = [
+    ./config-services
+  ];
+
+
   security.acme = {
     acceptTerms = true;
     defaults.email = "raphaeljontef@hotmail.com";
@@ -21,7 +26,7 @@ in
     enable = true;
     listenPort = port;
     openFirewall = false;
-    allowedHosts = host;
+    allowedHosts = globals.server-url;
 
     settings = {
       title = "Raph's Server";
@@ -33,30 +38,12 @@ in
       {
         Compte = [
           {
-            "Se déconnecter" = [ { href = "https://${host}/logout"; } ];
+            "Se déconnecter" = [ { href = "https://${globals.server-url}/logout"; } ];
           }
         ];
       }
     ];
-
-    services = [
-      {
-        Services = [
-          {
-            Fichiers = {
-              icon = "nextcloud.png";
-              href = "https://files.${host}/apps/files/files";
-            };
-          }
-          {
-            Recettes = {
-              href = "https://recipiz.${host}";
-              siteMonitor = "https://recipiz.${host}";
-            };
-          }
-        ];
-      }
-    ];
+    
   };
 
   systemd.services.homepage-dashboard = {
@@ -67,7 +54,7 @@ in
     description = "Homepage login and sessions";
     wantedBy = [ "multi-user.target" ];
     after = [ "sops-install-secrets.service" ];
-    environment.HOMEPAGE_PUBLIC_HOST = host;
+    environment.HOMEPAGE_PUBLIC_HOST = globals.server-url;
     serviceConfig = {
       ExecStart = "${python}/bin/python ${./homepage_auth.py}";
       LoadCredential = "password-hash:${config.sops.secrets.homepage-password.path}";
@@ -87,7 +74,7 @@ in
     appendHttpConfig = ''
       limit_req_zone $binary_remote_addr zone=homepage_login:1m rate=5r/m;
     '';
-    virtualHosts."${host}" = {
+    virtualHosts."${globals.server-url}" = {
       enableACME = true;
       forceSSL = true;
 
