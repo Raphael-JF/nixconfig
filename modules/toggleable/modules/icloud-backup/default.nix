@@ -25,10 +25,6 @@
             type = lib.types.str;
             description = "Apple ID";
           };
-          healthchecksUuid = lib.mkOption {
-            type = lib.types.nonEmptyStr;
-            description = "UUID du check Healthchecks de ce profil iCloud.";
-          };
         };
       });
 

@@ -1,25 +1,10 @@
 { globals, ...}:
 {
+  imports = [ ./icloudBackup.nix ];
+
   services.homepage-dashboard.services = [
     { 
-      State-group = [
-        { 
-          "Sauvegardes iCloud" = [
-            {
-              raph = {
-                icon = "mdi-camera";
-                widget = {
-                  type = "healthchecks";
-                  url = "http://127.0.0.1:8000";
-                  key = "{{HOMEPAGE_VAR_HEALTHCHECKS_API_KEY}}";
-                  uuid = "UUID-DU-CHECK-ICLOUD";
-                };
-              };
-            }
-          ];
-        }
-      ];
-      Services-group = [
+      Services = [
         {
           Fichiers = {
             icon = "nextcloud.png";

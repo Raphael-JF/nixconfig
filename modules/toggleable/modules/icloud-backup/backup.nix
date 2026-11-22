@@ -18,16 +18,27 @@
               description = "iCloud backup for ${name}";
 
               serviceConfig = {
+                EnvironmentFile = "-/etc/healthchecks/${name}.env";
                 Type = "oneshot";
                 User = "icloudSystemUser-${name}";
                 UMask = "0007";
               };
               script = ''
+                uuid=$(printenv ${lib.escapeShellArg "HOMEPAGE_VAR_HC_${name}"} || true)
+                ping_check() {
+                  if [ -n "$uuid" ]; then
+                    ${pkgs.curl}/bin/curl -fsS --max-time 5 -o /dev/null "http://127.0.0.1:8000/ping/$uuid/$1" || echo "Healthchecks ping failed" >&2
+                  fi
+                }
+                ping_check start
+                status=0
                 ${pkgs.icloudpd}/bin/icloudpd \
                   --directory ${cfg.savePath} \
                   --folder-structure "{:%Y/%m}" \
                   --username ${cfg.appleID}\
-                  --cookie-directory ~/cookies \
+                  --cookie-directory ~/cookies || status=$?
+                ping_check "$status"
+                exit "$status"
               '';
               unitConfig = {
                 OnSuccess = "nextcloud-update-cache.service";

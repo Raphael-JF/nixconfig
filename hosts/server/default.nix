@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./healthchecks.nix
 
     ./hardware-configuration.nix
     # ./disko.nix
