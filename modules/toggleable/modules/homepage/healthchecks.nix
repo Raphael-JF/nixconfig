@@ -13,10 +13,8 @@ in
     };
 
     "healthchecks-api-key" = {};
-
-} // (lib.mapAttrs'
-  (name: _: lib.nameValuePair "healthchecks-uuid-${name}" {})
-  config.services.icloudBackup.instances);
+    "healthchecks-uuid-raph" = {};
+  };
 
   services.healthchecks = {
     enable = true;

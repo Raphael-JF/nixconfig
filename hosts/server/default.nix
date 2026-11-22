@@ -88,9 +88,15 @@
   
   services.icloudBackup = {
     enable = true;
-    instances.raph = {
-      savePath = "/data/nextcloud/data/raph/files/Photos";
-      appleID = "poweraphael2@gmail.com";
+    instances = {
+      raph = {
+        savePath = "/data/nextcloud/data/raph/files/Photos";
+        appleID = "poweraphael2@gmail.com";
+      };
+      valerie = {
+        savePath = "/data/nextcloud/data/raph/files/Photos-valerie";
+        appleID = "valerieattali@hotmail.com";
+      };
     };
   };
 

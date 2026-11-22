@@ -136,10 +136,7 @@ in
     mode = "0400";
     content = ''
       HEALTHCHECKS_API_KEY=${config.sops.placeholder."healthchecks-api-key"}
-      ${lib.concatStringsSep "\n" (lib.mapAttrsToList
-        (name: _: "HEALTHCHECKS_${name}=${config.sops.placeholder."healthchecks-uuid-${name}"}")
-        config.services.icloudBackup.instances
-      )}
+      HEALTHCHECKS_raph=${config.sops.placeholder."healthchecks-uuid-raph"}
       NEXTCLOUD_PASSWORD=${config.sops.placeholder."nextcloud-password"}
     '';
     restartUnits = [ "homepage-dashboard.service" ];
