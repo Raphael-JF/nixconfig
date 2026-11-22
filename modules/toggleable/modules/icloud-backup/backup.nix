@@ -18,13 +18,13 @@
               description = "iCloud backup for ${name}";
 
               serviceConfig = {
-                EnvironmentFile = "-/etc/healthchecks/${name}.env";
+                EnvironmentFile = "-/etc/homepage-dashboard/homepage.env";
                 Type = "oneshot";
                 User = "icloudSystemUser-${name}";
                 UMask = "0007";
               };
               script = ''
-                uuid=$(printenv ${lib.escapeShellArg "HOMEPAGE_VAR_HC_${name}"} || true)
+                uuid=$(printenv ${lib.escapeShellArg "HEALTHCHECKS_${name}"} || true)
                 ping_check() {
                   if [ -n "$uuid" ]; then
                     ${pkgs.curl}/bin/curl -fsS --max-time 5 -o /dev/null "http://127.0.0.1:${toString globals.server.ports.healthchecks}/ping/$uuid/$1" || echo "Healthchecks ping failed" >&2

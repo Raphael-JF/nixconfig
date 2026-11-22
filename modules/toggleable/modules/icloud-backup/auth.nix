@@ -14,7 +14,7 @@
         text = ''
           set -euo pipefail
 
-          COOKIE_DIR="~icloudSystemUser-${name}/cookies"
+          COOKIE_DIR="${cfg.savePath}/cookies"
 
           echo "Creating iCloud cookie for instance: ${name}"
           echo "Cookie directory: $COOKIE_DIR"

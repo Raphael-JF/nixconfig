@@ -14,6 +14,7 @@ in
 
     "healthchecks-api-key" = {};
     "healthchecks-uuid-raph" = {};
+    "healthchecks-uuid-valerie" = {};
   };
 
   services.healthchecks = {

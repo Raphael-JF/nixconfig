@@ -137,6 +137,7 @@ in
     content = ''
       HEALTHCHECKS_API_KEY=${config.sops.placeholder."healthchecks-api-key"}
       HEALTHCHECKS_raph=${config.sops.placeholder."healthchecks-uuid-raph"}
+      HEALTHCHECKS_valerie=${config.sops.placeholder."healthchecks-uuid-valerie"}
       NEXTCLOUD_PASSWORD=${config.sops.placeholder."nextcloud-password"}
     '';
     restartUnits = [ "homepage-dashboard.service" ];
