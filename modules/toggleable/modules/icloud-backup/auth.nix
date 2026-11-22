@@ -20,7 +20,8 @@
           echo "Cookie directory: $COOKIE_DIR"
 
           sudo mkdir -p "$COOKIE_DIR"
-          sudo chown raph:users "$COOKIE_DIR"
+          sudo chown -R raph:users "$COOKIE_DIR"
+          sudo chmod -R u+rwx "$COOKIE_DIR"
 
           
           ${pkgs.icloudpd}/bin/icloudpd  \
