@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, globals, ... }:
 
 let
   icloud = config.services.icloudBackup;
@@ -17,7 +17,7 @@ in
             icon = "mdi-camera";
             widget = {
               type = "healthchecks";
-              url = "http://127.0.0.1:8000";
+              url = "http://127.0.0.1:${toString globals.server.ports.checkhealth}";
               key = "{{HOMEPAGE_VAR_HEALTHCHECKS_API_KEY}}";
               uuid = "{{HOMEPAGE_VAR_HC_${name}}}";
             };

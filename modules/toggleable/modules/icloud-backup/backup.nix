@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, globals, ... }:
 {
   config = lib.mkIf config.services.icloudBackup.enable {
     
@@ -27,7 +27,7 @@
                 uuid=$(printenv ${lib.escapeShellArg "HOMEPAGE_VAR_HC_${name}"} || true)
                 ping_check() {
                   if [ -n "$uuid" ]; then
-                    ${pkgs.curl}/bin/curl -fsS --max-time 5 -o /dev/null "http://127.0.0.1:8000/ping/$uuid/$1" || echo "Healthchecks ping failed" >&2
+                    ${pkgs.curl}/bin/curl -fsS --max-time 5 -o /dev/null "http://127.0.0.1:${toString globals.server.ports.checkhealth}/ping/$uuid/$1" || echo "Healthchecks ping failed" >&2
                   fi
                 }
                 ping_check start
