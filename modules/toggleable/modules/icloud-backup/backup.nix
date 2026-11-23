@@ -6,6 +6,7 @@
       lib.mapAttrsToList
       (name: cfg:
         "d ${cfg.savePath} 2770 icloudSystemUser-${name} icloudPhotos -"
+        "a+ /data/nextcloud/data - - - - u:icloudSystemUser-${name}:--x"
       )
       config.services.icloudBackup.instances;
 
