@@ -174,6 +174,5 @@
       AllowSuspend = "no";
       AllowSuspendThenHibernate = "no";
     };
-    systemd.services.display-manager.wantedBy = lib.mkForce [];
   };  
 }

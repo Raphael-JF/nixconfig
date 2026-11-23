@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 {
   imports = [
@@ -99,6 +99,6 @@
       };
     };
   };
-
+  systemd.defaultUnit = lib.mkForce "multi-user.target";
   system.stateVersion = "26.05";
 }
