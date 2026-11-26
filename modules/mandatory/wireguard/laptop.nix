@@ -5,6 +5,14 @@ let
   desktop  = globals.desktop;
   gamingPort = globals.ports.wg-desktop-gaming;
   homePort = globals.ports.wg-server-home;
+
+  desktopKey = lib.strings.trim (
+    builtins.readFile ../../../secrets/wireguard-keys/desktop-gaming.pub
+  );
+
+  serverKey = lib.strings.trim (
+    builtins.readFile ../../../secrets/wireguard-keys/server-home.pub
+  );
 in 
 {
   sops.secrets = {
@@ -19,44 +27,84 @@ in
     };
   };
 
-  networking.wg-quick.interfaces = {
-    wg-gaming = {
-      address = [ "${laptop.wg-gaming-ip}/24" ];
-      autostart = false;
 
-      privateKeyFile =
-        config.sops.secrets."wg-gaming-private".path;
+  # Utile pour un VPN avec route par défaut
+  networking.firewall.checkReversePath = "loose";
 
-      extraOptions.FwMark = homePort;
+  networking.networkmanager = {
 
-      peers = [
+    ensureProfiles = {
+      profiles = {
+        wg-gaming = {
+          connection = {
+            id = "wg-gaming";
+            type = "wireguard";
+            interface-name = "wg-gaming";
+            autoconnect = false;
+          };
+
+          wireguard = {
+            "private-key-flags" = 1;
+            "fwmark" = homePort;
+          };
+
+          "wireguard-peer.${desktopKey}" = {
+            endpoint = "${globals.server-url}:${toString gamingPort}";
+            "allowed-ips" = "${desktop.wg-gaming-ip}/32;";
+            "persistent-keepalive" = 25;
+          };
+
+          ipv4 = {
+            method = "manual";
+            address1 = "${laptop.wg-gaming-ip}/24";
+          };
+
+          ipv6.method = "disabled";
+        };
+
+        wg-home = {
+          connection = {
+            id = "wg-home";
+            type = "wireguard";
+            interface-name = "wg-home";
+            autoconnect = false;
+          };
+
+          wireguard = {
+            "private-key-flags" = 1;
+            "fwmark" = homePort;
+          };
+
+          "wireguard-peer.${serverKey}" = {
+            endpoint = "${globals.server-url}:${toString homePort}";
+            "allowed-ips" = "0.0.0.0/0;";
+            "persistent-keepalive" = 25;
+          };
+
+          ipv4 = {
+            method = "manual";
+            address1 = "${laptop.wg-home-ip}/24";
+            "never-default" = false;
+          };
+
+          ipv6.method = "disabled";
+        };
+      };
+
+      secrets.entries = [
         {
-          publicKey = lib.strings.trim (builtins.readFile ../../../secrets/wireguard-keys/desktop-gaming.pub);
-          endpoint = "${globals.server-url}:${toString gamingPort}";
-
-          allowedIPs = [ "${desktop.wg-gaming-ip}/32" ];
-          persistentKeepalive = 25;
+          matchId = "wg-gaming";
+          matchType = "wireguard";
+          matchSetting = "wireguard";
+          key = "private-key";
+          file = config.sops.secrets."wg-gaming-private".path;
         }
-      ];
-    };
-
-    wg-home = {
-      address = [ "${laptop.wg-home-ip}/24" ];
-      autostart = false;
-
-      privateKeyFile =
-        config.sops.secrets."wg-home-private".path;
-
-      extraOptions.FwMark = homePort;
-
-      peers = [
         {
-
-          publicKey = lib.strings.trim (builtins.readFile ../../../secrets/wireguard-keys/server-home.pub);
-          endpoint = "${globals.server-url}:${toString homePort}";
-
-          allowedIPs = [ "0.0.0.0/0" ];
-          persistentKeepalive = 25;
+          matchId = "wg-home";
+          matchType = "wireguard";
+          matchSetting = "wireguard";
+          key = "private-key";
+          file = config.sops.secrets."wg-home-private".path;
         }
       ];
     };
