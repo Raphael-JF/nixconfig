@@ -3,7 +3,7 @@
 let
   laptop = globals.laptop;
   desktop  = globals.desktop;
-  gamingPort = globals.ports.desktop-gaming-wg;
+  gamingPort = globals.ports.wg-desktop-gaming;
 in
 {
   sops.secrets."wg-gaming-private" = {

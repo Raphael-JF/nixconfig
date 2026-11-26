@@ -3,8 +3,8 @@
 let 
   laptop = globals.laptop;
   desktop  = globals.desktop;
-  gamingPort = globals.ports.desktop-gaming-wg;
-  homePort = globals.ports.server-home-wg;
+  gamingPort = globals.ports.wg-desktop-gaming;
+  homePort = globals.ports.wg-server-home;
 in 
 {
   sops.secrets = {
@@ -32,7 +32,7 @@ in
       peers = [
         {
           publicKey = lib.strings.trim (builtins.readFile ../../../secrets/wireguard-keys/desktop-gaming.pub);
-          endpoint = "${globals.server-url}:${gamingPort}";
+          endpoint = "${globals.server-url}:${toString gamingPort}";
 
           allowedIPs = [ "${desktop.wg-gaming-ip}/32" ];
           persistentKeepalive = 25;
@@ -53,7 +53,7 @@ in
         {
 
           publicKey = lib.strings.trim (builtins.readFile ../../../secrets/wireguard-keys/server-home.pub);
-          endpoint = "${globals.server-url}:${homePort}";
+          endpoint = "${globals.server-url}:${toString homePort}";
 
           allowedIPs = [ "0.0.0.0/0" ];
           persistentKeepalive = 25;
