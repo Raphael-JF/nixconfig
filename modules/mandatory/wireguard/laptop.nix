@@ -1,20 +1,64 @@
-{globals, ...}:
+{ config, lib, globals,... }:
+
+let 
+  laptop = globals.laptop;
+  desktop  = globals.desktop;
+  gamingPort = globals.ports.desktop-gaming-wg;
+  homePort = globals.ports.server-home-wg;
+in 
 {
-  # wireguard
-  networking.wireguard.interfaces.wg0 = {
-    ips = [ "10.100.0.2/24" ];
+  sops.secrets = {
+    "wg-gaming-private" = {
+      sopsFile = ../../../secrets/wireguard-keys/laptop-gaming.key;
+      format = "binary";
+    };
 
-    privateKeyFile = "/etc/wireguard/private";
-
-    peers = [{
-      publicKey = "oMR66tSfBlUDo2bphrXzMziWea2qidMLq98f3VrmaR8=";
-      allowedIPs = [ "192.168.1.104/32" ]; # only talk to this IP, that is my desktop LAN IP that will be forwarded from the server to the desktop
-      endpoint = "${globals.server-url}:51820";
-      persistentKeepalive = 25;
-    }];
+    "wg-home-private" = {
+      sopsFile = ../../../secrets/wireguard-keys/laptop-home.key;
+      format = "binary";
+    };
   };
 
-  networking.firewall = {
-    allowedUDPPorts = [ 51820 ];
+  networking.wg-quick.interfaces = {
+    wg-gaming = {
+      address = [ "${laptop.wg-gaming-ip}/24" ];
+      autostart = false;
+
+      privateKeyFile =
+        config.sops.secrets."wg-gaming-private".path;
+
+      extraOptions.FwMark = homePort;
+
+      peers = [
+        {
+          publicKey = lib.strings.trim (builtins.readFile ../../../secrets/wireguard-keys/desktop-gaming.pub);
+          endpoint = "${globals.server-url}:${gamingPort}";
+
+          allowedIPs = [ "${desktop.wg-gaming-ip}/32" ];
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+
+    wg-home = {
+      address = [ "${laptop.wg-home-ip}/24" ];
+      autostart = false;
+
+      privateKeyFile =
+        config.sops.secrets."wg-home-private".path;
+
+      extraOptions.FwMark = homePort;
+
+      peers = [
+        {
+
+          publicKey = lib.strings.trim (builtins.readFile ../../../secrets/wireguard-keys/server-home.pub);
+          endpoint = "${globals.server-url}:${homePort}";
+
+          allowedIPs = [ "0.0.0.0/0" ];
+          persistentKeepalive = 25;
+        }
+      ];
+    };
   };
 }

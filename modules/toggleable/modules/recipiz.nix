@@ -9,7 +9,7 @@
       enable = true;
 
       packageDirectory = "/var/lib/recipiz";
-      backendPort = globals.server.ports.recipiz-backend;
+      backendPort = globals.ports.recipiz-backend;
       frontendUrl = "recipiz.${globals.server-url}";
     };
   };

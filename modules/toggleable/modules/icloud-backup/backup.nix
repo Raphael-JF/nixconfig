@@ -28,7 +28,7 @@
                 uuid=$(printenv ${lib.escapeShellArg "HOMEPAGE_VAR_HEALTHCHECKS_${name}"} || true)
                 ping_check() {
                   if [ -n "$uuid" ]; then
-                    ${pkgs.curl}/bin/curl -fsS --max-time 5 -o /dev/null "http://127.0.0.1:${toString globals.server.ports.healthchecks}/ping/$uuid/$1" || echo "Healthchecks ping failed" >&2
+                    ${pkgs.curl}/bin/curl -fsS --max-time 5 -o /dev/null "http://127.0.0.1:${toString globals.ports.healthchecks}/ping/$uuid/$1" || echo "Healthchecks ping failed" >&2
                   fi
                 }
                 ping_check start

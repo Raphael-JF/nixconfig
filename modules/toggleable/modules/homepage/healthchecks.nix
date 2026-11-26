@@ -1,6 +1,6 @@
 { config, lib, globals, ... }:
 let 
-  port = globals.server.ports.healthchecks;
+  port = globals.ports.healthchecks;
 in 
 {
 

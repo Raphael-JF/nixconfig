@@ -1,32 +1,49 @@
-{ globals, ... }:
-{
-  networking.wireguard.interfaces.wg0 = {
-    ips = [ "10.100.0.1/24" ];
-    listenPort = globals.server.ports.wireguard;
+{ lib, config, globals, ... }:
 
-    privateKeyFile = "/etc/wireguard/private";
-    peers = [{
-      publicKey = "JuZQh8M+Vq2jGr7aQpOsKNUdjqdRjkuwRf7M8DwI3j4=";
-      allowedIPs = [ "10.100.0.2/32" ];
-    }];
+
+let
+  laptop = globals.laptop;
+
+  homePort = globals.ports.wg-server-home;
+  server = globals.server;
+in
+{
+  sops.secrets."wg-home-private" = {
+    sopsFile = ../../../secrets/wireguard-keys/server-home.key;
+    format = "binary";
+  };
+
+  networking.wg-quick.interfaces.wg-home = {
+  address = [ "${server.wg-home-ip}/24" ];
+    listenPort = homePort;
+    autostart = true;
+
+    privateKeyFile =
+      config.sops.secrets."wg-home-private".path;
+
+    peers = [
+      {
+        publicKey = lib.strings.trim (builtins.readFile ../../../secrets/wireguard-keys/laptop-home.pub);
+        allowedIPs = [ "${laptop.wg-home-ip}/32" ];
+      }
+    ];
   };
 
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
-  networking.firewall = {
-    extraForwardRules = ''
-      iifname "wg0" oifname "enp0s20f0u2" ip daddr 192.168.1.104 accept
-      iifname "enp0s20f0u2" oifname "wg0" ip saddr 192.168.1.104 ct state established,related accept
-    '';
-    allowedUDPPorts = [ globals.server.ports.wireguard ];
-  };
-
   networking.nat = {
     enable = true;
     externalInterface = "enp0s20f0u2";
-    internalInterfaces = [ "wg0" ];
+    internalInterfaces = [ "wg-home" ];
+    internalIPs = [ "10.100.0.0/24" ];
   };
 
-  # environment.systemPackages = [ pkgs.wireguard-tools ];
+  networking.firewall = {
+    allowedUDPPorts = [ homePort ];
 
+    # Avec le backend nftables de NixOS
+    extraForwardRules = ''
+      iifname "wg-home" oifname "enp0s20f0u2" accept
+    '';
+  };
 }

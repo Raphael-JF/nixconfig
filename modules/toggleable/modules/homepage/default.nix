@@ -1,8 +1,8 @@
 { config, globals, lib, pkgs, ... }:
 
 let
-  port = globals.server.ports.homepage;
-  authPort = globals.server.ports.homepage-auth;
+  port = globals.ports.homepage;
+  authPort = globals.ports.homepage-auth;
   authBackend = "http://127.0.0.1:${toString authPort}";
   python = pkgs.python3.withPackages (ps: with ps; [ argon2-cffi flask waitress ]);
 in
@@ -125,8 +125,8 @@ in
   };
 
   networking.firewall.allowedTCPPorts = [
-    globals.server.ports.http 
-    globals.server.ports.https
+    globals.ports.http 
+    globals.ports.https
   ];
 
   sops.templates."homepage.env" = {
