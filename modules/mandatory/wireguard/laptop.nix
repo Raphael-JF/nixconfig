@@ -44,7 +44,7 @@ in
           };
 
           wireguard = {
-            "private-key-flags" = 1;
+            "private-key-flags" = 0;
             "fwmark" = homePort;
           };
 
@@ -71,7 +71,7 @@ in
           };
 
           wireguard = {
-            "private-key-flags" = 1;
+            "private-key-flags" = 0;
             "fwmark" = homePort;
           };
 
