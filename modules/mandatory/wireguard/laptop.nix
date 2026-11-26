@@ -1,8 +1,9 @@
-{ config, lib, globals,... }:
+{ config, lib, globals, ... }:
 
-let 
+let
   laptop = globals.laptop;
-  desktop  = globals.desktop;
+  desktop = globals.desktop;
+
   gamingPort = globals.ports.wg-desktop-gaming;
   homePort = globals.ports.wg-server-home;
 
@@ -13,7 +14,7 @@ let
   serverKey = lib.strings.trim (
     builtins.readFile ../../../secrets/wireguard-keys/server-home.pub
   );
-in 
+in
 {
   sops.secrets = {
     "wg-gaming-private" = {
@@ -27,13 +28,24 @@ in
     };
   };
 
+  # Les clés sont déchiffrées à l'exécution, pas dans le Nix store.
+  sops.templates."wireguard-nm.env" = {
+    content = ''
+      WG_GAMING_PRIVATE=${config.sops.placeholder."wg-gaming-private"}
+      WG_HOME_PRIVATE=${config.sops.placeholder."wg-home-private"}
+    '';
+  };
 
-  # Utile pour un VPN avec route par défaut
   networking.firewall.checkReversePath = "loose";
 
   networking.networkmanager = {
+    enable = true;
 
     ensureProfiles = {
+      environmentFiles = [
+        config.sops.templates."wireguard-nm.env".path
+      ];
+
       profiles = {
         wg-gaming = {
           connection = {
@@ -44,8 +56,8 @@ in
           };
 
           wireguard = {
+            "private-key" = "$WG_GAMING_PRIVATE";
             "private-key-flags" = 0;
-            "fwmark" = homePort;
           };
 
           "wireguard-peer.${desktopKey}" = {
@@ -57,6 +69,7 @@ in
           ipv4 = {
             method = "manual";
             address1 = "${laptop.wg-gaming-ip}/24";
+            "never-default" = true;
           };
 
           ipv6.method = "disabled";
@@ -71,8 +84,11 @@ in
           };
 
           wireguard = {
+            "private-key" = "$WG_HOME_PRIVATE";
             "private-key-flags" = 0;
-            "fwmark" = homePort;
+
+            # Gère la route par défaut et les règles de routage.
+            "ip4-auto-default-route" = true;
           };
 
           "wireguard-peer.${serverKey}" = {
@@ -90,23 +106,6 @@ in
           ipv6.method = "disabled";
         };
       };
-
-      secrets.entries = [
-        {
-          matchId = "wg-gaming";
-          matchType = "wireguard";
-          matchSetting = "wireguard";
-          key = "private-key";
-          file = config.sops.secrets."wg-gaming-private".path;
-        }
-        {
-          matchId = "wg-home";
-          matchType = "wireguard";
-          matchSetting = "wireguard";
-          key = "private-key";
-          file = config.sops.secrets."wg-home-private".path;
-        }
-      ];
     };
   };
 }

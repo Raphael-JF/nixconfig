@@ -28,6 +28,7 @@
 
   server = {
     ip = "192.168.1.37";
+    network-interface = "enp0s20f0u4";
 
     wg-home-ip = "10.100.0.1";
   };

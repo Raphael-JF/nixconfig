@@ -33,7 +33,7 @@ in
 
   networking.nat = {
     enable = true;
-    externalInterface = "enp0s20f0u2";
+    externalInterface = "${globals.server.network-interface}";
     internalInterfaces = [ "wg-home" ];
     internalIPs = [ "10.100.0.0/24" ];
   };
@@ -43,7 +43,7 @@ in
 
     # Avec le backend nftables de NixOS
     extraForwardRules = ''
-      iifname "wg-home" oifname "enp0s20f0u2" accept
+      iifname "wg-home" oifname "${globals.server.network-interface}" accept
     '';
   };
 }
