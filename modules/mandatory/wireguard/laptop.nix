@@ -101,6 +101,8 @@ in
             method = "manual";
             address1 = "${laptop.wg-home-ip}/24";
             "never-default" = false;
+            dns = "1.1.1.1;9.9.9.9;";
+            dns-priority = -50;
           };
 
           ipv6.method = "disabled";
