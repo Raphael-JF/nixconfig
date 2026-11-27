@@ -5,5 +5,6 @@
     ./modules/dev
     ./modules/gaming.nix
     ./modules/nvidia.nix
+    ./modules/no-suspend.nix
   ];
 }

@@ -12,5 +12,6 @@
 
     ./modules/postgresql.nix
     ./modules/recipiz.nix
+    ./modules/no-suspend.nix
   ];
 }
