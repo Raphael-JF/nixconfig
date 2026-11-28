@@ -31,6 +31,7 @@
       "nixconfig-eval-server" = "nix eval --raw ~/nixconfig#nixosConfigurations.server.config.system.build.toplevel --show-trace" ;
       "nixconfig-eval-desktop" = "nix eval --raw ~/nixconfig#nixosConfigurations.desktop.config.system.build.toplevel --show-trace" ;
       "nixconfig-eval-laptop" = "nix eval --raw ~/nixconfig#nixosConfigurations.laptop.config.system.build.toplevel --show-trace" ;
+      ndev = "nix develop --override-input nixpkgs path:${pkgs.path}";
 
     };
 
